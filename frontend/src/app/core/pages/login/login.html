@@ -1,0 +1,82 @@
+<div class="flex justify-center items-center h-screen">
+  <p-card class="p-6 sm:w-[400px]">
+    <ng-template #header>
+      <div class="text-3xl font-bold text-center p-5">Welcome!</div>
+    </ng-template>
+    <ng-template #content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-5">
+        <div>
+          <label for="identifier">Email or Username</label>
+          <input
+            id="identifier"
+            type="text"
+            class="w-full"
+            pInputText
+            formControlName="identifier"
+            placeholder="Enter your email or username"
+            [class.ng-invalid]="
+              loginForm.get('identifier')?.invalid &&
+              loginForm.get('identifier')?.touched
+            "
+          />
+          @if (loginForm.get('identifier')?.invalid &&
+          loginForm.get('identifier')?.touched) {
+          <small class="p-error block">
+            @if (loginForm.get('identifier')?.errors?.['required']) {
+            <span class="text-red-500">Email or username is required</span>
+            }
+          </small>
+          }
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <p-password
+            inputId="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            [toggleMask]="true"
+            [feedback]="false"
+            [class.ng-invalid]="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="w-full"
+            inputStyleClass="w-full"
+          ></p-password>
+          @if (loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched) {
+          <small class="p-error block">
+            @if (loginForm.get('password')?.errors?.['required']) {
+            <span class="text-red-500">Password is required</span>
+            } @if (loginForm.get('password')?.errors?.['minlength']) {
+            <span class="text-red-500"
+              >Password must be at least 6 characters</span
+            >
+            }
+          </small>
+          }
+        </div>
+
+        <p-button
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+          [loading]="isLoading"
+          label="Sign In"
+          styleClass="w-full p-button-lg"
+          icon="pi pi-sign-in"
+        ></p-button>
+
+        @if (errorMessage) {
+        <div class="mt-5">
+          <p-message
+            severity="error"
+            [text]="errorMessage"
+            styleClass="max-w-full"
+          ></p-message>
+        </div>
+        }
+      </form>
+    </ng-template>
+  </p-card>
+</div>
