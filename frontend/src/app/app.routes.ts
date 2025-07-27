@@ -7,8 +7,17 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./core/pages/dashboard/dashboard').then((m) => m.Dashboard),
-    pathMatch: 'full',
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./core/pages/dashboard/components/home/home').then(m => m.Home),
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./core/pages/profile/profile').then(m => m.Profile),
+      },
+    ],
   },
   {
     path: 'login',
@@ -20,5 +29,10 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () =>
       import('./core/pages/register/register').then((m) => m.Register),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./core/pages/not-found/not-found').then((m) => m.NotFound),
   },
 ];

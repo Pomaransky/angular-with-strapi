@@ -1,0 +1,17 @@
+<aside class="w-60 p-4 h-full flex flex-col justify-between">
+  <div>
+    <h2 class="text-2xl text-center font-bold mb-4">AWS APP</h2>
+    <p-menu [model]="items" />
+  </div>
+
+  <button
+    pButton
+    type="button"
+    (click)="logout($event)"
+    class="w-full"
+    severity="info"
+  >
+    <i class="pi pi-sign-out"></i>
+    Logout
+  </button>
+</aside>
