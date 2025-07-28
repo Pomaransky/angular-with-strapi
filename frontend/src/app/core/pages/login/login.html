@@ -78,5 +78,17 @@
         }
       </form>
     </ng-template>
+    <ng-template #footer>
+      <div class="text-sm mt-1">
+        <span class="mr-2">Don't have an account?</span>
+        <p-button
+          label="Register"
+          styleClass="linkBtn p-button-xs"
+          icon="pi pi-user-plus"
+          (click)="onRegister()"
+          link
+        ></p-button>
+      </div>
+    </ng-template>
   </p-card>
 </div>

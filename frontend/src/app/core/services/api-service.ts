@@ -3,30 +3,26 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   private apiUrl = 'http://localhost:1337'; // TODO: Use environment variables
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getContentType(contentType: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/${contentType}`);
+  get<T>(url: string): Observable<T> {
+    return this.http.get<T>(`${this.apiUrl}/api/${url}`);
   }
 
-  getSingleItem(contentType: string, id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/${contentType}/${id}`);
+  post<T>(url: string, data: any): Observable<T> {
+    return this.http.post<T>(`${this.apiUrl}/api/${url}`, data);
   }
 
-  createItem(contentType: string, data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/${contentType}`, { data });
+  put<T>(url: string, data: any): Observable<T> {
+    return this.http.put<T>(`${this.apiUrl}/api/${url}`, data);
   }
 
-  updateItem(contentType: string, id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/${contentType}/${id}`, { data });
-  }
-
-  deleteItem(contentType: string, id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/api/${contentType}/${id}`);
+  delete<T>(url: string): Observable<T> {
+    return this.http.delete<T>(`${this.apiUrl}/api/${url}`);
   }
 }

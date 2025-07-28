@@ -2,34 +2,54 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map, of } from 'rxjs';
 import { ApiService } from './api-service';
-import { LoginCredentials, AuthResponse, User } from '../models/auth';
+import {
+  LoginCredentials,
+  AuthResponse,
+  RegisterCredentials,
+} from '../models/auth';
 import { UserStore } from '../store/user.store';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  private apiUrl = 'http://localhost:1337';
+export class AuthService extends ApiService {
   private userStore = inject(UserStore);
   private router = inject(Router);
+  private messageService = inject(MessageService);
 
-  constructor(private http: HttpClient, private apiService: ApiService) {
+  constructor(http: HttpClient) {
+    super(http);
     this.checkExistingToken();
   }
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.apiUrl}/api/auth/local`, credentials)
-      .pipe(
-        tap((response: AuthResponse) => {
-          localStorage.setItem('jwt_token', response.jwt);
-          this.router.navigate(['/']);
-        }),
-        catchError((error) => {
-          return throwError(() => new Error(error.error.error.message));
-        })
-      );
+    return this.post<AuthResponse>('auth/local', credentials).pipe(
+      tap((response: AuthResponse) => {
+        localStorage.setItem('jwt_token', response.jwt);
+        this.router.navigate(['/']);
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.error.error.message));
+      })
+    );
+  }
+
+  register(credentials: RegisterCredentials): Observable<AuthResponse> {
+    return this.post<AuthResponse>('auth/local/register', credentials).pipe(
+      tap((response: AuthResponse) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Successfully registered ${response.user.username}, please login to continue`,
+        });
+        this.router.navigate(['/login']);
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.error.error.message));
+      })
+    );
   }
 
   logout(): void {
