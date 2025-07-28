@@ -6,10 +6,10 @@ import {
   inject,
 } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginCredentials } from '../../models/auth';
@@ -21,6 +21,7 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -40,8 +41,8 @@ import { of } from 'rxjs';
 })
 export class Login {
   private authService = inject(AuthService);
-  private fb = inject(FormBuilder);
   private cdr = inject(ChangeDetectorRef);
+  private router = inject(Router);
 
   loginForm!: FormGroup;
   isLoading = false;
@@ -52,9 +53,12 @@ export class Login {
   }
 
   private initLoginForm(): void {
-    this.loginForm = this.fb.group({
-      identifier: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+    this.loginForm = new FormGroup({
+      identifier: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 
@@ -78,5 +82,9 @@ export class Login {
         )
         .subscribe();
     }
+  }
+
+  onRegister(): void {
+    this.router.navigate(['/register']);
   }
 }
