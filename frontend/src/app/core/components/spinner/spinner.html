@@ -1,0 +1,10 @@
+<div class="flex flex-col items-center justify-center">
+  <p-progress-spinner
+    strokeWidth="5"
+    fill="transparent"
+    animationDuration=".5s"
+  />
+</div>
+@if (loadingText) {
+  <p class="text-gray-600 mt-4">{{ loadingText }}</p>
+}
