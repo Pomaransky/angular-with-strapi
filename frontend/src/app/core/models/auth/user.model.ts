@@ -1,12 +1,11 @@
 export interface User {
   id: number;
+  documentId: string;
   username: string;
   email: string;
+  provider: string;
   confirmed: boolean;
   blocked: boolean;
-  role: {
-    id: number;
-    name: string;
-    type: string;
-  };
+  firstName?: string;
+  lastName?: string;
 }

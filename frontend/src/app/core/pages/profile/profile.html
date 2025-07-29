@@ -1,1 +1,46 @@
-<p>profile works!</p>
+@if (user(); as userData) {
+  <div class="bg-gray-300 rounded-lg shadow-lg p-6">
+    <div class="flex items-center space-x-4 mb-6">
+      <div
+        class="w-20 h-20 bg-zinc-700 rounded-full flex items-center justify-center"
+      >
+        <span class="text-white text-2xl font-bold">
+          {{ userData.username.charAt(0) }}
+        </span>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900">
+          {{ userData.username }}
+        </h2>
+        <p class="text-gray-600">{{ userData.email }}</p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <app-data-row label="Document ID" [value]="userData.documentId || '-'" />
+      <app-data-row label="First Name" [value]="userData.firstName || '-'" />
+      <app-data-row label="Last Name" [value]="userData.lastName || '-'" />
+      <app-data-row label="Provider" [value]="userData.provider || '-'" />
+      <app-data-row
+        label="Status"
+        [value]="userData.confirmed ? 'Confirmed' : 'Not Confirmed'"
+        [icon]="userData.confirmed ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'"
+        [valueClass]="userData.confirmed ? 'text-green-600' : 'text-amber-600'"
+      />
+      <app-data-row
+        label="Account"
+        [value]="userData.blocked ? 'Blocked' : 'Active'"
+        [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
+        [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
+      />
+    </div>
+  </div>
+} @else if (!isLoading() && !user()) {
+  <div class="flex justify-center items-center h-64">Something went wrong</div>
+}
+
+@if (isLoading()) {
+  <div class="flex justify-center items-center h-64">
+    <app-spinner loadingText="Loading profile..." />
+  </div>
+}
