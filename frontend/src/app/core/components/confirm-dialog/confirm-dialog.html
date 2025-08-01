@@ -1,11 +1,13 @@
-<p-confirmDialog [draggable]="false">
+<p-confirmDialog [draggable]="false" styleClass="w-full sm:w-[500px]">
   <ng-template
     #headless
     let-message
     let-onAccept="onAccept"
     let-onReject="onReject"
   >
-    <div class="min-w-[500px] flex items-center justify-between w-full rounded-xl shadow-xl shadow-primary/30">
+    <div
+      class="flex items-center justify-between w-full rounded-xl shadow-xl shadow-primary/30"
+    >
       <div
         class="w-full flex flex-col items-start p-8 bg-surface-0 dark:bg-surface-900 rounded-xl"
       >
