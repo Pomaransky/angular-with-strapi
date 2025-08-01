@@ -24,7 +24,9 @@
       <app-data-row
         label="Status"
         [value]="userData.confirmed ? 'Confirmed' : 'Not Confirmed'"
-        [icon]="userData.confirmed ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'"
+        [icon]="
+          userData.confirmed ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'
+        "
         [valueClass]="userData.confirmed ? 'text-green-600' : 'text-amber-600'"
       />
       <app-data-row
@@ -33,6 +35,14 @@
         [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
         [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
       />
+    </div>
+    <div class="flex justify-end mt-6">
+      <p-button
+        label="Edit Profile"
+        severity="primary"
+        icon="pi pi-pencil"
+        (click)="onEdit()"
+      ></p-button>
     </div>
   </div>
 } @else if (!isLoading() && !user()) {
@@ -44,3 +54,5 @@
     <app-spinner loadingText="Loading profile..." />
   </div>
 }
+
+<app-edit-profile-dialog></app-edit-profile-dialog>
