@@ -4,7 +4,11 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptors,
+  withFetch,
+} from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { UserStore } from './core/store/user.store';
@@ -19,15 +23,18 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authInterceptor]),
-      withFetch()
-    ),
+    provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
     UserStore,
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         preset: Aura,
+        options: {
+          cssLayer: {
+            name: 'primeng',
+            order: 'base, components, primeng, utilities',
+          },
+        },
       },
     }),
     ConfirmationService,
