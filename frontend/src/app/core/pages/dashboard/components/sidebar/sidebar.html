@@ -1,14 +1,42 @@
-<aside class="w-60 p-4 h-full flex flex-col justify-between border-r border-zinc-600">
+<aside
+  class="w-0 md:w-60 p-0 md:p-4 h-full flex flex-col justify-between md:border-r md:border-zinc-600"
+>
   <div>
-    <h2 class="text-2xl text-center font-bold mb-4 pb-4">AWS APP</h2>
-    <p-menu [model]="items" />
+    <h2 class="hidden md:block text-2xl text-center font-bold mb-4 pb-4">
+      {{ appTitle }}
+    </h2>
+    <p-button
+      (click)="menu.toggle($event)"
+      icon="pi pi-ellipsis-v"
+      class="absolute top-4 right-4 md:hidden"
+    />
+    <p-menu #menu [model]="items" [popup]="isMenuPopup">
+      <ng-template #start>
+        <h2 class="md:hidden text-2xl text-center font-bold pt-4">
+          {{ appTitle }}
+        </h2>
+      </ng-template>
+      <ng-template #end>
+        <div class="p-4 pt-2 md:hidden">
+          <button
+            pButton
+            type="button"
+            (click)="logout($event)"
+            class="w-full"
+            severity="info"
+          >
+            <i class="pi pi-sign-out"></i>
+            Logout
+          </button>
+        </div>
+      </ng-template>
+    </p-menu>
   </div>
-
   <button
     pButton
     type="button"
     (click)="logout($event)"
-    class="w-full"
+    class="w-full hidden md:block"
     severity="info"
   >
     <i class="pi pi-sign-out"></i>

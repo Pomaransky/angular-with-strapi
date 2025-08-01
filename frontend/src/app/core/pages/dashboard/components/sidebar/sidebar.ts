@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
@@ -12,11 +17,29 @@ import { AuthService } from '../../../../services/auth-service';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:resize)': 'checkWindowDimensions()',
+  },
 })
-export class Sidebar {
-  items = menuItems;
+export class Sidebar implements OnInit {
   private authService = inject(AuthService);
   private confirmationService = inject(ConfirmationService);
+
+  items = menuItems;
+  isMenuPopup = false;
+  appTitle = 'AWS APP';
+
+  ngOnInit(): void {
+    this.checkWindowDimensions();
+  }
+
+  checkWindowDimensions(): void {
+    if (window.innerWidth < 768) {
+      this.isMenuPopup = true;
+    } else {
+      this.isMenuPopup = false;
+    }
+  }
 
   logout(event: Event): void {
     this.confirmationService.confirm({
