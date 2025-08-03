@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  computed,
   effect,
   inject,
   signal,
@@ -14,6 +12,8 @@ import { UserService } from '../../../../services/user-service';
 import { UserStore } from '../../../../store/user.store';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { DeepSignal } from '@ngrx/signals';
+import { User } from '../../../../models/auth/user.model';
 
 @Component({
   selector: 'app-edit-profile-dialog',
@@ -26,7 +26,7 @@ export class EditProfileDialog {
   private userService = inject(UserService);
   private userStore = inject(UserStore);
   visible = signal<boolean>(false);
-  user = computed(() => this.userStore.user());
+  user: DeepSignal<User | null> = this.userStore.user;
   editForm!: FormGroup;
 
   constructor() {

@@ -3,13 +3,19 @@ import {
   Component,
   inject,
   OnInit,
+  computed,
 } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
-import { menuItems } from '../../../../constants/menuItems.const';
+import {
+  menuItems,
+  MenuItemWithPermissions,
+} from '../../../../constants/menuItems.const';
 import { AuthService } from '../../../../services/auth-service';
+import { UserStore } from '../../../../store/user.store';
+import { UserRoleType } from '../../../../models/auth/user-role-type.enum';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,13 +30,29 @@ import { AuthService } from '../../../../services/auth-service';
 export class Sidebar implements OnInit {
   private authService = inject(AuthService);
   private confirmationService = inject(ConfirmationService);
+  private userStore = inject(UserStore);
 
-  items = menuItems;
+  items = computed(() => this.getFilteredMenuItems());
+
   isMenuPopup = false;
   appTitle = 'AWS APP';
 
   ngOnInit(): void {
     this.checkWindowDimensions();
+  }
+
+  private getFilteredMenuItems(): MenuItemWithPermissions[] {
+    const userRole = this.userStore.user()?.role?.type;
+
+    return menuItems.map((item: MenuItemWithPermissions) => {
+      if (item.permissions && item.permissions.length > 0) {
+        return {
+          ...item,
+          visible: userRole ? item.permissions.includes(userRole) : false,
+        };
+      }
+      return item;
+    });
   }
 
   checkWindowDimensions(): void {

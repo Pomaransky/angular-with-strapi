@@ -30,11 +30,11 @@ export class Header implements OnInit {
     this.updateCurrentRouteLabel();
     this.router.events
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         tap(() => {
           this.updateCurrentRouteLabel();
           this.cdr.detectChanges();
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
   }
@@ -42,7 +42,7 @@ export class Header implements OnInit {
   private updateCurrentRouteLabel(): void {
     const currentUrl = this.router.url;
     const currentMenuItem = menuItems.find(
-      (item: MenuItem) => item.routerLink === currentUrl
+      (item: MenuItem) => item.routerLink === currentUrl,
     );
     this.currentRouteLabel = currentMenuItem?.label || '';
   }

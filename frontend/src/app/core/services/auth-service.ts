@@ -32,7 +32,7 @@ export class AuthService extends ApiService {
       }),
       catchError((error) => {
         return throwError(() => new Error(error.error.error.message));
-      })
+      }),
     );
   }
 
@@ -48,7 +48,7 @@ export class AuthService extends ApiService {
       }),
       catchError((error) => {
         return throwError(() => new Error(error.error.error.message));
-      })
+      }),
     );
   }
 

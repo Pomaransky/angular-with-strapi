@@ -35,6 +35,7 @@
         [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
         [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
       />
+      <app-data-row label="Role" [value]="userData.role.name || '-'" />
     </div>
     <div class="flex justify-end mt-6">
       <p-button
@@ -45,11 +46,11 @@
       ></p-button>
     </div>
   </div>
-} @else if (!isLoading() && !user()) {
+} @else if (!isUserLoading() && !user()) {
   <div class="flex justify-center items-center h-64">Something went wrong</div>
 }
 
-@if (isLoading()) {
+@if (isUserLoading()) {
   <div class="flex justify-center items-center h-64">
     <app-spinner loadingText="Loading profile..." />
   </div>
