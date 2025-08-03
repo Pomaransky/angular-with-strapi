@@ -1,6 +1,11 @@
 import { MenuItem } from 'primeng/api';
+import { UserRoleType } from '../models/auth';
 
-export const menuItems: MenuItem[] = [
+export interface MenuItemWithPermissions extends MenuItem {
+  permissions?: UserRoleType[];
+}
+
+export const menuItems: MenuItemWithPermissions[] = [
   {
     label: 'Home',
     icon: 'pi pi-home',
@@ -10,5 +15,11 @@ export const menuItems: MenuItem[] = [
     label: 'Profile',
     icon: 'pi pi-user',
     routerLink: '/profile',
+  },
+  {
+    label: 'Users',
+    icon: 'pi pi-users',
+    routerLink: '/users',
+    permissions: [UserRoleType.ADMIN],
   },
 ];

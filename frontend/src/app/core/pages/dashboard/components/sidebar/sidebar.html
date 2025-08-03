@@ -10,7 +10,7 @@
       icon="pi pi-ellipsis-v"
       class="absolute top-4 right-4 md:hidden"
     />
-    <p-menu #menu [model]="items" [popup]="isMenuPopup">
+    <p-menu #menu [model]="items()" [popup]="isMenuPopup">
       <ng-template #start>
         <h2 class="md:hidden text-2xl text-center font-bold pt-4">
           {{ appTitle }}

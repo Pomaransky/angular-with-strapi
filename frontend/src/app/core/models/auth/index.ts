@@ -4,3 +4,5 @@ export * from './auth-response.model';
 export * from './register-credentials.model';
 export * from './password-reset-request.model';
 export * from './password-reset.model';
+export * from './user-role.model';
+export * from './user-role-type.enum';

@@ -19,7 +19,7 @@ export class UserService extends ApiService {
 
   getMe(): Observable<User | null> {
     this.userStore.setLoading(true);
-    return this.get<User>('users/me').pipe(
+    return this.get<User>('users/me?populate=role').pipe(
       tap((user) => {
         this.userStore.setUser(user);
       }),
