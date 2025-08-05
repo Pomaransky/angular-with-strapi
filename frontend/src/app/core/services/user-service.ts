@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { UserStore } from '../store/user.store';
 import { MessageService } from 'primeng/api';
-import { PaginatedResponse, UserData, User } from '../models';
+import { Paginated, UserData, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -57,14 +57,13 @@ export class UserService extends ApiService {
 
   // Pagination is not working for users-permissions (api/users) plugin in Strapi: https://github.com/strapi/strapi/issues/12911
   // Created UserData model to get users where pagination is working
-  // TODO: Handle pagination
-  getUsers(): Observable<PaginatedResponse<UserData>> {
+  getUsers(page: number, pageSize: number): Observable<Paginated<UserData>> {
     this.userStore.setUsersLoading(true);
-    return this.get<PaginatedResponse<UserData>>(
-      `users-data?populate=user.role`,
+    return this.get<Paginated<UserData>>(
+      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated`,
     ).pipe(
       tap((users) => {
-        this.userStore.setUsers(users.data);
+        this.userStore.setUsers(users);
       }),
       catchError((error) => {
         this.messageService.add({

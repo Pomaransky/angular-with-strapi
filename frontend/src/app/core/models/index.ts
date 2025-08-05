@@ -5,4 +5,4 @@ export * from './auth/register-credentials.model';
 export * from './auth/password-reset-request.model';
 export * from './auth/password-reset.model';
 export * from './users/user-data.model';
-export * from './paginated-response.model';
+export * from './paginated.model';

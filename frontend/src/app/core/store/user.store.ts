@@ -7,7 +7,8 @@ import {
 } from '@ngrx/signals';
 import { User } from '../models/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { UserData } from '../models';
+import { Paginated, UserData } from '../models';
+import { initialPaginatedState } from '../utils/initial-paginated-state';
 
 type UserState = {
   me: {
@@ -15,7 +16,7 @@ type UserState = {
     isLoading: boolean;
   };
   users: {
-    data: UserData[];
+    data: Paginated<UserData>;
     isLoading: boolean;
   };
 };
@@ -26,7 +27,7 @@ const initialState: UserState = {
     isLoading: false,
   },
   users: {
-    data: [],
+    data: initialPaginatedState<UserData>([]),
     isLoading: false,
   },
 };
@@ -44,11 +45,11 @@ export const UserStore = signalStore(
     setMeLoading(isLoading: boolean) {
       patchState(store, { me: { ...store.me(), isLoading } });
     },
-    setUsers(users: UserData[]) {
+    setUsers(users: Paginated<UserData>) {
       patchState(store, { users: { ...store.users(), data: users } });
     },
     setUsersLoading(isLoading: boolean) {
       patchState(store, { users: { ...store.users(), isLoading } });
     },
-  }))
+  })),
 );

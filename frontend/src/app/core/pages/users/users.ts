@@ -2,23 +2,31 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DeepSignal } from '@ngrx/signals';
 import { UserStore } from '../../store/user.store';
 import { UserService } from '../../services/user-service';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { UserData } from '../../models';
+import { DatePipe } from '@angular/common';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-users',
-  imports: [TableModule],
+  imports: [TableModule, DatePipe, TagModule],
   templateUrl: './users.html',
   styleUrl: './users.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Users {
   private userService = inject(UserService);
   private userStore = inject(UserStore);
-  usersData: DeepSignal<UserData[]> = this.userStore.users.data;
+
+  usersData: DeepSignal<UserData[]> = this.userStore.users.data.data;
+  totalRecords: DeepSignal<number> =
+    this.userStore.users.data.meta.pagination.total;
+  pageSize = 2;
   isUsersLoading: DeepSignal<boolean> = this.userStore.users.isLoading;
 
-  ngOnInit(): void {
-    this.userService.getUsers().subscribe(); // TODO: Handle pagination
+  onLazyLoad(event: TableLazyLoadEvent): void {
+    const page =
+      event.first && event.rows ? Math.floor(event.first / event.rows) + 1 : 1;
+    this.userService.getUsers(page, this.pageSize).subscribe();
   }
 }
