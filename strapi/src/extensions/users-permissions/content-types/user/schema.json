@@ -71,6 +71,12 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "userDatum": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-data.user-data",
+      "mappedBy": "user"
     }
   }
 }

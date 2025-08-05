@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const userService = inject(UserService);
   const router = inject(Router);
 
-  const user = userStore.user();
+  const user = userStore.me.data();
 
   if (!user) {
     return userService.getMe().pipe(

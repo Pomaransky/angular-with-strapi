@@ -19,7 +19,7 @@ import { User } from '../../models/auth/user.model';
 export class Dashboard {
   private userService = inject(UserService);
   private userStore = inject(UserStore);
-  user: DeepSignal<User | null> = this.userStore.user;
+  user: DeepSignal<User | null> = this.userStore.me.data;
 
   ngOnInit(): void {
     if (!this.user()) {

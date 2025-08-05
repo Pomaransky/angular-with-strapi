@@ -21,8 +21,8 @@ import { User } from '../../models/auth/user.model';
 })
 export class Profile {
   private userStore = inject(UserStore);
-  user: DeepSignal<User | null> = this.userStore.user;
-  isUserLoading: DeepSignal<boolean> = this.userStore.isLoading;
+  user: DeepSignal<User | null> = this.userStore.me.data;
+  isUserLoading: DeepSignal<boolean> = this.userStore.me.isLoading;
 
   @ViewChild(EditProfileDialog) editProfileDialog!: EditProfileDialog;
 

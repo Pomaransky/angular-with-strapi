@@ -26,7 +26,7 @@ export class EditProfileDialog {
   private userService = inject(UserService);
   private userStore = inject(UserStore);
   visible = signal<boolean>(false);
-  user: DeepSignal<User | null> = this.userStore.user;
+  user: DeepSignal<User | null> = this.userStore.me.data;
   editForm!: FormGroup;
 
   constructor() {

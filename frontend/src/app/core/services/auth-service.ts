@@ -54,7 +54,7 @@ export class AuthService extends ApiService {
 
   logout(): void {
     localStorage.removeItem('jwt_token');
-    this.userStore.setUser(null);
+    this.userStore.setMe(null);
     this.router.navigate(['/login']);
   }
 
