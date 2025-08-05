@@ -42,7 +42,7 @@ export class Sidebar implements OnInit {
   }
 
   private getFilteredMenuItems(): MenuItemWithPermissions[] {
-    const userRole = this.userStore.user()?.role?.type;
+    const userRole = this.userStore.me.data()?.role?.type;
 
     return menuItems.map((item: MenuItemWithPermissions) => {
       if (item.permissions && item.permissions.length > 0) {

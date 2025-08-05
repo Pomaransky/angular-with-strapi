@@ -1,1 +1,44 @@
-<p>users works!</p>
+<p-table
+  [value]="usersData()"
+  [stripedRows]="true"
+  [paginator]="true"
+  [lazy]="true"
+  [rows]="pageSize"
+  [totalRecords]="totalRecords()"
+  (onLazyLoad)="onLazyLoad($event)"
+  [loading]="isUsersLoading()"
+  [responsiveLayout]="'stack'"
+>
+  <ng-template #header>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Confirmed</th>
+      <th>Blocked</th>
+      <th>Created At</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-userData>
+    <tr>
+      <td>{{ userData.user.username }}</td>
+      <td>{{ userData.user.email }}</td>
+      <td>{{ userData.user.firstName ?? '-' }}</td>
+      <td>{{ userData.user.lastName ?? '-' }}</td>
+      <td>
+        <p-tag
+          [value]="userData.user.confirmed ? 'Confirmed' : 'Not Confirmed'"
+          [severity]="userData.user.confirmed ? 'success' : 'danger'"
+        ></p-tag>
+      </td>
+      <td>
+        <p-tag
+          [value]="userData.user.blocked ? 'Blocked' : 'Unblocked'"
+          [severity]="userData.user.blocked ? 'danger' : 'success'"
+        ></p-tag>
+      </td>
+      <td>{{ userData.user.createdAt | date: "dd/MM/yyyy" }}</td>
+    </tr>
+  </ng-template>
+</p-table>

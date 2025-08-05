@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
-import { User } from '../models/auth';
 import { UserStore } from '../store/user.store';
 import { MessageService } from 'primeng/api';
+import { Paginated, UserData, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -18,16 +18,16 @@ export class UserService extends ApiService {
   }
 
   getMe(): Observable<User | null> {
-    this.userStore.setLoading(true);
+    this.userStore.setMeLoading(true);
     return this.get<User>('users/me?populate=role').pipe(
       tap((user) => {
-        this.userStore.setUser(user);
+        this.userStore.setMe(user);
       }),
       catchError(() => {
         return of(null);
       }),
       finalize(() => {
-        this.userStore.setLoading(false);
+        this.userStore.setMeLoading(false);
       }),
     );
   }
@@ -37,7 +37,7 @@ export class UserService extends ApiService {
   ): Observable<User> {
     return this.put<User>(`users/${user.id}`, user).pipe(
       tap((user) => {
-        this.userStore.setUser(user);
+        this.userStore.setMe(user);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -51,6 +51,30 @@ export class UserService extends ApiService {
           detail: error.error.error.message,
         });
         return throwError(() => new Error(error.error.error.message));
+      }),
+    );
+  }
+
+  // Pagination is not working for users-permissions (api/users) plugin in Strapi: https://github.com/strapi/strapi/issues/12911
+  // Created UserData model to get users where pagination is working
+  getUsers(page: number, pageSize: number): Observable<Paginated<UserData>> {
+    this.userStore.setUsersLoading(true);
+    return this.get<Paginated<UserData>>(
+      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated`,
+    ).pipe(
+      tap((users) => {
+        this.userStore.setUsers(users);
+      }),
+      catchError((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to fetch users',
+        });
+        return throwError(() => new Error('Failed to fetch users'));
+      }),
+      finalize(() => {
+        this.userStore.setUsersLoading(false);
       }),
     );
   }

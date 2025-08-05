@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "users_data",
+  "info": {
+    "singularName": "user-data",
+    "pluralName": "users-data",
+    "displayName": "UserData"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "userDatum"
+    }
+  }
+}
