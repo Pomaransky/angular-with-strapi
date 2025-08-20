@@ -78,4 +78,32 @@ export class UserService extends ApiService {
       }),
     );
   }
+
+  updateUserBlockStatus(userId: string, blocked: boolean): Observable<User> {
+    return this.put<User>(`users/${userId}`, { blocked }).pipe(
+      tap((user) => {
+        this.userStore.updateUser(Number(userId), { blocked: user.blocked });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `User ${blocked ? 'blocked' : 'unblocked'} successfully`,
+        });
+      }),
+      catchError((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail:
+            error.error?.error?.message || 'Failed to update user block status',
+        });
+        return throwError(
+          () =>
+            new Error(
+              error.error?.error?.message ||
+                'Failed to update user block status',
+            ),
+        );
+      }),
+    );
+  }
 }

@@ -51,5 +51,20 @@ export const UserStore = signalStore(
     setUsersLoading(isLoading: boolean) {
       patchState(store, { users: { ...store.users(), isLoading } });
     },
+    updateUser(userId: number, updates: Partial<User>) {
+      const currentUsers = store.users().data;
+      const updatedData = currentUsers.data.map((userData) =>
+        userData.user.id === userId
+          ? { ...userData, user: { ...userData.user, ...updates } }
+          : userData,
+      );
+
+      patchState(store, {
+        users: {
+          ...store.users(),
+          data: { ...currentUsers, data: updatedData },
+        },
+      });
+    },
   })),
 );

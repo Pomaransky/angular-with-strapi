@@ -6,10 +6,11 @@ import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { UserData } from '../../models';
 import { DatePipe } from '@angular/common';
 import { TagModule } from 'primeng/tag';
+import { RowActions } from './components/row-actions/row-actions';
 
 @Component({
   selector: 'app-users',
-  imports: [TableModule, DatePipe, TagModule],
+  imports: [TableModule, DatePipe, TagModule, RowActions],
   templateUrl: './users.html',
   styleUrl: './users.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +22,7 @@ export class Users {
   usersData: DeepSignal<UserData[]> = this.userStore.users.data.data;
   totalRecords: DeepSignal<number> =
     this.userStore.users.data.meta.pagination.total;
-  pageSize = 2;
+  pageSize = 5;
   isUsersLoading: DeepSignal<boolean> = this.userStore.users.isLoading;
 
   onLazyLoad(event: TableLazyLoadEvent): void {
