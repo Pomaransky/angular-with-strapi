@@ -1,14 +1,5 @@
-<p-table
-  [value]="usersData()"
-  [stripedRows]="true"
-  [paginator]="true"
-  [lazy]="true"
-  [rows]="pageSize"
-  [totalRecords]="totalRecords()"
-  (onLazyLoad)="onLazyLoad($event)"
-  [loading]="isUsersLoading()"
-  [responsiveLayout]="'stack'"
->
+<p-table [value]="usersData()" [stripedRows]="true" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalRecords()"
+  (onLazyLoad)="onLazyLoad($event)" [loading]="isUsersLoading()">
   <ng-template #header>
     <tr>
       <th>Username</th>
@@ -18,6 +9,7 @@
       <th>Confirmed</th>
       <th>Blocked</th>
       <th>Created At</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-userData>
@@ -27,18 +19,15 @@
       <td>{{ userData.user.firstName ?? '-' }}</td>
       <td>{{ userData.user.lastName ?? '-' }}</td>
       <td>
-        <p-tag
-          [value]="userData.user.confirmed ? 'Confirmed' : 'Not Confirmed'"
-          [severity]="userData.user.confirmed ? 'success' : 'danger'"
-        ></p-tag>
+        <p-tag [value]="userData.user.confirmed ? 'Confirmed' : 'Not Confirmed'" [severity]="userData.user.confirmed ? 'success' : 'danger'"></p-tag>
       </td>
       <td>
-        <p-tag
-          [value]="userData.user.blocked ? 'Blocked' : 'Unblocked'"
-          [severity]="userData.user.blocked ? 'danger' : 'success'"
-        ></p-tag>
+        <p-tag [value]="userData.user.blocked ? 'Blocked' : 'Unblocked'" [severity]="userData.user.blocked ? 'danger' : 'success'"></p-tag>
       </td>
       <td>{{ userData.user.createdAt | date: "dd/MM/yyyy" }}</td>
+      <td class="flex justify-end">
+        <app-row-actions [userData]="userData" />
+      </td>
     </tr>
   </ng-template>
 </p-table>
