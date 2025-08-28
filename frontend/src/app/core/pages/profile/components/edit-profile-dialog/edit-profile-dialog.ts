@@ -8,7 +8,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserService } from '../../../../services/user-service';
+import { UserApiService } from '../../../../services/user-api-service';
 import { UserStore } from '../../../../store/user.store';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -23,7 +23,7 @@ import { User } from '../../../../models/auth/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditProfileDialog {
-  private userService = inject(UserService);
+  private userApiService = inject(UserApiService);
   private userStore = inject(UserStore);
   visible = signal<boolean>(false);
   user: DeepSignal<User | null> = this.userStore.me.data;
@@ -61,7 +61,7 @@ export class EditProfileDialog {
       return;
     }
 
-    this.userService
+    this.userApiService
       .editUserData({
         id: user.id,
         firstName: this.editForm.value.firstName,

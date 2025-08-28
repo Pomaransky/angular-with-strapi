@@ -9,7 +9,7 @@ import { Paginated, UserData, User } from '../models';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends ApiService {
+export class UserApiService extends ApiService {
   private userStore = inject(UserStore);
   private messageService = inject(MessageService);
 

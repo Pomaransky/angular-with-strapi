@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { UserData } from '../../../../models';
-import { UserService } from '../../../../services/user-service';
+import { UserApiService } from '../../../../services/user-api-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DetailsDialog } from '..';
 
@@ -24,7 +24,7 @@ import { DetailsDialog } from '..';
 })
 export class RowActions implements OnInit {
   @Input({ required: true }) userData!: UserData;
-  private userService = inject(UserService);
+  private userApiService = inject(UserApiService);
   private destroyRef = inject(DestroyRef);
   rowActions: MenuItem[] | undefined;
 
@@ -59,7 +59,7 @@ export class RowActions implements OnInit {
   }
 
   updateUserBlockStatus(status: boolean): void {
-    this.userService
+    this.userApiService
       .updateUserBlockStatus(this.userData.user.id.toString(), status)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();

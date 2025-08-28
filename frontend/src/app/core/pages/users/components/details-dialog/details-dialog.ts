@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { User } from '../../../../models/auth/user.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UserService } from '../../../../services/user-service';
+import { UserApiService } from '../../../../services/user-api-service';
 import { finalize, tap } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { Spinner, DataRow } from '../../../../components';
@@ -21,7 +21,7 @@ import { ButtonModule } from 'primeng/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsDialog {
-  private userService = inject(UserService);
+  private userApiService = inject(UserApiService);
   private destroyRef = inject(DestroyRef);
   visible = signal<boolean>(false);
   user = signal<User | null>(null);
@@ -29,7 +29,7 @@ export class DetailsDialog {
 
   showDialog(id: number): void {
     this.isLoading.set(true);
-    this.userService
+    this.userApiService
       .getUser(id.toString())
       .pipe(
         tap((user) => {

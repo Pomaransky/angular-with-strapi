@@ -5,7 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialog } from '../../components/confirm-dialog/confirm-dialog';
 import { UserStore } from '../../store/user.store';
 import { DeepSignal } from '@ngrx/signals';
-import { UserService } from '../../services/user-service';
+import { UserApiService } from '../../services/user-api-service';
 import { User } from '../../models/auth/user.model';
 
 @Component({
@@ -17,7 +17,7 @@ import { User } from '../../models/auth/user.model';
   providers: [ConfirmationService],
 })
 export class Dashboard {
-  private userService = inject(UserService);
+  private userService = inject(UserApiService);
   private userStore = inject(UserStore);
   user: DeepSignal<User | null> = this.userStore.me.data;
 
