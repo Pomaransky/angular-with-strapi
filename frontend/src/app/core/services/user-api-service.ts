@@ -1,7 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  Observable,
+  of,
+  tap,
+  throwError,
+  switchMap,
+} from 'rxjs';
 import { UserStore } from '../store/user.store';
 import { MessageService } from 'primeng/api';
 import { Paginated, UserData, User } from '../models';
@@ -9,7 +17,7 @@ import { Paginated, UserData, User } from '../models';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends ApiService {
+export class UserApiService extends ApiService {
   private userStore = inject(UserStore);
   private messageService = inject(MessageService);
 
@@ -32,18 +40,18 @@ export class UserService extends ApiService {
     );
   }
 
-  editUserData(
-    user: Pick<User, 'id' | 'firstName' | 'lastName'>,
-  ): Observable<User> {
-    return this.put<User>(`users/${user.id}`, user).pipe(
-      tap((user) => {
-        this.userStore.setMe(user);
+  editMe(
+    user: Pick<User, 'id' | 'firstName' | 'lastName' | 'birthDate' | 'aboutMe'>,
+  ): Observable<User | null> {
+    return this.put<User>(`user/me`, user).pipe(
+      tap(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'User data updated successfully',
         });
       }),
+      switchMap(() => this.getMe()),
       catchError((error) => {
         this.messageService.add({
           severity: 'error',
@@ -60,7 +68,7 @@ export class UserService extends ApiService {
   getUsers(page: number, pageSize: number): Observable<Paginated<UserData>> {
     this.userStore.setUsersLoading(true);
     return this.get<Paginated<UserData>>(
-      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated`,
+      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated&fields=id`,
     ).pipe(
       tap((users) => {
         this.userStore.setUsers(users);
@@ -75,6 +83,14 @@ export class UserService extends ApiService {
       }),
       finalize(() => {
         this.userStore.setUsersLoading(false);
+      }),
+    );
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.get<User>(`users/${id}`).pipe(
+      tap((user) => {
+        console.log(user);
       }),
     );
   }

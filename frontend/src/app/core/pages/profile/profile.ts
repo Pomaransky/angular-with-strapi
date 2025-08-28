@@ -5,9 +5,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UserStore } from '../../store/user.store';
-import { Spinner } from '../../components';
+import { Spinner, DataRow } from '../../components';
 import { ButtonModule } from 'primeng/button';
-import { DataRow } from './components/data-row/data-row';
 import { EditProfileDialog } from './components/edit-profile-dialog/edit-profile-dialog';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../models/auth/user.model';

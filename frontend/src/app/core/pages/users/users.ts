@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DeepSignal } from '@ngrx/signals';
 import { UserStore } from '../../store/user.store';
-import { UserService } from '../../services/user-service';
+import { UserApiService } from '../../services/user-api-service';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { UserData } from '../../models';
 import { DatePipe } from '@angular/common';
 import { TagModule } from 'primeng/tag';
-import { RowActions } from './components/row-actions/row-actions';
+import { RowActions } from './components';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +16,7 @@ import { RowActions } from './components/row-actions/row-actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Users {
-  private userService = inject(UserService);
+  private userService = inject(UserApiService);
   private userStore = inject(UserStore);
 
   usersData: DeepSignal<UserData[]> = this.userStore.users.data.data;

@@ -9,5 +9,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Spinner {
-  @Input() loadingText: string = 'Loading...';
+  @Input() loadingText!: string;
+  @Input() loading: boolean = false;
 }
