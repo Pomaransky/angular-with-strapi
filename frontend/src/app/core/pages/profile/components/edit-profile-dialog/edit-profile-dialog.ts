@@ -6,7 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../../../services/user-service';
 import { UserStore } from '../../../../store/user.store';
@@ -17,7 +17,7 @@ import { User } from '../../../../models/auth/user.model';
 
 @Component({
   selector: 'app-edit-profile-dialog',
-  imports: [Dialog, ButtonModule, InputTextModule, ReactiveFormsModule],
+  imports: [DialogModule, ButtonModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './edit-profile-dialog.html',
   styleUrl: './edit-profile-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -60,7 +60,7 @@ export class UserService extends ApiService {
   getUsers(page: number, pageSize: number): Observable<Paginated<UserData>> {
     this.userStore.setUsersLoading(true);
     return this.get<Paginated<UserData>>(
-      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated`,
+      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated&fields=id`,
     ).pipe(
       tap((users) => {
         this.userStore.setUsers(users);
@@ -75,6 +75,14 @@ export class UserService extends ApiService {
       }),
       finalize(() => {
         this.userStore.setUsersLoading(false);
+      }),
+    );
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.get<User>(`users/${id}?populate=userDetails`).pipe(
+      tap((user) => {
+        console.log(user);
       }),
     );
   }

@@ -384,6 +384,9 @@ export interface ApiUserDataUserData extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    aboutMe: Schema.Attribute.Text;
+    avatar: Schema.Attribute.Media<'images' | 'files'>;
+    birthDate: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -895,7 +898,7 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    userDatum: Schema.Attribute.Relation<
+    userDetails: Schema.Attribute.Relation<
       'oneToOne',
       'api::user-data.user-data'
     >;

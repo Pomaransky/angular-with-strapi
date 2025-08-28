@@ -72,7 +72,7 @@
     "lastName": {
       "type": "string"
     },
-    "userDatum": {
+    "userDetails": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::user-data.user-data",

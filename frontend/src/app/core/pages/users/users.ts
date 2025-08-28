@@ -6,7 +6,7 @@ import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { UserData } from '../../models';
 import { DatePipe } from '@angular/common';
 import { TagModule } from 'primeng/tag';
-import { RowActions } from './components/row-actions/row-actions';
+import { RowActions } from './components';
 
 @Component({
   selector: 'app-users',

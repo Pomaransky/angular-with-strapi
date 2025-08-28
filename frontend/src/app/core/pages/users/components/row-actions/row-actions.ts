@@ -5,6 +5,7 @@ import {
   inject,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -12,10 +13,11 @@ import { Menu } from 'primeng/menu';
 import { UserData } from '../../../../models';
 import { UserService } from '../../../../services/user-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DetailsDialog } from '..';
 
 @Component({
   selector: 'app-row-actions',
-  imports: [ButtonModule, Menu],
+  imports: [ButtonModule, Menu, DetailsDialog],
   templateUrl: './row-actions.html',
   styleUrl: './row-actions.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,8 +26,9 @@ export class RowActions implements OnInit {
   @Input({ required: true }) userData!: UserData;
   private userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
-
   rowActions: MenuItem[] | undefined;
+
+  @ViewChild(DetailsDialog) detailsDialog!: DetailsDialog;
 
   ngOnInit(): void {
     this.rowActions = [
@@ -43,6 +46,13 @@ export class RowActions implements OnInit {
         disabled: !this.userData.user.blocked,
         command: () => {
           this.updateUserBlockStatus(false);
+        },
+      },
+      {
+        label: 'Details',
+        icon: 'pi pi-info-circle',
+        command: () => {
+          this.detailsDialog.showDialog(this.userData.user.id);
         },
       },
     ];
