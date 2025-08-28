@@ -1,12 +1,9 @@
-<div class="flex justify-between items-center py-2 border-b border-gray-600">
-  <span class="text-gray-600 font-medium">{{ label }}</span>
-  <span
-    class="font-medium capitalize flex items-center gap-2"
-    [class]="valueClass ? valueClass : 'text-gray-900'"
-  >
+<div [class]="`flex  ${vertical ? 'flex-col justify-start items-start gap-2' : 'justify-between items-center'} py-2 border-b border-gray-600`">
+  <div class="text-gray-600 font-medium shrink-0">{{ label }}</div>
+  <div class="font-medium flex items-center gap-2" [class]="valueClass ? valueClass : 'text-gray-900'">
     @if (icon) {
-      <i [class]="icon" class="font-bold"></i>
+    <i [class]="icon" class="font-bold"></i>
     }
     {{ value }}
-  </span>
+  </div>
 </div>

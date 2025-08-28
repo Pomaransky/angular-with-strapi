@@ -1,7 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  Observable,
+  of,
+  tap,
+  throwError,
+  switchMap,
+} from 'rxjs';
 import { UserStore } from '../store/user.store';
 import { MessageService } from 'primeng/api';
 import { Paginated, UserData, User } from '../models';
@@ -32,18 +40,18 @@ export class UserApiService extends ApiService {
     );
   }
 
-  editUserData(
-    user: Pick<User, 'id' | 'firstName' | 'lastName'>,
-  ): Observable<User> {
-    return this.put<User>(`users/${user.id}`, user).pipe(
-      tap((user) => {
-        this.userStore.setMe(user);
+  editMe(
+    user: Pick<User, 'id' | 'firstName' | 'lastName' | 'birthDate' | 'aboutMe'>,
+  ): Observable<User | null> {
+    return this.put<User>(`user/me`, user).pipe(
+      tap(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'User data updated successfully',
         });
       }),
+      switchMap(() => this.getMe()),
       catchError((error) => {
         this.messageService.add({
           severity: 'error',
@@ -80,7 +88,7 @@ export class UserApiService extends ApiService {
   }
 
   getUser(id: string): Observable<User> {
-    return this.get<User>(`users/${id}?populate=userDetails`).pipe(
+    return this.get<User>(`users/${id}`).pipe(
       tap((user) => {
         console.log(user);
       }),

@@ -384,9 +384,6 @@ export interface ApiUserDataUserData extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    aboutMe: Schema.Attribute.Text;
-    avatar: Schema.Attribute.Media<'images' | 'files'>;
-    birthDate: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -864,6 +861,12 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    aboutMe: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    avatar: Schema.Attribute.Media<'images' | 'files'>;
+    birthDate: Schema.Attribute.String;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

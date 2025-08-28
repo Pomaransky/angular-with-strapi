@@ -16,20 +16,6 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "userDetails"
-    },
-    "avatar": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
-    },
-    "birthDate": {
-      "type": "string"
-    },
-    "aboutMe": {
-      "type": "text"
     }
   }
 }

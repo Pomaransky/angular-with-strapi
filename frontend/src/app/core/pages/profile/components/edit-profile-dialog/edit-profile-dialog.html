@@ -18,11 +18,29 @@
               <label for="lastName" class="font-semibold w-24">Last Name</label>
               <input pInputText id="lastName" formControlName="lastName" class="flex-auto" autocomplete="off" />
             </div>
+            <div class="flex items-center gap-4">
+              <label for="birthDate" class="font-semibold w-24">Birth Date</label>
+              <input pInputText id="birthDate" formControlName="birthDate" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex items-center gap-4">
+              <label for="aboutMe" class="font-semibold w-24">About Me</label>
+              <div class="flex-1">
+                <textarea pTextarea id="aboutMe" formControlName="aboutMe" class="w-full min-h-24" autocomplete="off"></textarea>
+                @if (editForm.get('aboutMe')?.invalid &&
+                editForm.get('aboutMe')?.touched) {
+                <small class="p-error block">
+                  @if (editForm.get('aboutMe')?.errors?.['maxlength']) {
+                  <span class="text-red-500">About Me must be less than 255 characters</span>
+                  }
+                </small>
+                }
+              </div>
+            </div>
           </form>
         </div>
         <div class="w-full flex items-center justify-end gap-2 mt-6">
           <p-button type="submit" label="Cancel" [outlined]="true" (click)="visible.set(false)" styleClass="w-32"></p-button>
-          <p-button label="Save" (click)="onEdit()" styleClass="w-32"></p-button>
+          <p-button label="Save" (click)="onEdit()" styleClass="w-32" [disabled]="editForm.invalid"></p-button>
         </div>
       </div>
     </div>

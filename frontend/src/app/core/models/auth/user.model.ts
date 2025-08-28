@@ -11,4 +11,6 @@ export interface User {
   role: UserRole;
   firstName?: string;
   lastName?: string;
+  aboutMe?: string;
+  birthDate?: string;
 }

@@ -77,6 +77,21 @@
       "relation": "oneToOne",
       "target": "api::user-data.user-data",
       "mappedBy": "user"
+    },
+    "birthDate": {
+      "type": "string"
+    },
+    "aboutMe": {
+      "type": "text",
+      "maxLength": 255
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }

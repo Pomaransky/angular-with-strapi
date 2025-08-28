@@ -12,4 +12,5 @@ export class DataRow {
   @Input({ required: true }) value: string = '';
   @Input() icon: string = '';
   @Input() valueClass: string = '';
+  @Input() vertical: boolean = false;
 }

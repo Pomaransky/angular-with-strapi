@@ -43,6 +43,7 @@
                 [valueClass]="userData.confirmed ? 'text-green-600' : 'text-amber-600'" />
               <app-data-row label="Account" [value]="userData.blocked ? 'Blocked' : 'Active'" [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
                 [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'" />
+              <app-data-row label="About Me" [value]="userData.aboutMe || '-'" [vertical]="true" />
             </div>
           </div>
         </div>

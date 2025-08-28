@@ -10,14 +10,15 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserApiService } from '../../../../services/user-api-service';
 import { UserStore } from '../../../../store/user.store';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-edit-profile-dialog',
-  imports: [DialogModule, ButtonModule, InputTextModule, ReactiveFormsModule],
+  imports: [DialogModule, ButtonModule, InputTextModule, ReactiveFormsModule, TextareaModule],
   templateUrl: './edit-profile-dialog.html',
   styleUrl: './edit-profile-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +42,8 @@ export class EditProfileDialog {
     this.editForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
+      birthDate: new FormControl(''),
+      aboutMe: new FormControl('', [Validators.maxLength(255)]),
     });
   }
 
@@ -50,6 +53,8 @@ export class EditProfileDialog {
       this.editForm.patchValue({
         firstName: currentUser.firstName || '',
         lastName: currentUser.lastName || '',
+        birthDate: currentUser.birthDate || '',
+        aboutMe: currentUser.aboutMe || '',
       });
     }
     this.visible.set(true);
@@ -62,10 +67,12 @@ export class EditProfileDialog {
     }
 
     this.userApiService
-      .editUserData({
+      .editMe({
         id: user.id,
         firstName: this.editForm.value.firstName,
         lastName: this.editForm.value.lastName,
+        birthDate: this.editForm.value.birthDate,
+        aboutMe: this.editForm.value.aboutMe,
       })
       .pipe(finalize(() => this.visible.set(false)))
       .subscribe();
