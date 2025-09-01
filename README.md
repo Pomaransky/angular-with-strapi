@@ -1,5 +1,11 @@
 # Angular with strapi app
 
+
+#### Demo: https://vermillion-choux-88cf1d.netlify.app
+Admin credentials:
+Username: **admin**
+Password: **zaq1@WSX**
+
 #### To develop locally:
 
 1. Run **npm install** in the **/strapi** directory
@@ -11,3 +17,4 @@
 6. Run **npm install** in the **/frontend** directory
 7. Run **npm run start** in the **/frontend** directory
 8. Log in to the created admin user or register a new user
+
