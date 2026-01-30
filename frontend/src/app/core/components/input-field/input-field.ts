@@ -60,21 +60,37 @@ export class InputField implements ControlValueAccessor, OnInit {
   }
 
   get isInvalid(): boolean {
-    return (this.control?.invalid && this.control?.touched) || false;
+    if (!this.control?.touched) {
+      return false;
+    }
+    // Check both control-level and form-level errors
+    const hasControlErrors = this.control.invalid;
+    const hasFormErrors = this.control.parent?.errors != null;
+    
+    // For form-level errors, check if any validationMessages match
+    const hasRelevantFormErrors = hasFormErrors && this.validationMessages.some(
+      msg => this.control?.parent?.errors?.[msg.key]
+    );
+    
+    return hasControlErrors || hasRelevantFormErrors;
   }
 
   get currentErrors(): string[] {
-    if (!this.control?.errors || !this.control?.touched) {
+    if (!this.control?.touched) {
       return [];
     }
 
     const errors: string[] = [];
-    
+    const controlErrors = this.control.errors;
     // Check form-level errors (like passwordMismatch)
     const formErrors = this.control.parent?.errors;
     
+    if (!controlErrors && !formErrors) {
+      return [];
+    }
+    
     for (const msg of this.validationMessages) {
-      if (this.control.errors?.[msg.key] || formErrors?.[msg.key]) {
+      if (controlErrors?.[msg.key] || formErrors?.[msg.key]) {
         errors.push(msg.message);
       }
     }
