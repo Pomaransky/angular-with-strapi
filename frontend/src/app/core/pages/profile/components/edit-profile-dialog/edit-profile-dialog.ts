@@ -7,18 +7,19 @@ import {
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
 import { UserApiService } from '../../../../services/user-api-service';
 import { UserStore } from '../../../../store/user.store';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
-import { TextareaModule } from 'primeng/textarea';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputField } from '../../../../components';
+import { EDIT_PROFILE_FORM_VALIDATIONS } from './constants/edit-profile-form-validations.const';
 
 @Component({
   selector: 'app-edit-profile-dialog',
-  imports: [DialogModule, ButtonModule, InputTextModule, ReactiveFormsModule, TextareaModule],
+  imports: [DialogModule, ButtonModule, ReactiveFormsModule, DatePickerModule, InputField],
   templateUrl: './edit-profile-dialog.html',
   styleUrl: './edit-profile-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,8 @@ export class EditProfileDialog {
   visible = signal<boolean>(false);
   user: DeepSignal<User | null> = this.userStore.me.data;
   editForm!: FormGroup;
+
+  validations = EDIT_PROFILE_FORM_VALIDATIONS;
 
   constructor() {
     effect(() => {
@@ -42,7 +45,7 @@ export class EditProfileDialog {
     this.editForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
-      birthDate: new FormControl(''),
+      birthDate: new FormControl<Date | null>(null),
       aboutMe: new FormControl('', [Validators.maxLength(255)]),
     });
   }
@@ -53,7 +56,7 @@ export class EditProfileDialog {
       this.editForm.patchValue({
         firstName: currentUser.firstName || '',
         lastName: currentUser.lastName || '',
-        birthDate: currentUser.birthDate || '',
+        birthDate: currentUser.birthDate ? new Date(currentUser.birthDate) : null,
         aboutMe: currentUser.aboutMe || '',
       });
     }

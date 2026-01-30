@@ -78,9 +78,6 @@
       "target": "api::user-data.user-data",
       "mappedBy": "user"
     },
-    "birthDate": {
-      "type": "string"
-    },
     "aboutMe": {
       "type": "text",
       "maxLength": 255
@@ -92,6 +89,10 @@
         "images",
         "files"
       ]
+    },
+    "birthDate": {
+      "type": "datetime",
+      "required": false
     }
   }
 }

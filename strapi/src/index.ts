@@ -1,5 +1,117 @@
 import type { Core } from '@strapi/strapi';
 
+async function setupRolePermissions(roleType: string, permissions: string[]) {
+  const role = await strapi.db.query('plugin::users-permissions.role').findOne({
+    where: { type: roleType },
+  });
+
+  if (!role) return;
+
+  for (const action of permissions) {
+    const existingPermission = await strapi.db.query('plugin::users-permissions.permission').findOne({
+      where: {
+        role: role.id,
+        action,
+      },
+    });
+
+    if (!existingPermission) {
+      await strapi.db.query('plugin::users-permissions.permission').create({
+        data: {
+          action,
+          role: role.id,
+        },
+      });
+    }
+  }
+
+  console.log(`${roleType} role permissions configured`);
+}
+
+async function createAdminRole() {
+  // Check if Admin role already exists
+  const existingAdminRole = await strapi.db.query('plugin::users-permissions.role').findOne({
+    where: { type: 'admin' },
+  });
+
+  if (existingAdminRole) {
+    console.log('Admin role already exists');
+    return existingAdminRole;
+  }
+
+  // Create Admin role
+  const adminRole = await strapi.db.query('plugin::users-permissions.role').create({
+    data: {
+      name: 'Admin',
+      description: 'Administrator role with extended permissions',
+      type: 'admin',
+    },
+  });
+
+  console.log('Admin role created');
+  return adminRole;
+}
+
+async function setupDefaultRolesAndPermissions() {
+  await createAdminRole();
+
+  // Permissions for Authenticated role
+  const authenticatedPermissions = [
+    // API - User Data
+    'api::user-data.user-data.create',
+    'api::user-data.user-data.findOne',
+    'api::user-data.user-data.updateMe',
+    // User
+    'plugin::users-permissions.user.me',
+    'plugin::users-permissions.user.updateMe',
+    // Auth
+    'plugin::users-permissions.auth.changePassword',
+    'plugin::users-permissions.auth.register',
+    // Role
+    'plugin::users-permissions.role.find',
+    'plugin::users-permissions.role.findOne',
+  ];
+
+  // Permissions for Admin role
+  const adminPermissions = [
+    // Auth
+    'plugin::users-permissions.auth.callback',
+    'plugin::users-permissions.auth.changePassword',
+    'plugin::users-permissions.auth.connect',
+    'plugin::users-permissions.auth.emailConfirmation',
+    'plugin::users-permissions.auth.forgotPassword',
+    'plugin::users-permissions.auth.register',
+    'plugin::users-permissions.auth.resetPassword',
+    'plugin::users-permissions.auth.sendEmailConfirmation',
+    // Permissions
+    'plugin::users-permissions.permissions.getPermissions',
+    // Role
+    'plugin::users-permissions.role.createRole',
+    'plugin::users-permissions.role.deleteRole',
+    'plugin::users-permissions.role.find',
+    'plugin::users-permissions.role.findOne',
+    'plugin::users-permissions.role.updateRole',
+    // User
+    'plugin::users-permissions.user.count',
+    'plugin::users-permissions.user.create',
+    'plugin::users-permissions.user.destroy',
+    'plugin::users-permissions.user.find',
+    'plugin::users-permissions.user.findOne',
+    'plugin::users-permissions.user.me',
+    'plugin::users-permissions.user.update',
+    'plugin::users-permissions.user.updateMe',
+    // API - User Data
+    'api::user-data.user-data.find',
+    'api::user-data.user-data.findOne',
+    'api::user-data.user-data.create',
+    'api::user-data.user-data.update',
+    'api::user-data.user-data.delete',
+  ];
+
+  await setupRolePermissions('authenticated', authenticatedPermissions);
+  await setupRolePermissions('admin', adminPermissions);
+}
+
 async function checkIfUserDataExists(userId: string) {
   const existingUserProfile = await strapi
     .documents("api::user-data.user-data")
@@ -61,7 +173,10 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap({ strapi }: { strapi: Core.Strapi }) {
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    // Setup default roles and permissions (Should use environment - DEV only, impossible to have more than 1 env variable with free Strapi Cloud)
+    await setupDefaultRolesAndPermissions();
+
     strapi.db.lifecycles.subscribe({
       models: ['plugin::users-permissions.user'],
       async afterCreate (event) {
