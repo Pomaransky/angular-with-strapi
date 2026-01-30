@@ -10,9 +10,7 @@ import {
   ReactiveFormsModule,
   FormControl,
 } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { passwordMatchValidator } from '../../directives/password-match-directive';
@@ -20,16 +18,17 @@ import { RegisterCredentials } from '../../models';
 import { catchError, finalize, of } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+import { REGISTER_VALIDATIONS } from './constants/register-form-validations.const';
+import { InputField } from '../../components';
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule,
-    PasswordModule,
     CardModule,
-    InputTextModule,
     ButtonModule,
     MessageModule,
+    InputField,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -43,6 +42,7 @@ export class Register {
   registerForm!: FormGroup;
   isLoading = false;
   errorMessage = '';
+  validations = REGISTER_VALIDATIONS;
 
   constructor() {
     this.initRegisterForm();
@@ -55,11 +55,11 @@ export class Register {
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
-          Validators.minLength(6),
+          Validators.minLength(8),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/),
         ]),
         confirmPassword: new FormControl('', [
           Validators.required,
-          Validators.minLength(6),
         ]),
       },
       {

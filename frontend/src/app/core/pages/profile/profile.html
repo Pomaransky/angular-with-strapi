@@ -20,7 +20,7 @@
       <app-data-row label="Document ID" [value]="userData.documentId || '-'" />
       <app-data-row label="First Name" [value]="userData.firstName || '-'" />
       <app-data-row label="Last Name" [value]="userData.lastName || '-'" />
-      <app-data-row label="Birth Date" [value]="userData.birthDate || '-'" />
+      <app-data-row label="Birth Date" [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'" />
       <app-data-row label="Provider" [value]="userData.provider || '-'" />
       <app-data-row
         label="Status"

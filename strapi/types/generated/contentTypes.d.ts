@@ -866,7 +866,7 @@ export interface PluginUsersPermissionsUser
         maxLength: 255;
       }>;
     avatar: Schema.Attribute.Media<'images' | 'files'>;
-    birthDate: Schema.Attribute.String;
+    birthDate: Schema.Attribute.DateTime;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

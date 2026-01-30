@@ -2,9 +2,13 @@
 
 
 #### Demo: https://vermillion-choux-88cf1d.netlify.app
-Admin credentials:
+#### Strapi Cloud Demo project scaled down to save resources. Strapi needs time to start it back up - so login to demo may take more time.
+Test admin credentials:
 Username: **admin**
 Password: **zaq1@WSX**
+Test user credentials:
+Username/Email: **userExample** or **userexample@email.com**
+Password: **123456**
 
 #### To develop locally:
 
@@ -16,5 +20,5 @@ Password: **zaq1@WSX**
 
 6. Run **npm install** in the **/frontend** directory
 7. Run **npm run start** in the **/frontend** directory
-8. Log in to the created admin user or register a new user
+8. Log in to the created admin/user or register a new user
 
