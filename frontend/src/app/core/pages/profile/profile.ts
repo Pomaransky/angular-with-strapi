@@ -10,10 +10,11 @@ import { ButtonModule } from 'primeng/button';
 import { EditProfileDialog } from './components/edit-profile-dialog/edit-profile-dialog';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../models/auth/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [Spinner, ButtonModule, DataRow, EditProfileDialog],
+  imports: [Spinner, ButtonModule, DataRow, EditProfileDialog, DatePipe],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

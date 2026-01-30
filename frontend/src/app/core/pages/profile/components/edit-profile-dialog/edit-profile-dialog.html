@@ -9,33 +9,35 @@
         <span class="font-bold text-2xl block my-6">Edit Profile</span>
 
         <div class="w-full space-y-4">
-          <form [formGroup]="editForm" (ngSubmit)="onEdit()" class="space-y-5">
-            <div class="flex items-center gap-4">
-              <label for="firstName" class="font-semibold w-24">First Name</label>
-              <input pInputText id="firstName" formControlName="firstName" class="flex-auto" autocomplete="off" />
+          <form [formGroup]="editForm" (ngSubmit)="onEdit()" class="flex flex-col gap-5">
+            <app-input-field
+              label="First Name"
+              inputId="firstName"
+              formControlName="firstName"
+              labelWidth="10rem"
+            />
+
+            <app-input-field
+              label="Last Name"
+              inputId="lastName"
+              formControlName="lastName"
+              labelWidth="10rem"
+            />
+
+            <div class="flex gap-4">
+              <label for="birthDate" class="font-semibold w-28">Birth Date</label>
+              <p-datepicker id="birthDate" formControlName="birthDate" class="flex-auto" autocomplete="off" [showIcon]="true" dateFormat="dd/mm/yy" />
             </div>
-            <div class="flex items-center gap-4">
-              <label for="lastName" class="font-semibold w-24">Last Name</label>
-              <input pInputText id="lastName" formControlName="lastName" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex items-center gap-4">
-              <label for="birthDate" class="font-semibold w-24">Birth Date</label>
-              <input pInputText id="birthDate" formControlName="birthDate" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex items-center gap-4">
-              <label for="aboutMe" class="font-semibold w-24">About Me</label>
-              <div class="flex-1">
-                <textarea pTextarea id="aboutMe" formControlName="aboutMe" class="w-full min-h-24" autocomplete="off"></textarea>
-                @if (editForm.get('aboutMe')?.invalid &&
-                editForm.get('aboutMe')?.touched) {
-                <small class="p-error block">
-                  @if (editForm.get('aboutMe')?.errors?.['maxlength']) {
-                  <span class="text-red-500">About Me must be less than 255 characters</span>
-                  }
-                </small>
-                }
-              </div>
-            </div>
+
+            <app-input-field
+              label="About Me"
+              inputId="aboutMe"
+              formControlName="aboutMe"
+              type="textarea"
+              [rows]="4"
+              labelWidth="10rem"
+              [validationMessages]="validations.aboutMe"
+            />
           </form>
         </div>
         <div class="w-full flex items-center justify-end gap-2 mt-6">

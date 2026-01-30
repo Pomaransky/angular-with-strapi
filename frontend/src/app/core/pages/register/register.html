@@ -4,134 +4,48 @@
       <div class="text-3xl font-bold text-center p-5">Welcome!</div>
     </ng-template>
     <ng-template #content>
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="space-y-5">
-        <div>
-          <label for="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            class="w-full"
-            pInputText
-            formControlName="username"
-            placeholder="Enter your username"
-            [class.ng-invalid]="
-              registerForm.get('username')?.invalid &&
-              registerForm.get('username')?.touched
-            "
-          />
-          @if (registerForm.get('username')?.invalid &&
-          registerForm.get('username')?.touched) {
-          <small class="p-error block">
-            @if (registerForm.get('username')?.errors?.['required']) {
-            <span class="text-red-500">Username is required</span>
-            }
-          </small>
-          }
-        </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col gap-4">
+        <app-input-field
+          label="Username"
+          inputId="username"
+          formControlName="username"
+          placeholder="Enter your username"
+          [validationMessages]="validations.username"
+        />
 
-        <div>
-          <label for="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            class="w-full"
-            pInputText
-            formControlName="email"
-            placeholder="Enter your email"
-            [class.ng-invalid]="
-              registerForm.get('email')?.invalid &&
-              registerForm.get('email')?.touched
-            "
-          />
-          @if (registerForm.get('email')?.invalid &&
-          registerForm.get('email')?.touched) {
-          <small class="p-error block">
-            @if (registerForm.get('email')?.errors?.['required']) {
-            <span class="text-red-500">Email is required</span>
-            }
-            @if (registerForm.get('email')?.errors?.['email']) {
-            <span class="text-red-500">Invalid email address</span>
-            }
-          </small>
-          }
-        </div>
+        <app-input-field
+          label="Email"
+          inputId="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [validationMessages]="validations.email"
+        />
 
-        <div>
-          <label for="password">Password</label>
-          <p-password
-            inputId="password"
-            formControlName="password"
-            placeholder="Enter your password"
-            [toggleMask]="true"
-            [feedback]="false"
-            [class.ng-invalid]="
-              registerForm.get('password')?.invalid &&
-              registerForm.get('password')?.touched
-            "
-            class="w-full"
-            inputStyleClass="w-full"
-          ></p-password>
-          @if (registerForm.get('password')?.invalid &&
-          registerForm.get('password')?.touched) {
-          <small class="p-error block">
-            @if (registerForm.get('password')?.errors?.['required']) {
-            <span class="text-red-500">Password is required</span>
-            } @if (registerForm.get('password')?.errors?.['minlength']) {
-            <span class="text-red-500"
-              >Password must be at least 6 characters</span
-            >
-            }
-          </small>
-          }
-        </div>
+        <app-input-field
+          label="Password"
+          inputId="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          [validationMessages]="validations.password"
+        />
 
-        <div>
-          <label for="confirmPassword">Confirm Password</label>
-          <p-password
-            inputId="confirmPassword"
-            formControlName="confirmPassword"
-            placeholder="Confirm your password"
-            [toggleMask]="true"
-            [feedback]="false"
-            [class.ng-invalid]="
-              registerForm.get('confirmPassword')?.invalid &&
-              registerForm.get('confirmPassword')?.touched
-            "
-            class="w-full"
-            inputStyleClass="w-full"
-          ></p-password>
-          @if (registerForm.get('confirmPassword')?.invalid &&
-          registerForm.get('confirmPassword')?.touched) {
-          <small class="p-error block">
-            @if (registerForm.get('confirmPassword')?.errors?.['required']) {
-            <div class="text-red-500">Confirm password is required</div>
-            } @if (registerForm.get('confirmPassword')?.errors?.['minlength']) {
-            <div class="text-red-500"
-              >Confirm password must be at least 6 characters</div
-            >
-            } @if (registerForm.errors?.['passwordMismatch']) {
-            <div class="text-red-500">Passwords do not match</div>
-            }
-          </small>
-          }
-        </div>
+        <app-input-field
+          label="Confirm Password"
+          inputId="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+          [validationMessages]="validations.confirmPassword"
+        />
 
-        <p-button
-          type="submit"
-          [disabled]="registerForm.invalid || isLoading"
-          [loading]="isLoading"
-          label="Register"
-          styleClass="w-full p-button-lg"
-          icon="pi pi-user-plus"
-        ></p-button>
+        <p-button type="submit" [disabled]="registerForm.invalid || isLoading" [loading]="isLoading" label="Register"
+          styleClass="w-full p-button-lg mt-2" icon="pi pi-user-plus"></p-button>
 
         @if (errorMessage) {
         <div class="mt-5">
-          <p-message
-            severity="error"
-            [text]="errorMessage"
-            styleClass="max-w-full"
-          ></p-message>
+          <p-message severity="error" [text]="errorMessage" styleClass="max-w-full"></p-message>
         </div>
         }
       </form>
@@ -139,15 +53,9 @@
     <ng-template #footer>
       <div class="text-sm mt-1 mr-2">
         <span class="mr-2">Already have an account?</span>
-        <p-button
-          label="Login"
-          styleClass="linkBtn p-button-xs"
-          icon="pi pi-sign-in"
-          (click)="onLogin()"
-          link
-        ></p-button>
+        <p-button label="Login" styleClass="linkBtn p-button-xs" icon="pi pi-sign-in" (click)="onLogin()"
+          link></p-button>
       </div>
     </ng-template>
   </p-card>
 </div>
-
