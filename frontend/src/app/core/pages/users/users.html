@@ -12,21 +12,21 @@
       <th></th>
     </tr>
   </ng-template>
-  <ng-template #body let-userData>
+  <ng-template #body let-user>
     <tr>
-      <td>{{ userData.user.username }}</td>
-      <td>{{ userData.user.email }}</td>
-      <td>{{ userData.user.firstName ?? '-' }}</td>
-      <td>{{ userData.user.lastName ?? '-' }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.firstName ?? '-' }}</td>
+      <td>{{ user.lastName ?? '-' }}</td>
       <td>
-        <p-tag [value]="userData.user.confirmed ? 'Confirmed' : 'Not Confirmed'" [severity]="userData.user.confirmed ? 'success' : 'danger'"></p-tag>
+        <p-tag [value]="user.confirmed ? 'Confirmed' : 'Not Confirmed'" [severity]="user.confirmed ? 'success' : 'danger'"></p-tag>
       </td>
       <td>
-        <p-tag [value]="userData.user.blocked ? 'Blocked' : 'Unblocked'" [severity]="userData.user.blocked ? 'danger' : 'success'"></p-tag>
+        <p-tag [value]="user.blocked ? 'Blocked' : 'Unblocked'" [severity]="user.blocked ? 'danger' : 'success'"></p-tag>
       </td>
-      <td>{{ userData.user.createdAt | date: "dd/MM/yyyy" }}</td>
+      <td>{{ user.createdAt | date: "dd/MM/yyyy" }}</td>
       <td class="flex justify-end">
-        <app-row-actions [userData]="userData" />
+        <app-row-actions [user]="user" />
       </td>
     </tr>
   </ng-template>

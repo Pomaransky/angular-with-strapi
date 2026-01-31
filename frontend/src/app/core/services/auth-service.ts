@@ -9,7 +9,7 @@ import {
 } from '../models/auth';
 import { UserStore } from '../store/user.store';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ToastService } from './toast-service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ import { MessageService } from 'primeng/api';
 export class AuthService extends ApiService {
   private userStore = inject(UserStore);
   private router = inject(Router);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
   constructor(http: HttpClient) {
     super(http);
@@ -31,6 +31,7 @@ export class AuthService extends ApiService {
         this.router.navigate(['/']);
       }),
       catchError((error) => {
+        this.toastService.errorToast(error.error.error.message);
         return throwError(() => new Error(error.error.error.message));
       }),
     );
@@ -39,14 +40,11 @@ export class AuthService extends ApiService {
   register(credentials: RegisterCredentials): Observable<AuthResponse> {
     return this.post<AuthResponse>('auth/local/register', credentials).pipe(
       tap((response: AuthResponse) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: `Successfully registered ${response.user.username}, please login to continue`,
-        });
+        this.toastService.successToast(`Successfully registered ${response.user.username}, please login to continue`);
         this.router.navigate(['/login']);
       }),
       catchError((error) => {
+        this.toastService.errorToast(error.error.error.message);
         return throwError(() => new Error(error.error.error.message));
       }),
     );

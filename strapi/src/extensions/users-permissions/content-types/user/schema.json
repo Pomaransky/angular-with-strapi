@@ -72,12 +72,6 @@
     "lastName": {
       "type": "string"
     },
-    "userDetails": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::user-data.user-data",
-      "mappedBy": "user"
-    },
     "aboutMe": {
       "type": "text",
       "maxLength": 255
