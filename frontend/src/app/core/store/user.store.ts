@@ -5,9 +5,8 @@ import {
   withProps,
   withState,
 } from '@ngrx/signals';
-import { User } from '../models/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Paginated, UserData } from '../models';
+import { Paginated, User } from '../models';
 import { initialPaginatedState } from '../utils/initial-paginated-state';
 
 type UserState = {
@@ -16,7 +15,7 @@ type UserState = {
     isLoading: boolean;
   };
   users: {
-    data: Paginated<UserData>;
+    data: Paginated<User>;
     isLoading: boolean;
   };
 };
@@ -27,7 +26,7 @@ const initialState: UserState = {
     isLoading: false,
   },
   users: {
-    data: initialPaginatedState<UserData>([]),
+    data: initialPaginatedState<User>([]),
     isLoading: false,
   },
 };
@@ -45,7 +44,7 @@ export const UserStore = signalStore(
     setMeLoading(isLoading: boolean) {
       patchState(store, { me: { ...store.me(), isLoading } });
     },
-    setUsers(users: Paginated<UserData>) {
+    setUsers(users: Paginated<User>) {
       patchState(store, { users: { ...store.users(), data: users } });
     },
     setUsersLoading(isLoading: boolean) {
@@ -53,10 +52,8 @@ export const UserStore = signalStore(
     },
     updateUser(userId: number, updates: Partial<User>) {
       const currentUsers = store.users().data;
-      const updatedData = currentUsers.data.map((userData) =>
-        userData.user.id === userId
-          ? { ...userData, user: { ...userData.user, ...updates } }
-          : userData,
+      const updatedData = currentUsers.data.map((user) =>
+        user.id === userId ? { ...user, ...updates } : user,
       );
 
       patchState(store, {

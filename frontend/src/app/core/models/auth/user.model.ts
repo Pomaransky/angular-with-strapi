@@ -13,4 +13,5 @@ export interface User {
   lastName?: string;
   aboutMe?: string;
   birthDate?: string;
+  createdAt?: string;
 }

@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 import { UserStore } from '../store/user.store';
 import { MessageService } from 'primeng/api';
-import { Paginated, UserData, User } from '../models';
+import { Paginated, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -63,12 +63,10 @@ export class UserApiService extends ApiService {
     );
   }
 
-  // Pagination is not working for users-permissions (api/users) plugin in Strapi: https://github.com/strapi/strapi/issues/12911
-  // Created UserData model to get users where pagination is working
-  getUsers(page: number, pageSize: number): Observable<Paginated<UserData>> {
+  getUsers(page: number, pageSize: number): Observable<Paginated<User>> {
     this.userStore.setUsersLoading(true);
-    return this.get<Paginated<UserData>>(
-      `users-data?populate=user.role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[user][role][type][$eq]=authenticated&fields=id`,
+    return this.get<Paginated<User>>(
+      `users?populate=role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[role][type][$eq]=authenticated`,
     ).pipe(
       tap((users) => {
         this.userStore.setUsers(users);
@@ -88,11 +86,7 @@ export class UserApiService extends ApiService {
   }
 
   getUser(id: string): Observable<User> {
-    return this.get<User>(`users/${id}`).pipe(
-      tap((user) => {
-        console.log(user);
-      }),
-    );
+    return this.get<User>(`users/${id}?populate=role`);
   }
 
   updateUserBlockStatus(userId: string, blocked: boolean): Observable<User> {
