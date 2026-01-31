@@ -3,7 +3,7 @@ import { DeepSignal } from '@ngrx/signals';
 import { UserStore } from '../../store/user.store';
 import { UserApiService } from '../../services/user-api-service';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { UserData } from '../../models';
+import { User } from '../../models';
 import { DatePipe } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { RowActions } from './components';
@@ -19,7 +19,7 @@ export class Users {
   private userService = inject(UserApiService);
   private userStore = inject(UserStore);
 
-  usersData: DeepSignal<UserData[]> = this.userStore.users.data.data;
+  usersData: DeepSignal<User[]> = this.userStore.users.data.data;
   totalRecords: DeepSignal<number> =
     this.userStore.users.data.meta.pagination.total;
   pageSize = 5;

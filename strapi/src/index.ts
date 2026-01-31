@@ -57,10 +57,6 @@ async function setupDefaultRolesAndPermissions() {
 
   // Permissions for Authenticated role
   const authenticatedPermissions = [
-    // API - User Data
-    'api::user-data.user-data.create',
-    'api::user-data.user-data.findOne',
-    'api::user-data.user-data.updateMe',
     // User
     'plugin::users-permissions.user.me',
     'plugin::users-permissions.user.updateMe',
@@ -100,62 +96,11 @@ async function setupDefaultRolesAndPermissions() {
     'plugin::users-permissions.user.me',
     'plugin::users-permissions.user.update',
     'plugin::users-permissions.user.updateMe',
-    // API - User Data
-    'api::user-data.user-data.find',
-    'api::user-data.user-data.findOne',
-    'api::user-data.user-data.create',
-    'api::user-data.user-data.update',
-    'api::user-data.user-data.delete',
   ];
 
   await setupRolePermissions('authenticated', authenticatedPermissions);
   await setupRolePermissions('admin', adminPermissions);
 }
-
-async function checkIfUserDataExists(userId: string) {
-  const existingUserProfile = await strapi
-    .documents("api::user-data.user-data")
-    .findMany({
-      filters: {
-        user: {
-          id: {
-            $eq: userId,
-          },
-        },
-      },
-    });
-
-  return existingUserProfile;
-}
-
-async function createUserData(userId: string) {
-  const userProfile = await checkIfUserDataExists(userId);
-
-  if (userProfile.length > 0) {
-    return;
-  }
-
-  const newUserData = await strapi.documents("api::user-data.user-data").create({
-    data: {
-      user: userId,
-    },
-  });
-
-  await strapi.documents("api::user-data.user-data").publish({
-    documentId: newUserData.documentId,
-  });
-}
-
-async function deleteUserData(userId: string) {
-  const userProfile = await checkIfUserDataExists(userId);
-
-  if (userProfile.length > 0) {
-    await strapi.documents("api::user-data.user-data").delete({
-      documentId: userProfile[0].documentId,
-    });
-  }
-}
-
 
 export default {
   /**
@@ -176,18 +121,5 @@ export default {
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     // Setup default roles and permissions (Should use environment - DEV only, impossible to have more than 1 env variable with free Strapi Cloud)
     await setupDefaultRolesAndPermissions();
-
-    strapi.db.lifecycles.subscribe({
-      models: ['plugin::users-permissions.user'],
-      async afterCreate (event) {
-        const { result } = event;
-        await createUserData(result.id);
-      },
-      async beforeDelete (event: any) {
-        const { params } = event;
-        const idToDelete = params?.where?.id;
-        await deleteUserData(idToDelete);
-      },
-    });
   },
 };
