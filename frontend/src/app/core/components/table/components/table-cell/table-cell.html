@@ -1,0 +1,7 @@
+@if (TableColumnType.STATUS_TAG === columnType) {
+<p-tag [value]="tagValue" [severity]="tagSeverity" />
+} @else if (TableColumnType.DATE === columnType) {
+{{ value ? (value | date: 'dd/MM/yyyy') : '-' }}
+} @else {
+{{ value ?? '-' }}
+}
