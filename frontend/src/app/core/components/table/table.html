@@ -1,0 +1,30 @@
+<p-table [value]="data" [stripedRows]="true" [paginator]="true" [lazy]="true" [rows]="pageSize"
+  [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoad.emit($event)" [loading]="isLoading" #table>
+  <ng-template #header>
+    <tr>
+      @for (column of columns; track column.key) {
+      <th>{{ column.label }}</th>
+      }
+      @if (rowActions && onRowAction) {
+      <th></th>
+      }
+    </tr>
+  </ng-template>
+  <ng-template #body let-row>
+    @if (row) {
+    <tr>
+      @for (column of columns; track column.key) {
+      <td>
+        <app-table-cell [value]="row[column.key]" [columnKey]="column.key" [columnType]="column.type" />
+      </td>
+      }
+      @if (rowActions && onRowAction) {
+      <td class="flex justify-end">
+        <p-button icon="pi pi-ellipsis-v" (click)="menuRef.toggle($event)" />
+        <p-menu #menuRef [model]="getRowActions(row)" [popup]="true" [appendTo]="'body'" />
+      </td>
+      }
+    </tr>
+    }
+  </ng-template>
+</p-table>
