@@ -6,3 +6,7 @@ export * from './auth/password-reset-request.model';
 export * from './auth/password-reset.model';
 export * from './paginated.model';
 export * from './validation-messages.type';
+export * from './table-config.type';
+export * from './table-column.type';
+export * from './row-action-item.type';
+export * from './table-column-type.enum';
