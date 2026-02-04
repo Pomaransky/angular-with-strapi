@@ -24,7 +24,7 @@ export class Header implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
-  currentRouteLabel: string = '';
+  currentRouteLabel = '';
 
   ngOnInit(): void {
     this.updateCurrentRouteLabel();

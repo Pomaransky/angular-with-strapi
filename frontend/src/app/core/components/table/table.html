@@ -1,6 +1,6 @@
 @if (showSearch) {
 <div class="mb-2 max-w-sm">
-  <app-input-field [placeholder]="searchPlaceholder" [ngModel]="filterValue" (ngModelChange)="onSearchInput($event)" icon="search" />
+  <app-input-field inputId="table-search" [placeholder]="searchPlaceholder" [ngModel]="filterValue" (ngModelChange)="onSearchInput($event)" icon="search" />
 </div>
 }
 <p-table [value]="data" [stripedRows]="true" [paginator]="true" [lazy]="true" [rows]="pageSize"

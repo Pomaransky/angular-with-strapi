@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
-import { HttpClient } from '@angular/common/http';
 import {
   catchError,
   finalize,
@@ -22,8 +21,8 @@ export class UserApiService extends ApiService {
   private userStore = inject(UserStore);
   private toastService = inject(ToastService);
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor() {
+    super();
   }
 
   getMe(): Observable<User | null> {
@@ -66,7 +65,7 @@ export class UserApiService extends ApiService {
       tap((users) => {
         this.userStore.setUsers(users);
       }),
-      catchError((error) => {
+      catchError(() => {
         this.toastService.errorToast('Failed to fetch users');
         return throwError(() => new Error('Failed to fetch users'));
       }),

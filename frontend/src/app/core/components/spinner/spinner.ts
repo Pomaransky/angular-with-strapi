@@ -10,5 +10,5 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 })
 export class Spinner {
   @Input() loadingText!: string;
-  @Input() loading: boolean = false;
+  @Input() loading = false;
 }

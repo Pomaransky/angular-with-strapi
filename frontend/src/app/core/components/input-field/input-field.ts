@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, Optional, Self } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -16,40 +16,37 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputField implements ControlValueAccessor, OnInit {
-  @Input() label: string = '';
-  @Input() placeholder: string = '';
-  @Input() type: 'text' | 'email' | 'password' | 'textarea' = 'text';
-  @Input() inputId: string = '';
-  @Input() validationMessages: ValidationMessage[] = [];
-  @Input() toggleMask: boolean = true;
-  @Input() feedback: boolean = false;
-  @Input() rows: number = 3;
-  @Input() labelWidth: string = '';
-  @Input() icon: string = '';
-
   private destroyRef = inject(DestroyRef);
+  ngControl = inject(NgControl, { optional: true, self: true });
+
+  @Input({ required: true }) inputId!: string;
+  @Input() label = '';
+  @Input() placeholder = '';
+  @Input() type: 'text' | 'email' | 'password' | 'textarea' = 'text';
+  @Input() validationMessages: ValidationMessage[] = [];
+  @Input() toggleMask = true;
+  @Input() feedback = false;
+  @Input() rows = 3;
+  @Input() labelWidth = '';
+  @Input() icon = '';
+
 
   // Internal FormControl for p-password
   internalControl = new FormControl('');
-  
-  value: string = '';
-  disabled: boolean = false;
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  value = '';
+  disabled = false;
 
-  constructor(@Optional() @Self() public ngControl: NgControl) {
+  private onChange: (value: string) => void = () => { /* set by registerOnChange */ };
+  private onTouched: () => void = () => { /* set by registerOnTouched */ };
+
+  constructor() {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
   ngOnInit(): void {
-    if (!this.inputId) {
-      this.inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
-    }
-
-    // Sync internal control with parent
     this.internalControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((value) => {
@@ -69,12 +66,12 @@ export class InputField implements ControlValueAccessor, OnInit {
     // Check both control-level and form-level errors
     const hasControlErrors = this.control.invalid;
     const hasFormErrors = this.control.parent?.errors != null;
-    
+
     // For form-level errors, check if any validationMessages match
     const hasRelevantFormErrors = hasFormErrors && this.validationMessages.some(
       msg => this.control?.parent?.errors?.[msg.key]
     );
-    
+
     return hasControlErrors || hasRelevantFormErrors;
   }
 
@@ -87,11 +84,11 @@ export class InputField implements ControlValueAccessor, OnInit {
     const controlErrors = this.control.errors;
     // Check form-level errors (like passwordMismatch)
     const formErrors = this.control.parent?.errors;
-    
+
     if (!controlErrors && !formErrors) {
       return [];
     }
-    
+
     for (const msg of this.validationMessages) {
       if (controlErrors?.[msg.key] || formErrors?.[msg.key]) {
         errors.push(msg.message);

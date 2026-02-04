@@ -1,6 +1,6 @@
 import { TableColumn } from "./table-column.type";
 
-export type TableConfig = {
+export interface TableConfig {
   columns: TableColumn[];
   pageSize: number;
-};
+}

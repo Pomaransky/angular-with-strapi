@@ -15,7 +15,6 @@ import {
 } from '../../../../constants/menuItems.const';
 import { AuthService } from '../../../../services/auth-service';
 import { UserStore } from '../../../../store/user.store';
-import { UserRoleType } from '../../../../models/auth/user-role-type.enum';
 
 @Component({
   selector: 'app-sidebar',
@@ -74,7 +73,7 @@ export class Sidebar implements OnInit {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-info',
       accept: () => this.authService.logout(),
-      reject: () => {},
+      reject: () => { /* do nothing */ },
     });
   }
 }

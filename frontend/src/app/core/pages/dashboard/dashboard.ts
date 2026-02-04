@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar, Header } from './components';
 import { ConfirmationService } from 'primeng/api';
@@ -16,7 +16,7 @@ import { User } from '../../models/auth/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService],
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
   private userService = inject(UserApiService);
   private userStore = inject(UserStore);
   user: DeepSignal<User | null> = this.userStore.me.data;

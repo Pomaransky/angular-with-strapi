@@ -1,6 +1,6 @@
 import { TableColumnType } from ".";
 
-export type TableColumn = {
+export interface TableColumn {
   key: string;
   label: string;
   type: TableColumnType;

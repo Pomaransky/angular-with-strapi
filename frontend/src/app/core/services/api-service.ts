@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -7,19 +7,18 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
+  private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) {}
 
   get<T>(url: string): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}/api/${url}`);
   }
 
-  post<T>(url: string, data: any): Observable<T> {
+  post<T>(url: string, data: unknown): Observable<T> {
     return this.http.post<T>(`${this.apiUrl}/api/${url}`, data);
   }
 
-  put<T>(url: string, data: any): Observable<T> {
+  put<T>(url: string, data: unknown): Observable<T> {
     return this.http.put<T>(`${this.apiUrl}/api/${url}`, data);
   }
 

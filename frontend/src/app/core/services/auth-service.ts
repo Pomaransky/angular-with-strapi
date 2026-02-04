@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap, catchError, throwError, map, of } from 'rxjs';
+import { Observable, tap, catchError, throwError, of } from 'rxjs';
 import { ApiService } from './api-service';
 import {
   LoginCredentials,
@@ -19,8 +18,8 @@ export class AuthService extends ApiService {
   private router = inject(Router);
   private toastService = inject(ToastService);
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor() {
+    super();
     this.checkExistingToken();
   }
 
@@ -31,7 +30,6 @@ export class AuthService extends ApiService {
         this.router.navigate(['/']);
       }),
       catchError((error) => {
-        this.toastService.errorToast(error.error.error.message);
         return throwError(() => new Error(error.error.error.message));
       }),
     );
