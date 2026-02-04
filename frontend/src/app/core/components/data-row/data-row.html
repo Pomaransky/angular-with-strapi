@@ -1,14 +1,14 @@
 <div
-  [class]="`flex  ${vertical ? 'flex-col justify-start items-start gap-2' : 'justify-between items-center'} py-2 border-b border-gray-600`"
+  [class]="`flex gap-2 ${vertical ? 'flex-col justify-start items-start gap-2' : 'justify-between items-center'} py-2 border-b border-gray-600`"
 >
   <div class="font-medium shrink-0 text-gray-400">{{ label }}</div>
   <div
-    class="flex items-center gap-2"
+    class="flex items-center gap-2 min-w-0"
     [class]="valueClass ? valueClass : 'text-white'"
   >
     @if (icon) {
-      <i [class]="icon" class="font-bold"></i>
+      <i [class]="icon" class="font-bold shrink-0"></i>
     }
-    {{ value }}
+    <span [class]="!vertical ? 'min-w-0 truncate block' : ''">{{ value }}</span>
   </div>
 </div>
