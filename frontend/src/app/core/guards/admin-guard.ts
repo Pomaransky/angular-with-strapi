@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 import { map } from 'rxjs';
 import { UserRoleType } from '../models/auth';
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = () => {
   const userStore = inject(UserStore);
   const userApiService = inject(UserApiService);
   const router = inject(Router);

@@ -25,30 +25,40 @@ const SEARCH_DEBOUNCE_MS = 500;
 
 @Component({
   selector: 'app-table',
-  imports: [TableModule, ButtonModule, Menu, TableCell, FormsModule, InputField],
+  imports: [
+    TableModule,
+    ButtonModule,
+    Menu,
+    TableCell,
+    FormsModule,
+    InputField,
+  ],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Table implements OnChanges, OnInit {
+export class Table<T = unknown> implements OnChanges, OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
-  @Input({ required: true }) data!: any[];
+  @Input({ required: true }) data!: T[];
   @Input({ required: true }) columns!: TableColumn[];
   @Input({ required: true }) pageSize!: number;
   @Input({ required: true }) totalRecords!: number;
   @Input({ required: true }) isLoading!: boolean;
 
-  @Input() rowActions?: (row: any) => RowActionItem[];
-  @Input() onRowAction?: (row: any, actionId: string) => void;
+  @Input() rowActions?: (row: T) => RowActionItem[];
+  @Input() onRowAction?: (row: T, actionId: string) => void;
 
   @Input() showSearch = true;
   @Input() searchPlaceholder = 'Search...';
 
-  @Output() onLoad = new EventEmitter<TableLoadParams>();
+  @Output() loadParams = new EventEmitter<TableLoadParams>();
 
-  private rowActionsMenuItemsCache = new Map<any, { rowRef: any; items: MenuItem[] }>();
+  private rowActionsMenuItemsCache = new Map<
+    unknown,
+    { rowRef: T; items: MenuItem[] }
+  >();
 
   private filterSubject = new Subject<string>();
 
@@ -59,7 +69,10 @@ export class Table implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.filterSubject
-      .pipe(debounceTime(SEARCH_DEBOUNCE_MS), takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        debounceTime(SEARCH_DEBOUNCE_MS),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((value: string) => {
         this.filterValue = value.trim();
         this.cdr.markForCheck();
@@ -72,7 +85,9 @@ export class Table implements OnChanges, OnInit {
   }
 
   onLazyLoadInternal(event: TableLazyLoadEvent): void {
-    const page = event.rows ? Math.floor((event.first ?? 0) / event.rows) + 1 : 1;
+    const page = event.rows
+      ? Math.floor((event.first ?? 0) / event.rows) + 1
+      : 1;
     if (typeof event.sortField === 'string') this.sortField = event.sortField;
     if (typeof event.sortOrder === 'number') this.sortOrderNg = event.sortOrder;
     this.emitLoad(page);
@@ -85,16 +100,25 @@ export class Table implements OnChanges, OnInit {
 
   private emitLoad(page: number): void {
     const order: 'asc' | 'desc' | undefined =
-      this.sortOrderNg === 1 ? 'asc' : this.sortOrderNg === -1 ? 'desc' : undefined;
+      this.sortOrderNg === 1
+        ? 'asc'
+        : this.sortOrderNg === -1
+          ? 'desc'
+          : undefined;
     const sort =
-      this.sortField != null && order != null ? { field: this.sortField, order } : undefined;
-    const filterKeys = this.columns.filter((c) => c.filterable).map((c) => c.key);
-    const filter = this.filterValue || filterKeys.length
-      ? {
-          filter: this.filterValue || undefined,
-          filterKeys: filterKeys.length ? filterKeys : undefined,
-        }
-      : undefined;
+      this.sortField != null && order != null
+        ? { field: this.sortField, order }
+        : undefined;
+    const filterKeys = this.columns
+      .filter((c) => c.filterable)
+      .map((c) => c.key);
+    const filter =
+      this.filterValue || filterKeys.length
+        ? {
+            filter: this.filterValue || undefined,
+            filterKeys: filterKeys.length ? filterKeys : undefined,
+          }
+        : undefined;
     const params: TableLoadParams = {
       page,
       pageSize: this.pageSize,
@@ -103,7 +127,7 @@ export class Table implements OnChanges, OnInit {
     };
     if (this.paramsEqual(this.lastEmittedParams, params)) return;
     this.lastEmittedParams = params;
-    this.onLoad.emit(params);
+    this.loadParams.emit(params);
   }
 
   private paramsEqual(a: TableLoadParams | null, b: TableLoadParams): boolean {
@@ -115,10 +139,11 @@ export class Table implements OnChanges, OnInit {
     );
   }
 
-  getRowActions(row: any): MenuItem[] {
+  getRowActions(row: T): MenuItem[] {
     if (!this.rowActions || !this.onRowAction) return [];
 
-    const key = row?.id ?? row?.documentId ?? row;
+    const r = row as Record<string, unknown> | null | undefined;
+    const key = r?.['id'] ?? r?.['documentId'] ?? row;
     const cached = this.rowActionsMenuItemsCache.get(key);
     if (cached && cached.rowRef === row) return cached.items;
 

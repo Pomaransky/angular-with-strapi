@@ -8,9 +8,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataRow {
-  @Input({ required: true }) label: string = '';
-  @Input({ required: true }) value: string = '';
-  @Input() icon: string = '';
-  @Input() valueClass: string = '';
-  @Input() vertical: boolean = false;
+  @Input({ required: true }) label = '';
+  @Input({ required: true }) value = '';
+  @Input() icon = '';
+  @Input() valueClass = '';
+  @Input() vertical = false;
 }

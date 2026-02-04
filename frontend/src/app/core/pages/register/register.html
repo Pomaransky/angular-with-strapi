@@ -4,7 +4,11 @@
       <div class="text-3xl font-bold text-center p-5">Welcome!</div>
     </ng-template>
     <ng-template #content>
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col gap-4">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onRegister()"
+        class="flex flex-col gap-4"
+      >
         <app-input-field
           label="Username"
           inputId="username"
@@ -40,21 +44,36 @@
           [validationMessages]="validations.confirmPassword"
         />
 
-        <p-button type="submit" [disabled]="registerForm.invalid || isLoading" [loading]="isLoading" label="Register"
-          styleClass="w-full p-button-lg mt-2" icon="pi pi-user-plus"></p-button>
+        <p-button
+          type="submit"
+          [disabled]="registerForm.invalid || isLoading"
+          [loading]="isLoading"
+          label="Register"
+          styleClass="w-full p-button-lg mt-2"
+          icon="pi pi-user-plus"
+        ></p-button>
 
         @if (errorMessage) {
-        <div class="mt-5">
-          <p-message severity="error" [text]="errorMessage" styleClass="max-w-full"></p-message>
-        </div>
+          <div class="mt-5">
+            <p-message
+              severity="error"
+              [text]="errorMessage"
+              styleClass="max-w-full"
+            ></p-message>
+          </div>
         }
       </form>
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1 mr-2">
         <span class="mr-2">Already have an account?</span>
-        <p-button label="Login" styleClass="linkBtn p-button-xs" icon="pi pi-sign-in" (click)="onLogin()"
-          link></p-button>
+        <p-button
+          label="Login"
+          styleClass="linkBtn p-button-xs"
+          icon="pi pi-sign-in"
+          (click)="onLogin()"
+          link
+        ></p-button>
       </div>
     </ng-template>
   </p-card>

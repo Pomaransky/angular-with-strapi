@@ -1,4 +1,4 @@
-export type TableLoadParams = {
+export interface TableLoadParams {
   page: number;
   pageSize: number;
   sort?: {
@@ -9,4 +9,4 @@ export type TableLoadParams = {
     filter?: string;
     filterKeys?: string[];
   };
-};
+}

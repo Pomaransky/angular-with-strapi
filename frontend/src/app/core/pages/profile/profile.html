@@ -20,7 +20,10 @@
       <app-data-row label="Document ID" [value]="userData.documentId || '-'" />
       <app-data-row label="First Name" [value]="userData.firstName || '-'" />
       <app-data-row label="Last Name" [value]="userData.lastName || '-'" />
-      <app-data-row label="Birth Date" [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'" />
+      <app-data-row
+        label="Birth Date"
+        [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'"
+      />
       <app-data-row label="Provider" [value]="userData.provider || '-'" />
       <app-data-row
         label="Status"
@@ -37,7 +40,11 @@
         [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
       />
       <app-data-row label="Role" [value]="userData.role.name || '-'" />
-      <app-data-row label="About Me" [value]="userData.aboutMe || '-'" [vertical]="true" />
+      <app-data-row
+        label="About Me"
+        [value]="userData.aboutMe || '-'"
+        [vertical]="true"
+      />
     </div>
     <div class="flex justify-end mt-6">
       <p-button

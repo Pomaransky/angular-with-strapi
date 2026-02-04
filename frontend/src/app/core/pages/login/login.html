@@ -19,13 +19,15 @@
               loginForm.get('identifier')?.touched
             "
           />
-          @if (loginForm.get('identifier')?.invalid &&
-          loginForm.get('identifier')?.touched) {
-          <small class="p-error block">
-            @if (loginForm.get('identifier')?.errors?.['required']) {
-            <span class="text-red-500">Email or username is required</span>
-            }
-          </small>
+          @if (
+            loginForm.get("identifier")?.invalid &&
+            loginForm.get("identifier")?.touched
+          ) {
+            <small class="p-error block">
+              @if (loginForm.get("identifier")?.errors?.["required"]) {
+                <span class="text-red-500">Email or username is required</span>
+              }
+            </small>
           }
         </div>
 
@@ -44,17 +46,20 @@
             class="w-full"
             inputStyleClass="w-full"
           ></p-password>
-          @if (loginForm.get('password')?.invalid &&
-          loginForm.get('password')?.touched) {
-          <small class="p-error block">
-            @if (loginForm.get('password')?.errors?.['required']) {
-            <span class="text-red-500">Password is required</span>
-            } @if (loginForm.get('password')?.errors?.['minlength']) {
-            <span class="text-red-500"
-              >Password must be at least 6 characters</span
-            >
-            }
-          </small>
+          @if (
+            loginForm.get("password")?.invalid &&
+            loginForm.get("password")?.touched
+          ) {
+            <small class="p-error block">
+              @if (loginForm.get("password")?.errors?.["required"]) {
+                <span class="text-red-500">Password is required</span>
+              }
+              @if (loginForm.get("password")?.errors?.["minlength"]) {
+                <span class="text-red-500"
+                  >Password must be at least 6 characters</span
+                >
+              }
+            </small>
           }
         </div>
 
@@ -68,13 +73,13 @@
         ></p-button>
 
         @if (errorMessage) {
-        <div class="mt-5">
-          <p-message
-            severity="error"
-            [text]="errorMessage"
-            styleClass="max-w-full"
-          ></p-message>
-        </div>
+          <div class="mt-5">
+            <p-message
+              severity="error"
+              [text]="errorMessage"
+              styleClass="max-w-full"
+            ></p-message>
+          </div>
         }
       </form>
     </ng-template>

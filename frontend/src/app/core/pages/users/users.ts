@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { DeepSignal } from '@ngrx/signals';
 import { UserStore } from '../../store/user.store';
 import { UserApiService } from '../../services/user-api-service';

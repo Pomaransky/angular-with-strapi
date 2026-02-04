@@ -5,7 +5,9 @@ export function tableLoadParamsToStrapiQuery(params: TableLoadParams): {
   filter: string;
 } {
   const sort =
-    params.sort != null ? `&sort=${params.sort.field}:${params.sort.order}` : '';
+    params.sort != null
+      ? `&sort=${params.sort.field}:${params.sort.order}`
+      : '';
   const filterValue = params.filter?.filter?.trim();
   const filterKeys = params.filter?.filterKeys;
   const filter =
@@ -14,7 +16,7 @@ export function tableLoadParamsToStrapiQuery(params: TableLoadParams): {
         filterKeys
           .map(
             (key, i) =>
-              `filters[$or][${i}][${key}][$containsi]=${encodeURIComponent(filterValue)}`
+              `filters[$or][${i}][${key}][$containsi]=${encodeURIComponent(filterValue)}`,
           )
           .join('&')
       : '';
