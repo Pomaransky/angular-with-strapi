@@ -11,10 +11,18 @@ import { EditProfileDialog } from './components/edit-profile-dialog/edit-profile
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../models/auth/user.model';
 import { DatePipe } from '@angular/common';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-profile',
-  imports: [Spinner, ButtonModule, DataRow, EditProfileDialog, DatePipe],
+  imports: [
+    Spinner,
+    ButtonModule,
+    DataRow,
+    EditProfileDialog,
+    DatePipe,
+    CardModule,
+  ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
