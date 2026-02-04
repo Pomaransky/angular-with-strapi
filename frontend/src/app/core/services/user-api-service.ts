@@ -11,8 +11,9 @@ import {
   switchMap,
 } from 'rxjs';
 import { UserStore } from '../store/user.store';
-import { Paginated, User } from '../models';
+import { Paginated, TableLoadParams, User } from '../models';
 import { ToastService } from './toast-service';
+import { tableLoadParamsToStrapiQuery } from '../utils/table-load-params-to-query';
 
 @Injectable({
   providedIn: 'root',
@@ -55,9 +56,12 @@ export class UserApiService extends ApiService {
     );
   }
 
-  getUsers(page: number, pageSize: number): Observable<Paginated<User>> {
+  getUsers(params: TableLoadParams): Observable<Paginated<User>> {
+    const { page, pageSize } = params;
     this.userStore.setUsersLoading(true);
-    const url = `users?populate=role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[role][type][$eq]=authenticated`;
+    const { sort, filter } = tableLoadParamsToStrapiQuery(params);
+    const base = `users?populate=role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[role][type][$eq]=authenticated`;
+    const url = `${base}${sort}${filter}`;
     return this.get<Paginated<User>>(url).pipe(
       tap((users) => {
         this.userStore.setUsers(users);
@@ -88,7 +92,7 @@ export class UserApiService extends ApiService {
           () =>
             new Error(
               error.error?.error?.message ||
-                'Failed to update user block status',
+              'Failed to update user block status',
             ),
         );
       }),

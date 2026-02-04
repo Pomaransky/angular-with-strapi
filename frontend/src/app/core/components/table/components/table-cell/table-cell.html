@@ -1,5 +1,5 @@
 @if (TableColumnType.STATUS_TAG === columnType) {
-<p-tag [value]="tagValue" [severity]="tagSeverity" />
+<p-tag [value]="tagValue" [severity]="tagSeverity" class="text-nowrap" />
 } @else if (TableColumnType.DATE === columnType) {
 {{ value ? (value | date: 'dd/MM/yyyy') : '-' }}
 } @else {

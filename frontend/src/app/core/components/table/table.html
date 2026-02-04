@@ -1,9 +1,20 @@
+@if (showSearch) {
+<div class="mb-2 max-w-sm">
+  <app-input-field [placeholder]="searchPlaceholder" [ngModel]="filterValue" (ngModelChange)="onSearchInput($event)" icon="search" />
+</div>
+}
 <p-table [value]="data" [stripedRows]="true" [paginator]="true" [lazy]="true" [rows]="pageSize"
-  [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoad.emit($event)" [loading]="isLoading" #table>
+  [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadInternal($event)" [loading]="isLoading"
+  [sortField]="sortField ?? ''" [sortOrder]="sortOrderNg ?? 0" #table>
   <ng-template #header>
     <tr>
       @for (column of columns; track column.key) {
-      <th>{{ column.label }}</th>
+      <th [pSortableColumn]="column.key" [pSortableColumnDisabled]="!column.sortable" class="text-nowrap">
+        {{ column.label }}
+        @if (column.sortable) {
+        <p-sortIcon [field]="column.key" />
+        }
+      </th>
       }
       @if (rowActions && onRowAction) {
       <th></th>
