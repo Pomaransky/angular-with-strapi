@@ -15,7 +15,14 @@ import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-profile',
-  imports: [Spinner, ButtonModule, DataRow, EditProfileDialog, DatePipe, CardModule],
+  imports: [
+    Spinner,
+    ButtonModule,
+    DataRow,
+    EditProfileDialog,
+    DatePipe,
+    CardModule,
+  ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
