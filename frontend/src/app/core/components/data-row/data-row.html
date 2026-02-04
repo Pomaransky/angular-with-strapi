@@ -1,10 +1,10 @@
 <div
   [class]="`flex  ${vertical ? 'flex-col justify-start items-start gap-2' : 'justify-between items-center'} py-2 border-b border-gray-600`"
 >
-  <div class="text-gray-600 font-medium shrink-0">{{ label }}</div>
+  <div class="font-medium shrink-0 text-gray-400">{{ label }}</div>
   <div
-    class="font-medium flex items-center gap-2"
-    [class]="valueClass ? valueClass : 'text-gray-900'"
+    class="flex items-center gap-2"
+    [class]="valueClass ? valueClass : 'text-white'"
   >
     @if (icon) {
       <i [class]="icon" class="font-bold"></i>

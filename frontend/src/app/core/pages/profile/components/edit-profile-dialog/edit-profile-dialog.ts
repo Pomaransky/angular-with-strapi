@@ -20,7 +20,7 @@ import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputField } from '../../../../components';
-import { EDIT_PROFILE_FORM_VALIDATIONS } from './constants/edit-profile-form-validations.const';
+import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form-validations.const';
 
 @Component({
   selector: 'app-edit-profile-dialog',

@@ -1,73 +1,76 @@
-@if (showSearch) {
-  <div class="mb-2 max-w-sm">
-    <app-input-field
-      inputId="table-search"
-      [placeholder]="searchPlaceholder"
-      [ngModel]="filterValue"
-      (ngModelChange)="onSearchInput($event)"
-      icon="search"
-    />
-  </div>
-}
-<p-table
-  [value]="data"
-  [stripedRows]="true"
-  [paginator]="true"
-  [lazy]="true"
-  [rows]="pageSize"
-  [totalRecords]="totalRecords"
-  (onLazyLoad)="onLazyLoadInternal($event)"
-  [loading]="isLoading"
-  [sortField]="sortField ?? ''"
-  [sortOrder]="sortOrderNg ?? 0"
-  #table
->
-  <ng-template #header>
-    <tr>
-      @for (column of columns; track column.key) {
-        <th
-          [pSortableColumn]="column.key"
-          [pSortableColumnDisabled]="!column.sortable"
-          class="text-nowrap"
-        >
-          {{ column.label }}
-          @if (column.sortable) {
-            <p-sortIcon [field]="column.key" />
-          }
-        </th>
-      }
-      @if (rowActions && onRowAction) {
-        <th></th>
-      }
-    </tr>
-  </ng-template>
-  <ng-template #body let-row>
-    @if (row) {
+<p-card>
+  @if (showSearch) {
+    <div class="flex justify-end mb-2">
+      <app-input-field
+        inputId="table-search"
+        [placeholder]="searchPlaceholder"
+        [ngModel]="filterValue"
+        (ngModelChange)="onSearchInput($event)"
+        icon="search"
+        containerClass="max-w-3xs"
+      />
+    </div>
+  }
+  <p-table
+    [value]="data"
+    [stripedRows]="true"
+    [paginator]="true"
+    [lazy]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    (onLazyLoad)="onLazyLoadInternal($event)"
+    [loading]="isLoading"
+    [sortField]="sortField ?? ''"
+    [sortOrder]="sortOrderNg ?? 0"
+    #table
+  >
+    <ng-template #header>
       <tr>
         @for (column of columns; track column.key) {
-          <td>
-            <app-table-cell
-              [value]="row[column.key]"
-              [columnKey]="column.key"
-              [columnType]="column.type"
-            />
-          </td>
+          <th
+            [pSortableColumn]="column.key"
+            [pSortableColumnDisabled]="!column.sortable"
+            class="text-nowrap"
+          >
+            {{ column.label }}
+            @if (column.sortable) {
+              <p-sortIcon [field]="column.key" />
+            }
+          </th>
         }
         @if (rowActions && onRowAction) {
-          <td class="flex justify-end">
-            <p-button
-              icon="pi pi-ellipsis-v"
-              (click)="menuRef.toggle($event)"
-            />
-            <p-menu
-              #menuRef
-              [model]="getRowActions(row)"
-              [popup]="true"
-              [appendTo]="'body'"
-            />
-          </td>
+          <th></th>
         }
       </tr>
-    }
-  </ng-template>
-</p-table>
+    </ng-template>
+    <ng-template #body let-row>
+      @if (row) {
+        <tr>
+          @for (column of columns; track column.key) {
+            <td>
+              <app-table-cell
+                [value]="row[column.key]"
+                [columnKey]="column.key"
+                [columnType]="column.type"
+              />
+            </td>
+          }
+          @if (rowActions && onRowAction) {
+            <td class="flex justify-end">
+              <p-button
+                icon="pi pi-ellipsis-v"
+                (click)="menuRef.toggle($event)"
+              />
+              <p-menu
+                #menuRef
+                [model]="getRowActions(row)"
+                [popup]="true"
+                [appendTo]="'body'"
+              />
+            </td>
+          }
+        </tr>
+      }
+    </ng-template>
+  </p-table>
+</p-card>
