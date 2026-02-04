@@ -1,53 +1,31 @@
 <div class="w-full" [class.horizontal]="labelWidth">
   @if (label) {
-    <label [for]="inputId" [style.width]="labelWidth || null" [class.font-semibold]="labelWidth">{{ label }}</label>
+  <label [for]="inputId" [style.width]="labelWidth || null" [class.font-semibold]="labelWidth">{{ label }}</label>
   }
 
   <div class="w-full" [class.flex-auto]="labelWidth">
     @if (type === 'password') {
-      <p-password
-        [inputId]="inputId"
-        [formControl]="internalControl"
-        (onBlur)="onBlur()"
-        [placeholder]="placeholder"
-        [toggleMask]="toggleMask"
-        [feedback]="feedback"
-        [class.ng-invalid]="isInvalid"
-        class="w-full"
-        inputStyleClass="w-full"
-      ></p-password>
+    <p-password [inputId]="inputId" [formControl]="internalControl" (onBlur)="onBlur()" [placeholder]="placeholder"
+      [toggleMask]="toggleMask" [feedback]="feedback" [class.ng-invalid]="isInvalid" class="w-full"
+      inputStyleClass="w-full"></p-password>
     } @else if (type === 'textarea') {
-      <textarea
-        [id]="inputId"
-        [value]="value"
-        (input)="onInputChange($event)"
-        (blur)="onBlur()"
-        [placeholder]="placeholder"
-        [disabled]="disabled"
-        [rows]="rows"
-        [class.ng-invalid]="isInvalid"
-        class="w-full"
-        pTextarea
-      ></textarea>
-    } @else {
-      <input
-        [id]="inputId"
-        [type]="type"
-        [value]="value"
-        (input)="onInputChange($event)"
-        (blur)="onBlur()"
-        [placeholder]="placeholder"
-        [disabled]="disabled"
-        [class.ng-invalid]="isInvalid"
-        class="w-full"
-        pInputText
-      />
+    <textarea [id]="inputId" [value]="value" (input)="onInputChange($event)" (blur)="onBlur()"
+      [placeholder]="placeholder" [disabled]="disabled" [rows]="rows" [class.ng-invalid]="isInvalid" class="w-full"
+      pTextarea></textarea>
+    } @else{
+    <p-iconfield>
+      @if (icon) {
+      <p-inputicon [class]="'pi pi-' + icon" />
+      }
+      <input [id]="inputId" [type]="type" [value]="value" (input)="onInputChange($event)" (blur)="onBlur()"
+        [placeholder]="placeholder" [disabled]="disabled" [class.ng-invalid]="isInvalid" class="w-full" pInputText />
+    </p-iconfield>
     }
 
     @if (currentErrors.length > 0) {
-      <small class="p-error block">
-        <span class="text-red-500">{{ currentErrors[0] }}</span>
-      </small>
+    <small class="p-error block">
+      <span class="text-red-500">{{ currentErrors[0] }}</span>
+    </small>
     }
   </div>
 </div>

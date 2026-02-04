@@ -3,12 +3,14 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TextareaModule } from 'primeng/textarea';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
 import { ValidationMessage } from '../../models';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-input-field',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, TextareaModule],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, TextareaModule, IconField, InputIcon],
   templateUrl: './input-field.html',
   styleUrl: './input-field.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,6 +25,7 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input() feedback: boolean = false;
   @Input() rows: number = 3;
   @Input() labelWidth: string = '';
+  @Input() icon: string = '';
 
   private destroyRef = inject(DestroyRef);
 

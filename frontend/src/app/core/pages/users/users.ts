@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, ViewChild } fro
 import { DeepSignal } from '@ngrx/signals';
 import { UserStore } from '../../store/user.store';
 import { UserApiService } from '../../services/user-api-service';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { User, RowActionItem } from '../../models';
+import { TableModule } from 'primeng/table';
+import { User, RowActionItem, TableLoadParams } from '../../models';
 import { TagModule } from 'primeng/tag';
 import { DetailsDialog } from './components';
 import { Table } from '../../components';
@@ -31,10 +31,11 @@ export class Users {
     this.userStore.users.data.meta.pagination.total;
   isUsersLoading: DeepSignal<boolean> = this.userStore.users.isLoading;
 
-  onLazyLoad(event: TableLazyLoadEvent): void {
-    const page =
-      event.first && event.rows ? Math.floor(event.first / event.rows) + 1 : 1;
-    this.userService.getUsers(page, this.usersTableConfig.pageSize).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  onTableLoad(params: TableLoadParams): void {
+    this.userService
+      .getUsers(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 
   rowActions(user: User): RowActionItem[] {
