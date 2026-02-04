@@ -1,4 +1,4 @@
-import { TableColumn } from "./table-column.type";
+import { TableColumn } from './table-column.type';
 
 export interface TableConfig {
   columns: TableColumn[];

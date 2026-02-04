@@ -73,7 +73,9 @@ export class Sidebar implements OnInit {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-info',
       accept: () => this.authService.logout(),
-      reject: () => { /* do nothing */ },
+      reject: () => {
+        /* do nothing */
+      },
     });
   }
 }

@@ -15,6 +15,6 @@ export const loginGuard: CanActivateFn = () => {
       } else {
         return true;
       }
-    })
+    }),
   );
 };

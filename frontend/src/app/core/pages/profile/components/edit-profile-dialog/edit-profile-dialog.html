@@ -1,15 +1,32 @@
-<p-dialog [visible]="visible()" [modal]="true" styleClass="w-full sm:w-[500px]" (visibleChange)="visible.set($event)" [draggable]="false"
-  [closable]="true" [dismissableMask]="true">
+<p-dialog
+  [visible]="visible()"
+  [modal]="true"
+  styleClass="w-full sm:w-[500px]"
+  (visibleChange)="visible.set($event)"
+  [draggable]="false"
+  [closable]="true"
+  [dismissableMask]="true"
+>
   <ng-template #headless>
-    <div class="flex items-center justify-between rounded-xl shadow-xl shadow-primary/30">
-      <div class="w-full flex flex-col items-start p-8 bg-surface-0 dark:bg-surface-900 rounded-xl">
-        <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+    <div
+      class="flex items-center justify-between rounded-xl shadow-xl shadow-primary/30"
+    >
+      <div
+        class="w-full flex flex-col items-start p-8 bg-surface-0 dark:bg-surface-900 rounded-xl"
+      >
+        <div
+          class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
+        >
           <i class="pi pi-user-edit !text-3xl"></i>
         </div>
         <span class="font-bold text-2xl block my-6">Edit Profile</span>
 
         <div class="w-full space-y-4">
-          <form [formGroup]="editForm" (ngSubmit)="onEdit()" class="flex flex-col gap-5">
+          <form
+            [formGroup]="editForm"
+            (ngSubmit)="onEdit()"
+            class="flex flex-col gap-5"
+          >
             <app-input-field
               label="First Name"
               inputId="firstName"
@@ -25,8 +42,17 @@
             />
 
             <div class="flex gap-4">
-              <label for="birthDate" class="font-semibold w-28">Birth Date</label>
-              <p-datepicker id="birthDate" formControlName="birthDate" class="flex-auto" autocomplete="off" [showIcon]="true" dateFormat="dd/mm/yy" />
+              <label for="birthDate" class="font-semibold w-28"
+                >Birth Date</label
+              >
+              <p-datepicker
+                id="birthDate"
+                formControlName="birthDate"
+                class="flex-auto"
+                autocomplete="off"
+                [showIcon]="true"
+                dateFormat="dd/mm/yy"
+              />
             </div>
 
             <app-input-field
@@ -41,8 +67,19 @@
           </form>
         </div>
         <div class="w-full flex items-center justify-end gap-2 mt-6">
-          <p-button type="submit" label="Cancel" [outlined]="true" (click)="visible.set(false)" styleClass="w-32"></p-button>
-          <p-button label="Save" (click)="onEdit()" styleClass="w-32" [disabled]="editForm.invalid"></p-button>
+          <p-button
+            type="submit"
+            label="Cancel"
+            [outlined]="true"
+            (click)="visible.set(false)"
+            styleClass="w-32"
+          ></p-button>
+          <p-button
+            label="Save"
+            (click)="onEdit()"
+            styleClass="w-32"
+            [disabled]="editForm.invalid"
+          ></p-button>
         </div>
       </div>
     </div>

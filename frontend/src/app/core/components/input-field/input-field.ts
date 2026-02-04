@@ -1,5 +1,17 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TextareaModule } from 'primeng/textarea';
@@ -10,10 +22,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-input-field',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, TextareaModule, IconField, InputIcon],
+  imports: [
+    ReactiveFormsModule,
+    InputTextModule,
+    PasswordModule,
+    TextareaModule,
+    IconField,
+    InputIcon,
+  ],
   templateUrl: './input-field.html',
   styleUrl: './input-field.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputField implements ControlValueAccessor, OnInit {
   private destroyRef = inject(DestroyRef);
@@ -30,15 +49,18 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input() labelWidth = '';
   @Input() icon = '';
 
-
   // Internal FormControl for p-password
   internalControl = new FormControl('');
 
   value = '';
   disabled = false;
 
-  private onChange: (value: string) => void = () => { /* set by registerOnChange */ };
-  private onTouched: () => void = () => { /* set by registerOnTouched */ };
+  private onChange: (value: string) => void = () => {
+    /* set by registerOnChange */
+  };
+  private onTouched: () => void = () => {
+    /* set by registerOnTouched */
+  };
 
   constructor() {
     if (this.ngControl) {
@@ -68,9 +90,11 @@ export class InputField implements ControlValueAccessor, OnInit {
     const hasFormErrors = this.control.parent?.errors != null;
 
     // For form-level errors, check if any validationMessages match
-    const hasRelevantFormErrors = hasFormErrors && this.validationMessages.some(
-      msg => this.control?.parent?.errors?.[msg.key]
-    );
+    const hasRelevantFormErrors =
+      hasFormErrors &&
+      this.validationMessages.some(
+        (msg) => this.control?.parent?.errors?.[msg.key],
+      );
 
     return hasControlErrors || hasRelevantFormErrors;
   }

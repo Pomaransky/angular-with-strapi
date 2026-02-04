@@ -1,4 +1,4 @@
-import { TableColumnType } from ".";
+import { TableColumnType } from '.';
 
 export interface TableColumn {
   key: string;

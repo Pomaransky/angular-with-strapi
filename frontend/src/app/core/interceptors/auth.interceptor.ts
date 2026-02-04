@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 export function authInterceptor(
   request: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> {
   const token = localStorage.getItem('jwt_token');
 

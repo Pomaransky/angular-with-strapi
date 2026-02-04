@@ -38,7 +38,9 @@ export class AuthService extends ApiService {
   register(credentials: RegisterCredentials): Observable<AuthResponse> {
     return this.post<AuthResponse>('auth/local/register', credentials).pipe(
       tap((response: AuthResponse) => {
-        this.toastService.successToast(`Successfully registered ${response.user.username}, please login to continue`);
+        this.toastService.successToast(
+          `Successfully registered ${response.user.username}, please login to continue`,
+        );
         this.router.navigate(['/login']);
       }),
       catchError((error) => {

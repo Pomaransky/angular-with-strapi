@@ -83,15 +83,19 @@ export class UserApiService extends ApiService {
     return this.put<User>(`users/${userId}`, { blocked }).pipe(
       tap((user) => {
         this.userStore.updateUser(Number(userId), { blocked: user.blocked });
-        this.toastService.successToast(`User ${blocked ? 'blocked' : 'unblocked'} successfully`);
+        this.toastService.successToast(
+          `User ${blocked ? 'blocked' : 'unblocked'} successfully`,
+        );
       }),
       catchError((error) => {
-        this.toastService.errorToast(error.error?.error?.message || 'Failed to update user block status');
+        this.toastService.errorToast(
+          error.error?.error?.message || 'Failed to update user block status',
+        );
         return throwError(
           () =>
             new Error(
               error.error?.error?.message ||
-              'Failed to update user block status',
+                'Failed to update user block status',
             ),
         );
       }),

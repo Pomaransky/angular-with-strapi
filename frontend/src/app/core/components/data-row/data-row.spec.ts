@@ -8,9 +8,8 @@ describe('DataRow', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DataRow]
-    })
-    .compileComponents();
+      imports: [DataRow],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DataRow);
     component = fixture.componentInstance;

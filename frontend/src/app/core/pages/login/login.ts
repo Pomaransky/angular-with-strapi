@@ -78,7 +78,7 @@ export class Login {
           finalize(() => {
             this.isLoading = false;
             this.cdr.detectChanges();
-          })
+          }),
         )
         .subscribe();
     }

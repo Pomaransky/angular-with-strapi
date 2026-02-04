@@ -25,7 +25,14 @@ const SEARCH_DEBOUNCE_MS = 500;
 
 @Component({
   selector: 'app-table',
-  imports: [TableModule, ButtonModule, Menu, TableCell, FormsModule, InputField],
+  imports: [
+    TableModule,
+    ButtonModule,
+    Menu,
+    TableCell,
+    FormsModule,
+    InputField,
+  ],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,7 +55,10 @@ export class Table<T = unknown> implements OnChanges, OnInit {
 
   @Output() loadParams = new EventEmitter<TableLoadParams>();
 
-  private rowActionsMenuItemsCache = new Map<unknown, { rowRef: T; items: MenuItem[] }>();
+  private rowActionsMenuItemsCache = new Map<
+    unknown,
+    { rowRef: T; items: MenuItem[] }
+  >();
 
   private filterSubject = new Subject<string>();
 
@@ -59,7 +69,10 @@ export class Table<T = unknown> implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.filterSubject
-      .pipe(debounceTime(SEARCH_DEBOUNCE_MS), takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        debounceTime(SEARCH_DEBOUNCE_MS),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((value: string) => {
         this.filterValue = value.trim();
         this.cdr.markForCheck();
@@ -72,7 +85,9 @@ export class Table<T = unknown> implements OnChanges, OnInit {
   }
 
   onLazyLoadInternal(event: TableLazyLoadEvent): void {
-    const page = event.rows ? Math.floor((event.first ?? 0) / event.rows) + 1 : 1;
+    const page = event.rows
+      ? Math.floor((event.first ?? 0) / event.rows) + 1
+      : 1;
     if (typeof event.sortField === 'string') this.sortField = event.sortField;
     if (typeof event.sortOrder === 'number') this.sortOrderNg = event.sortOrder;
     this.emitLoad(page);
@@ -85,16 +100,25 @@ export class Table<T = unknown> implements OnChanges, OnInit {
 
   private emitLoad(page: number): void {
     const order: 'asc' | 'desc' | undefined =
-      this.sortOrderNg === 1 ? 'asc' : this.sortOrderNg === -1 ? 'desc' : undefined;
+      this.sortOrderNg === 1
+        ? 'asc'
+        : this.sortOrderNg === -1
+          ? 'desc'
+          : undefined;
     const sort =
-      this.sortField != null && order != null ? { field: this.sortField, order } : undefined;
-    const filterKeys = this.columns.filter((c) => c.filterable).map((c) => c.key);
-    const filter = this.filterValue || filterKeys.length
-      ? {
-          filter: this.filterValue || undefined,
-          filterKeys: filterKeys.length ? filterKeys : undefined,
-        }
-      : undefined;
+      this.sortField != null && order != null
+        ? { field: this.sortField, order }
+        : undefined;
+    const filterKeys = this.columns
+      .filter((c) => c.filterable)
+      .map((c) => c.key);
+    const filter =
+      this.filterValue || filterKeys.length
+        ? {
+            filter: this.filterValue || undefined,
+            filterKeys: filterKeys.length ? filterKeys : undefined,
+          }
+        : undefined;
     const params: TableLoadParams = {
       page,
       pageSize: this.pageSize,
