@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { TableColumn, RowActionItem, TableLoadParams } from '../../models';
 import { TableCell } from './components/table-cell/table-cell';
 import { InputField } from '../input-field/input-field';
+import { CardModule } from 'primeng/card';
 
 const SEARCH_DEBOUNCE_MS = 500;
 
@@ -32,6 +33,7 @@ const SEARCH_DEBOUNCE_MS = 500;
     TableCell,
     FormsModule,
     InputField,
+    CardModule,
   ],
   templateUrl: './table.html',
   styleUrl: './table.scss',

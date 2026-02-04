@@ -12,10 +12,11 @@ import { finalize, tap } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { Spinner, DataRow } from '../../../../components';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-details-dialog',
-  imports: [DialogModule, Spinner, ButtonModule, DataRow],
+  imports: [DialogModule, Spinner, ButtonModule, DataRow, CardModule],
   templateUrl: './details-dialog.html',
   styleUrl: './details-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

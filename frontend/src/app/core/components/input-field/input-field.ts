@@ -48,6 +48,7 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input() rows = 3;
   @Input() labelWidth = '';
   @Input() icon = '';
+  @Input() containerClass = 'w-full';
 
   // Internal FormControl for p-password
   internalControl = new FormControl('');
