@@ -12,15 +12,20 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./core/pages/dashboard/components/home/home').then(m => m.Home),
+        loadComponent: () =>
+          import('./core/pages/dashboard/components/home/home').then(
+            (m) => m.Home,
+          ),
       },
       {
         path: 'profile',
-        loadComponent: () => import('./core/pages/profile/profile').then(m => m.Profile),
+        loadComponent: () =>
+          import('./core/pages/profile/profile').then((m) => m.Profile),
       },
       {
         path: 'users',
-        loadComponent: () => import('./core/pages/users/users').then(m => m.Users),
+        loadComponent: () =>
+          import('./core/pages/users/users').then((m) => m.Users),
         canActivate: [adminGuard],
       },
     ],

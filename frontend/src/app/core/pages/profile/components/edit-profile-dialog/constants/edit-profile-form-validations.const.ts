@@ -1,5 +1,4 @@
-import { ValidationMessage } from "../../../../../models";
-
+import { ValidationMessage } from '../../../../../models';
 
 interface EditProfileFormValidations {
   aboutMe: ValidationMessage[];

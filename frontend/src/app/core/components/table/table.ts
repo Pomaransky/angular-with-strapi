@@ -4,43 +4,146 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectorRef, DestroyRef, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { TableColumn, RowActionItem } from '../../models';
+import { FormsModule } from '@angular/forms';
+import { TableColumn, RowActionItem, TableLoadParams } from '../../models';
 import { TableCell } from './components/table-cell/table-cell';
+import { InputField } from '../input-field/input-field';
+
+const SEARCH_DEBOUNCE_MS = 500;
 
 @Component({
   selector: 'app-table',
-  imports: [TableModule, ButtonModule, Menu, TableCell],
+  imports: [
+    TableModule,
+    ButtonModule,
+    Menu,
+    TableCell,
+    FormsModule,
+    InputField,
+  ],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Table implements OnChanges {
-  @Input({ required: true }) data!: any[];
+export class Table<T = unknown> implements OnChanges, OnInit {
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  @Input({ required: true }) data!: T[];
   @Input({ required: true }) columns!: TableColumn[];
   @Input({ required: true }) pageSize!: number;
   @Input({ required: true }) totalRecords!: number;
   @Input({ required: true }) isLoading!: boolean;
-  @Output() onLazyLoad = new EventEmitter<TableLazyLoadEvent>();
 
-  @Input() rowActions?: (row: any) => RowActionItem[];
-  @Input() onRowAction?: (row: any, actionId: string) => void;
-  private rowActionsMenuItemsCache = new Map<any, { rowRef: any; items: MenuItem[] }>();
+  @Input() rowActions?: (row: T) => RowActionItem[];
+  @Input() onRowAction?: (row: T, actionId: string) => void;
+
+  @Input() showSearch = true;
+  @Input() searchPlaceholder = 'Search...';
+
+  @Output() loadParams = new EventEmitter<TableLoadParams>();
+
+  private rowActionsMenuItemsCache = new Map<
+    unknown,
+    { rowRef: T; items: MenuItem[] }
+  >();
+
+  private filterSubject = new Subject<string>();
+
+  sortField: string | undefined = undefined;
+  sortOrderNg: number | undefined = undefined;
+  filterValue = '';
+  private lastEmittedParams: TableLoadParams | null = null;
+
+  ngOnInit(): void {
+    this.filterSubject
+      .pipe(
+        debounceTime(SEARCH_DEBOUNCE_MS),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((value: string) => {
+        this.filterValue = value.trim();
+        this.cdr.markForCheck();
+        this.emitLoad(1);
+      });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) this.rowActionsMenuItemsCache.clear();
   }
 
-  getRowActions(row: any): MenuItem[] {
+  onLazyLoadInternal(event: TableLazyLoadEvent): void {
+    const page = event.rows
+      ? Math.floor((event.first ?? 0) / event.rows) + 1
+      : 1;
+    if (typeof event.sortField === 'string') this.sortField = event.sortField;
+    if (typeof event.sortOrder === 'number') this.sortOrderNg = event.sortOrder;
+    this.emitLoad(page);
+  }
+
+  onSearchInput(value: string): void {
+    this.filterValue = value;
+    this.filterSubject.next(value);
+  }
+
+  private emitLoad(page: number): void {
+    const order: 'asc' | 'desc' | undefined =
+      this.sortOrderNg === 1
+        ? 'asc'
+        : this.sortOrderNg === -1
+          ? 'desc'
+          : undefined;
+    const sort =
+      this.sortField != null && order != null
+        ? { field: this.sortField, order }
+        : undefined;
+    const filterKeys = this.columns
+      .filter((c) => c.filterable)
+      .map((c) => c.key);
+    const filter =
+      this.filterValue || filterKeys.length
+        ? {
+            filter: this.filterValue || undefined,
+            filterKeys: filterKeys.length ? filterKeys : undefined,
+          }
+        : undefined;
+    const params: TableLoadParams = {
+      page,
+      pageSize: this.pageSize,
+      sort,
+      filter,
+    };
+    if (this.paramsEqual(this.lastEmittedParams, params)) return;
+    this.lastEmittedParams = params;
+    this.loadParams.emit(params);
+  }
+
+  private paramsEqual(a: TableLoadParams | null, b: TableLoadParams): boolean {
+    if (!a) return false;
+    return (
+      a.page === b.page &&
+      JSON.stringify(a.sort) === JSON.stringify(b.sort) &&
+      JSON.stringify(a.filter) === JSON.stringify(b.filter)
+    );
+  }
+
+  getRowActions(row: T): MenuItem[] {
     if (!this.rowActions || !this.onRowAction) return [];
 
-    const key = row?.id ?? row?.documentId ?? row;
+    const r = row as Record<string, unknown> | null | undefined;
+    const key = r?.['id'] ?? r?.['documentId'] ?? row;
     const cached = this.rowActionsMenuItemsCache.get(key);
     if (cached && cached.rowRef === row) return cached.items;
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 export const passwordMatchValidator: ValidatorFn = (
-  control: AbstractControl
+  control: AbstractControl,
 ): ValidationErrors | null => {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');

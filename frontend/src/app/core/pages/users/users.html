@@ -1,4 +1,12 @@
-<app-table [data]="usersData()" [columns]="usersTableConfig.columns" [pageSize]="usersTableConfig.pageSize" [totalRecords]="totalRecords()"
-  [isLoading]="isUsersLoading()" (onLazyLoad)="onLazyLoad($event)" [rowActions]="rowActions" [onRowAction]="onRowAction.bind(this)" />
+<app-table
+  [data]="usersData()"
+  [columns]="usersTableConfig.columns"
+  [pageSize]="usersTableConfig.pageSize"
+  [totalRecords]="totalRecords()"
+  [isLoading]="isUsersLoading()"
+  (loadParams)="onTableLoad($event)"
+  [rowActions]="rowActions"
+  [onRowAction]="onRowAction.bind(this)"
+/>
 
 <app-details-dialog #detailsDialog></app-details-dialog>

@@ -9,7 +9,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { Paginated, User } from '../models';
 import { initialPaginatedState } from '../utils/initial-paginated-state';
 
-type UserState = {
+interface UserState {
   me: {
     data: User | null;
     isLoading: boolean;
@@ -18,7 +18,7 @@ type UserState = {
     data: Paginated<User>;
     isLoading: boolean;
   };
-};
+}
 
 const initialState: UserState = {
   me: {

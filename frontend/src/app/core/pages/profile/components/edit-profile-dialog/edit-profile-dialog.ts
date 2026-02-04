@@ -9,7 +9,12 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { UserApiService } from '../../../../services/user-api-service';
 import { UserStore } from '../../../../store/user.store';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { finalize } from 'rxjs';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
@@ -19,7 +24,13 @@ import { EDIT_PROFILE_FORM_VALIDATIONS } from './constants/edit-profile-form-val
 
 @Component({
   selector: 'app-edit-profile-dialog',
-  imports: [DialogModule, ButtonModule, ReactiveFormsModule, DatePickerModule, InputField],
+  imports: [
+    DialogModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    DatePickerModule,
+    InputField,
+  ],
   templateUrl: './edit-profile-dialog.html',
   styleUrl: './edit-profile-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,7 +67,9 @@ export class EditProfileDialog {
       this.editForm.patchValue({
         firstName: currentUser.firstName || '',
         lastName: currentUser.lastName || '',
-        birthDate: currentUser.birthDate ? new Date(currentUser.birthDate) : null,
+        birthDate: currentUser.birthDate
+          ? new Date(currentUser.birthDate)
+          : null,
         aboutMe: currentUser.aboutMe || '',
       });
     }

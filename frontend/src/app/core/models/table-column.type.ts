@@ -1,7 +1,9 @@
-import { TableColumnType } from ".";
+import { TableColumnType } from '.';
 
-export type TableColumn = {
+export interface TableColumn {
   key: string;
   label: string;
   type: TableColumnType;
+  sortable?: boolean;
+  filterable?: boolean;
 }
