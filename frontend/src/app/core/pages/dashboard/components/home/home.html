@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="flex flex-col items-center gap-4">
+  <form [formGroup]="postForm" class="w-full max-w-[500px] flex flex-col gap-2" (ngSubmit)="addPost()">
+    <app-input-field inputId="post-content" formControlName="content" type="textarea" [rows]="5"
+      placeholder="What's on your mind?" [validationMessages]="postValidationMessages" />
+    <button pButton type="submit" [disabled]="postForm.invalid">
+      <span pButtonLabel>Post it!</span>
+      <i class="pi pi-send" pButtonIcon></i>
+    </button>
+  </form>
+  @for (post of postsData(); track post.documentId) {
+    <p-card class="w-full max-w-[500px] shadow-md rounded-lg overflow-hidden">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <app-avatar [userData]="post.author" [size]="10" />
+          <p class="text-sm line-clamp-3">{{ getPostContent(post.content) }}</p>
+        </div>
+        <p class="text-xs opacity-60">{{ post.author.username }} &#8226; {{ post.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
+    </p-card>
+  }
+  @if (hasMorePosts) {
+    <div appInfiniteScroll (appInfiniteScroll)="onInfiniteScroll()" class="h-4 w-full py-4"></div>
+  }
+  @if (isPostsLoading()) {
+    <p-progressSpinner class="w-8 h-8" strokeWidth="4" />
+  }
+</div>

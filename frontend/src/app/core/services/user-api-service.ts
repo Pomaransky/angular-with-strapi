@@ -3,6 +3,7 @@ import { ApiService } from './api-service';
 import {
   catchError,
   finalize,
+  map,
   Observable,
   of,
   tap,
@@ -57,6 +58,7 @@ export class UserApiService extends ApiService {
 
   getUsers(params: TableLoadParams): Observable<Paginated<User>> {
     const { page, pageSize } = params;
+    this.userStore.setUsersLoadParams(params);
     this.userStore.setUsersLoading(true);
     const { sort, filter } = tableLoadParamsToStrapiQuery(params);
     const base = `users?populate=role&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[role][type][$eq]=authenticated`;
@@ -81,11 +83,16 @@ export class UserApiService extends ApiService {
 
   updateUserBlockStatus(userId: string, blocked: boolean): Observable<User> {
     return this.put<User>(`users/${userId}`, { blocked }).pipe(
-      tap((user) => {
-        this.userStore.updateUser(Number(userId), { blocked: user.blocked });
+      tap(() => {
         this.toastService.successToast(
           `User ${blocked ? 'blocked' : 'unblocked'} successfully`,
         );
+      }),
+      switchMap((user) => {
+        const params = this.userStore.users().lastLoadParams;
+        return params
+          ? this.getUsers(params).pipe(map(() => user))
+          : of(user);
       }),
       catchError((error) => {
         this.toastService.errorToast(

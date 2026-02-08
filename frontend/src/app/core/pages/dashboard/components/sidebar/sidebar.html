@@ -25,8 +25,8 @@
             class="w-full"
             severity="info"
           >
-            <i class="pi pi-sign-out"></i>
-            Logout
+          <span pButtonLabel>Logout</span>
+          <i class="pi pi-sign-out" pButtonIcon></i>
           </button>
         </div>
       </ng-template>
@@ -36,10 +36,10 @@
     pButton
     type="button"
     (click)="logout($event)"
-    class="w-full hidden md:block"
+    class="w-full hidden md:flex"
     severity="info"
   >
-    <i class="pi pi-sign-out"></i>
-    Logout
+  <span pButtonLabel>Logout</span>
+    <i class="pi pi-sign-out" pButtonIcon></i>
   </button>
 </aside>
