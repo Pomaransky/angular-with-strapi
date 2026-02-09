@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Post, RichTextContent, TableLoadParams } from '../../../../models';
 import { DeepSignal } from '@ngrx/signals';
@@ -9,7 +15,12 @@ import { RichTextToPlainPipe } from '../../../../pipes/rich-text-to-plain.pipe';
 import { DatePipe } from '@angular/common';
 import { UserStore } from '../../../../store/user.store';
 import { ButtonModule } from 'primeng/button';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Avatar, InputField } from '../../../../components';
 import { ValidationMessage } from '../../../../models';
 import { POST_VALIDATION_MESSAGES } from '../../constants/post-validation-messages.const';
@@ -35,7 +46,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {
+export class Home implements OnInit {
   private postService = inject(PostApi);
   private postStore = inject(PostsStore);
   private richTextToPlainPipe = inject(RichTextToPlainPipe);
@@ -50,16 +61,20 @@ export class Home {
   postValidationMessages: ValidationMessage[] = POST_VALIDATION_MESSAGES;
 
   postsData: DeepSignal<Post[]> = this.postStore.posts.data.data;
-  totalRecords: DeepSignal<number> = this.postStore.posts.data.meta.pagination.total;
+  totalRecords: DeepSignal<number> =
+    this.postStore.posts.data.meta.pagination.total;
   isPostsLoading: DeepSignal<boolean> = this.postStore.posts.isLoading;
 
   get hasMorePosts(): boolean {
-    const { page, pageCount, total } = this.postStore.posts().data.meta.pagination;
+    const { page, pageCount, total } =
+      this.postStore.posts().data.meta.pagination;
     return page < pageCount && total > 0;
   }
 
   getPostContent(content: RichTextContent | string): string {
-    return typeof content === 'string' ? content : this.richTextToPlainPipe.transform(content);
+    return typeof content === 'string'
+      ? content
+      : this.richTextToPlainPipe.transform(content);
   }
 
   ngOnInit(): void {
@@ -91,9 +106,12 @@ export class Home {
 
     const user = this.userStore.me.data();
     if (user) {
-      this.postService.addPost(trimmed).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: () => this.postForm.reset(),
-      });
+      this.postService
+        .addPost(trimmed)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: () => this.postForm.reset(),
+        });
     }
   }
 }

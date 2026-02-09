@@ -6,11 +6,11 @@ import { User } from '../../models';
   imports: [],
   templateUrl: './avatar.html',
   styleUrl: './avatar.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Avatar {
   @Input({ required: true }) userData!: User;
-  @Input() size: number = 20;
+  @Input() size = 20;
 
   get defaultData(): string {
     return this.userData.firstName && this.userData.lastName

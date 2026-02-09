@@ -90,9 +90,7 @@ export class UserApiService extends ApiService {
       }),
       switchMap((user) => {
         const params = this.userStore.users().lastLoadParams;
-        return params
-          ? this.getUsers(params).pipe(map(() => user))
-          : of(user);
+        return params ? this.getUsers(params).pipe(map(() => user)) : of(user);
       }),
       catchError((error) => {
         this.toastService.errorToast(

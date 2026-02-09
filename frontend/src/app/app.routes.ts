@@ -22,9 +22,7 @@ export const routes: Routes = [
         path: 'post/:id',
         resolve: { post: postResolver },
         loadComponent: () =>
-          import('./core/pages/post/post').then(
-            (m) => m.Post,
-          ),
+          import('./core/pages/post/post').then((m) => m.Post),
       },
       {
         path: 'profile',

@@ -61,6 +61,7 @@ async function setupDefaultRolesAndPermissions() {
     'plugin::users-permissions.user.me',
     'plugin::users-permissions.user.updateMe',
     'plugin::users-permissions.user.find',
+    'plugin::users-permissions.user.findOne',
     // Auth
     'plugin::users-permissions.auth.changePassword',
     'plugin::users-permissions.auth.register',

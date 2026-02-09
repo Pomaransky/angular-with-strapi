@@ -26,7 +26,7 @@ export class InfiniteScrollDirective implements OnInit, OnDestroy {
           this.appInfiniteScroll.emit();
         }
       },
-      { rootMargin: '200px', threshold: 0 }
+      { rootMargin: '200px', threshold: 0 },
     );
     this.observer.observe(this.el.nativeElement);
   }

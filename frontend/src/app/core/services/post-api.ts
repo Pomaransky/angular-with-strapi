@@ -20,9 +20,7 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(
-      `posts/${documentId}?populate=author`,
-    ).pipe(
+    return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
       map((res) => res.data),
       catchError(() => throwError(() => new Error('Failed to fetch post'))),
     );
@@ -48,16 +46,31 @@ export class PostApi extends ApiService {
     if (!user) {
       return throwError(() => new Error('User not found'));
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { documentId: _, role: __, ...author } = user;
-    return this.post<{ data: Post }>('posts?populate=author', { data: { content: [{ type: 'paragraph', children: [{ type: 'text', text: postContent }] }], author } }).pipe(
+    return this.post<{ data: Post }>('posts?populate=author', {
+      data: {
+        content: [
+          {
+            type: 'paragraph',
+            children: [{ type: 'text', text: postContent }],
+          },
+        ],
+        author,
+      },
+    }).pipe(
       tap((res) => {
         this.postsStore.prependPost(res.data);
         this.toastService.successToast(`Post added successfully`);
       }),
       map((res) => res.data),
       catchError((error) => {
-        this.toastService.errorToast(error.error?.error?.message || 'Failed to add post');
-        return throwError(() => new Error(error.error?.error?.message || 'Failed to add post'));
+        this.toastService.errorToast(
+          error.error?.error?.message || 'Failed to add post',
+        );
+        return throwError(
+          () => new Error(error.error?.error?.message || 'Failed to add post'),
+        );
       }),
     );
   }

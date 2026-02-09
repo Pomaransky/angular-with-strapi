@@ -1,7 +1,13 @@
-import { patchState, signalStore, withMethods, withProps, withState } from "@ngrx/signals";
+import {
+  patchState,
+  signalStore,
+  withMethods,
+  withProps,
+  withState,
+} from '@ngrx/signals';
 import { Paginated, Post, TableLoadParams } from '../models';
-import { initialPaginatedState } from "../utils/initial-paginated-state";
-import { toObservable } from "@angular/core/rxjs-interop";
+import { initialPaginatedState } from '../utils/initial-paginated-state';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface PostsState {
   posts: {
@@ -16,7 +22,11 @@ const initialState: PostsState = {
   posts: {
     data: initialPaginatedState<Post>([]),
     isLoading: false,
-    lastLoadParams: { page: 1, pageSize: 10, sort: { field: 'createdAt', order: 'desc' } }
+    lastLoadParams: {
+      page: 1,
+      pageSize: 10,
+      sort: { field: 'createdAt', order: 'desc' },
+    },
   },
   currentPost: null,
 };
@@ -41,7 +51,11 @@ export const PostsStore = signalStore(
         posts: {
           ...store.posts(),
           data: merged,
-          lastLoadParams: { ...params, page: posts.meta.pagination.page, pageSize: posts.meta.pagination.pageSize },
+          lastLoadParams: {
+            ...params,
+            page: posts.meta.pagination.page,
+            pageSize: posts.meta.pagination.pageSize,
+          },
         },
       });
     },

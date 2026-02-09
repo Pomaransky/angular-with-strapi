@@ -13,7 +13,7 @@ export class RichTextToPlainPipe implements PipeTransform {
         block.children
           .filter((c): c is RichTextTextNode => c.type === 'text')
           .map((c) => c.text)
-          .join('')
+          .join(''),
       )
       .join('\n');
   }

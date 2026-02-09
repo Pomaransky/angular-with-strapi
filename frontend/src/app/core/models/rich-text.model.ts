@@ -14,7 +14,7 @@ export interface RichTextBlock {
   type: 'heading' | 'paragraph' | 'list' | 'list-item' | 'quote' | 'code';
   children: RichTextInlineNode[];
   level?: number;
-  format?: string; 
+  format?: string;
 }
 
 export type RichTextContent = RichTextBlock[];
