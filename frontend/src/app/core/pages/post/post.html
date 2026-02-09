@@ -1,0 +1,20 @@
+@if (post(); as postData) {
+  <div class="flex flex-col items-center">
+    <div class="flex flex-col w-full max-w-[500px] gap-4">
+      <p-card class="w-full shadow-md rounded-lg overflow-hidden">
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <app-avatar [userData]="postData.author" [size]="10" />
+            <p class="opacity-60">{{ postData.author.username }}</p>
+          </div>
+          <p class="text-sm">{{ postData.content | richTextToPlain }}</p>
+          <p class="text-xs opacity-60">
+            {{ postData.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          </p>
+        </div>
+      </p-card>
+      <div>Comments</div>
+      <!-- TODO: Add comments below -->
+    </div>
+  </div>
+}

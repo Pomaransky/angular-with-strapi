@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { loginGuard } from './core/guards/login-guard';
 import { adminGuard } from './core/guards/admin-guard';
+import { postResolver } from './core/resolvers/post.resolver';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,12 @@ export const routes: Routes = [
           import('./core/pages/dashboard/components/home/home').then(
             (m) => m.Home,
           ),
+      },
+      {
+        path: 'post/:id',
+        resolve: { post: postResolver },
+        loadComponent: () =>
+          import('./core/pages/post/post').then((m) => m.Post),
       },
       {
         path: 'profile',
