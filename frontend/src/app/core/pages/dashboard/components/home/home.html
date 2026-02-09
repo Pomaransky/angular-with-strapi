@@ -8,20 +8,23 @@
     </button>
   </form>
   @for (post of postsData(); track post.documentId) {
-    <p-card class="w-full max-w-[500px] shadow-md rounded-lg overflow-hidden">
+  <a [routerLink]="['post', post.documentId]" class="block w-full max-w-[500px]">
+    <p-card class=" shadow-md rounded-lg overflow-hidden">
       <div class="flex flex-col gap-2">
         <div class="flex items-center gap-2">
           <app-avatar [userData]="post.author" [size]="10" />
-          <p class="text-sm line-clamp-3">{{ getPostContent(post.content) }}</p>
+          <p class="opacity-60">{{ post.author.username }}</p>
         </div>
-        <p class="text-xs opacity-60">{{ post.author.username }} &#8226; {{ post.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p class="text-sm line-clamp-3">{{ getPostContent(post.content) }}</p>
+        <p class="text-xs opacity-60">{{ post.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
       </div>
     </p-card>
+  </a>
   }
   @if (hasMorePosts) {
-    <div appInfiniteScroll (appInfiniteScroll)="onInfiniteScroll()" class="h-4 w-full py-4"></div>
+  <div appInfiniteScroll (appInfiniteScroll)="onInfiniteScroll()" class="h-4 w-full py-4"></div>
   }
   @if (isPostsLoading()) {
-    <p-progressSpinner class="w-8 h-8" strokeWidth="4" />
+  <p-progressSpinner class="w-8 h-8" strokeWidth="4" />
   }
 </div>

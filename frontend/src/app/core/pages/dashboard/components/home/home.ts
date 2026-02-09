@@ -15,10 +15,12 @@ import { ValidationMessage } from '../../../../models';
 import { POST_VALIDATION_MESSAGES } from '../../constants/post-validation-messages.const';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InfiniteScrollDirective } from '../../../../directives/infinite-scroll.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [
+    RouterLink,
     DatePipe,
     CardModule,
     ButtonModule,

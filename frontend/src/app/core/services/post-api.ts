@@ -19,6 +19,15 @@ export class PostApi extends ApiService {
     super();
   }
 
+  getPost(documentId: string): Observable<Post> {
+    return this.get<{ data: Post }>(
+      `posts/${documentId}?populate=author`,
+    ).pipe(
+      map((res) => res.data),
+      catchError(() => throwError(() => new Error('Failed to fetch post'))),
+    );
+  }
+
   getPosts(params: TableLoadParams): Observable<Paginated<Post>> {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);

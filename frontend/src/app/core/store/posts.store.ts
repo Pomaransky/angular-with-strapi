@@ -9,6 +9,7 @@ interface PostsState {
     isLoading: boolean;
     lastLoadParams: TableLoadParams;
   };
+  currentPost: Post | null;
 }
 
 const initialState: PostsState = {
@@ -17,6 +18,7 @@ const initialState: PostsState = {
     isLoading: false,
     lastLoadParams: { page: 1, pageSize: 10, sort: { field: 'createdAt', order: 'desc' } }
   },
+  currentPost: null,
 };
 
 export const PostsStore = signalStore(
@@ -28,9 +30,11 @@ export const PostsStore = signalStore(
     addPosts(posts: Paginated<Post>) {
       const current = store.posts().data;
       const params = store.posts().lastLoadParams;
+      const existingIds = new Set(current.data.map((p) => p.documentId));
+      const newPosts = posts.data.filter((p) => !existingIds.has(p.documentId));
       const merged: Paginated<Post> = {
         ...current,
-        data: [...current.data, ...posts.data],
+        data: [...current.data, ...newPosts],
         meta: posts.meta,
       };
       patchState(store, {
@@ -43,6 +47,9 @@ export const PostsStore = signalStore(
     },
     setPostsLoading(isLoading: boolean) {
       patchState(store, { posts: { ...store.posts(), isLoading } });
+    },
+    setCurrentPost(post: Post | null) {
+      patchState(store, { currentPost: post });
     },
     prependPost(post: Post) {
       const current = store.posts().data;
