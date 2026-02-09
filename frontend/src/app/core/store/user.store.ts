@@ -6,7 +6,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Paginated, User } from '../models';
+import { Paginated, TableLoadParams, User } from '../models';
 import { initialPaginatedState } from '../utils/initial-paginated-state';
 
 interface UserState {
@@ -17,6 +17,7 @@ interface UserState {
   users: {
     data: Paginated<User>;
     isLoading: boolean;
+    lastLoadParams: TableLoadParams | null;
   };
 }
 
@@ -28,6 +29,7 @@ const initialState: UserState = {
   users: {
     data: initialPaginatedState<User>([]),
     isLoading: false,
+    lastLoadParams: null,
   },
 };
 
@@ -50,17 +52,9 @@ export const UserStore = signalStore(
     setUsersLoading(isLoading: boolean) {
       patchState(store, { users: { ...store.users(), isLoading } });
     },
-    updateUser(userId: number, updates: Partial<User>) {
-      const currentUsers = store.users().data;
-      const updatedData = currentUsers.data.map((user) =>
-        user.id === userId ? { ...user, ...updates } : user,
-      );
-
+    setUsersLoadParams(params: TableLoadParams) {
       patchState(store, {
-        users: {
-          ...store.users(),
-          data: { ...currentUsers, data: updatedData },
-        },
+        users: { ...store.users(), lastLoadParams: params },
       });
     },
   })),

@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   inject,
@@ -36,6 +37,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class InputField implements ControlValueAccessor, OnInit {
   private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
   ngControl = inject(NgControl, { optional: true, self: true });
 
   @Input({ required: true }) inputId!: string;
@@ -126,6 +128,7 @@ export class InputField implements ControlValueAccessor, OnInit {
   writeValue(value: string): void {
     this.value = value || '';
     this.internalControl.setValue(this.value, { emitEvent: false });
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: string) => void): void {

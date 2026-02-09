@@ -5,7 +5,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UserStore } from '../../store/user.store';
-import { Spinner, DataRow } from '../../components';
+import { Spinner, DataRow, Avatar } from '../../components';
 import { ButtonModule } from 'primeng/button';
 import { EditProfileDialog } from './components/edit-profile-dialog/edit-profile-dialog';
 import { DeepSignal } from '@ngrx/signals';
@@ -22,6 +22,7 @@ import { CardModule } from 'primeng/card';
     EditProfileDialog,
     DatePipe,
     CardModule,
+    Avatar,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',

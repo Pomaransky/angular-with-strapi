@@ -10,13 +10,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserApiService } from '../../../../services/user-api-service';
 import { finalize, tap } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
-import { Spinner, DataRow } from '../../../../components';
+import { Spinner, DataRow, Avatar } from '../../../../components';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-details-dialog',
-  imports: [DialogModule, Spinner, ButtonModule, DataRow, CardModule],
+  imports: [DialogModule, Spinner, ButtonModule, DataRow, CardModule, Avatar],
   templateUrl: './details-dialog.html',
   styleUrl: './details-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
