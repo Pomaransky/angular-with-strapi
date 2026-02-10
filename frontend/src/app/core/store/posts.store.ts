@@ -65,6 +65,16 @@ export const PostsStore = signalStore(
     setCurrentPost(post: Post | null) {
       patchState(store, { currentPost: post });
     },
+    appendCommentToCurrentPost(comment: Post) {
+      const current = store.currentPost();
+      if (!current) return;
+      patchState(store, {
+        currentPost: {
+          ...current,
+          comments: [...(current.comments ?? []), comment],
+        },
+      });
+    },
     prependPost(post: Post) {
       const current = store.posts().data;
       const merged: Paginated<Post> = {

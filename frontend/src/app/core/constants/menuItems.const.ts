@@ -12,6 +12,11 @@ export const menuItems: MenuItemWithPermissions[] = [
     routerLink: '/',
   },
   {
+    label: 'Post',
+    routerLink: '/post/:id',
+    visible: false,
+  },
+  {
     label: 'Profile',
     icon: 'pi pi-user',
     routerLink: '/profile',
