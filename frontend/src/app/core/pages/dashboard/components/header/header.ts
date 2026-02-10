@@ -40,10 +40,17 @@ export class Header implements OnInit {
   }
 
   private updateCurrentRouteLabel(): void {
-    const currentUrl = this.router.url;
-    const currentMenuItem = menuItems.find(
-      (item: MenuItem) => item.routerLink === currentUrl,
-    );
-    this.currentRouteLabel = currentMenuItem?.label || '';
+    const currentUrl = this.router.url.split('?')[0];
+    const currentMenuItem = menuItems.find((item: MenuItem) => {
+      const link = item.routerLink;
+      if (typeof link !== 'string') return link === currentUrl;
+      if (link === currentUrl) return true;
+      if (link.includes(':')) {
+        const pattern = link.replace(/:[^/]+/g, '[^/]+');
+        return new RegExp(`^${pattern}$`).test(currentUrl);
+      }
+      return false;
+    });
+    this.currentRouteLabel = currentMenuItem?.label ?? '';
   }
 }

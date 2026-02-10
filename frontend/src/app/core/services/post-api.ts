@@ -20,18 +20,24 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
+    return this.get<{ data: Post }>(
+      `posts/${documentId}?populate=author&populate=comments.author`,
+    ).pipe(
       map((res) => res.data),
       catchError(() => throwError(() => new Error('Failed to fetch post'))),
     );
   }
 
-  getPosts(params: TableLoadParams): Observable<Paginated<Post>> {
+  getPosts(
+    params: TableLoadParams,
+    rootOnly = false,
+  ): Observable<Paginated<Post>> {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);
     const { sort, filter } = tableLoadParamsToStrapiQuery(params);
-    const base = `posts?populate=author&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
-    const url = `${base}${sort}${filter}`;
+    const rootOnlyFilter = rootOnly ? '&filters[parent][$null]=true' : '';
+    const base = `posts?populate=author&populate=comments&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
+    const url = `${base}${sort}${filter}${rootOnlyFilter}`;
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
       catchError(() => {
@@ -41,36 +47,43 @@ export class PostApi extends ApiService {
     );
   }
 
-  addPost(postContent: string): Observable<Post> {
+  addPost(postContent: string, parentDocumentId?: string): Observable<Post> {
     const user = this.userStore.me.data();
     if (!user) {
       return throwError(() => new Error('User not found'));
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { documentId: _, role: __, ...author } = user;
-    return this.post<{ data: Post }>('posts?populate=author', {
-      data: {
-        content: [
-          {
-            type: 'paragraph',
-            children: [{ type: 'text', text: postContent }],
-          },
-        ],
-        author,
-      },
-    }).pipe(
-      tap((res) => {
-        this.postsStore.prependPost(res.data);
-        this.toastService.successToast(`Post added successfully`);
-      }),
+    const data: Record<string, unknown> = {
+      content: [
+        {
+          type: 'paragraph',
+          children: [{ type: 'text', text: postContent }],
+        },
+      ],
+      author,
+    };
+    if (parentDocumentId) {
+      data['parent'] = parentDocumentId;
+    }
+    const isComment = !!parentDocumentId;
+    return this.post<{ data: Post }>('posts?populate=author', { data }).pipe(
       map((res) => res.data),
+      tap((post) => {
+        if (isComment) {
+          this.postsStore.appendCommentToCurrentPost(post);
+          this.toastService.successToast('Comment added');
+        } else {
+          this.postsStore.prependPost(post);
+          this.toastService.successToast('Post added successfully');
+        }
+      }),
       catchError((error) => {
-        this.toastService.errorToast(
-          error.error?.error?.message || 'Failed to add post',
-        );
-        return throwError(
-          () => new Error(error.error?.error?.message || 'Failed to add post'),
-        );
+        const msg =
+          error.error?.error?.message ||
+          (isComment ? 'Failed to add comment' : 'Failed to add post');
+        this.toastService.errorToast(msg);
+        return throwError(() => new Error(msg));
       }),
     );
   }

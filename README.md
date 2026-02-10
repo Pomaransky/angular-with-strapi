@@ -2,7 +2,7 @@
 
 
 #### Demo: https://vermillion-choux-88cf1d.netlify.app
-#### Strapi Cloud Demo project scaled down to save resources. Strapi needs time to start it back up - so login to demo may take more time.
+#### Strapi Cloud Demo project scaled down to save resources. Strapi needs time to start it back up - so requests to demo may take more time (wait a moment and try refresh the page).
 Test admin credentials:
 Username: **admin**
 Password: **zaq1@WSX**

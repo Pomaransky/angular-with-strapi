@@ -1,0 +1,39 @@
+@if (post; as postItem) {
+  @if (link) {
+    <a
+      [routerLink]="['/post', postItem.documentId]"
+      class="block w-full max-w-[500px]"
+    >
+      <ng-container
+        *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+      />
+    </a>
+  } @else {
+    <ng-container
+      *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+    />
+  }
+}
+
+<ng-template #cardTpl let-postItem>
+  <p-card class="w-full shadow-md rounded-lg overflow-hidden">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-2">
+        <app-avatar [userData]="postItem.author" size="sm" />
+        <p class="opacity-60">{{ postItem.author.username }}</p>
+      </div>
+      <p class="text-sm" [class.line-clamp-3]="clipContent">
+        {{ postItem.content | richTextToPlain }}
+      </p>
+      <div class="text-xs opacity-60 flex items-center justify-between gap-4">
+        <p>
+          <i class="pi pi-comments"></i>
+          {{ postItem.comments?.length ?? 0 }}
+        </p>
+        <p>
+          {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
+        </p>
+      </div>
+    </div>
+  </p-card>
+</ng-template>
