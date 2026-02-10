@@ -4,44 +4,28 @@ import {
   DestroyRef,
   inject,
   OnInit,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Post, RichTextContent, TableLoadParams } from '../../../../models';
+import { Post, TableLoadParams } from '../../../../models';
 import { DeepSignal } from '@ngrx/signals';
 import { PostsStore } from '../../../../store/posts.store';
 import { PostApi } from '../../../../services/post-api';
-import { CardModule } from 'primeng/card';
-import { RichTextToPlainPipe } from '../../../../pipes/rich-text-to-plain.pipe';
-import { DatePipe } from '@angular/common';
 import { UserStore } from '../../../../store/user.store';
 import { ButtonModule } from 'primeng/button';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { Avatar, InputField } from '../../../../components';
-import { ValidationMessage } from '../../../../models';
-import { POST_VALIDATION_MESSAGES } from '../../constants/post-validation-messages.const';
+import { PostForm, PostCard } from '../../../../components';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InfiniteScrollDirective } from '../../../../directives/infinite-scroll.directive';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [
-    RouterLink,
-    DatePipe,
-    CardModule,
     ButtonModule,
-    ReactiveFormsModule,
-    InputField,
     ProgressSpinnerModule,
     InfiniteScrollDirective,
-    Avatar,
+    PostForm,
+    PostCard,
   ],
-  providers: [RichTextToPlainPipe],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,16 +33,10 @@ import { RouterLink } from '@angular/router';
 export class Home implements OnInit {
   private postService = inject(PostApi);
   private postStore = inject(PostsStore);
-  private richTextToPlainPipe = inject(RichTextToPlainPipe);
   private userStore = inject(UserStore);
-  private fb = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
 
-  postForm: FormGroup = this.fb.group({
-    content: ['', [Validators.required, Validators.maxLength(255)]],
-  });
-
-  postValidationMessages: ValidationMessage[] = POST_VALIDATION_MESSAGES;
+  postFormRef = viewChild.required(PostForm);
 
   postsData: DeepSignal<Post[]> = this.postStore.posts.data.data;
   totalRecords: DeepSignal<number> =
@@ -69,12 +47,6 @@ export class Home implements OnInit {
     const { page, pageCount, total } =
       this.postStore.posts().data.meta.pagination;
     return page < pageCount && total > 0;
-  }
-
-  getPostContent(content: RichTextContent | string): string {
-    return typeof content === 'string'
-      ? content
-      : this.richTextToPlainPipe.transform(content);
   }
 
   ngOnInit(): void {
@@ -88,30 +60,26 @@ export class Home implements OnInit {
   }
 
   onPostsLoad(params: TableLoadParams): void {
-    this.postService.getPosts(params).subscribe();
+    this.postService.getPosts(params, true).subscribe();
   }
 
   loadMore(): void {
     if (!this.hasMorePosts || this.isPostsLoading()) return;
     const params = this.postStore.posts.lastLoadParams();
     this.postService
-      .getPosts({ ...params, page: params.page + 1 })
+      .getPosts({ ...params, page: params.page + 1 }, true)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
-  addPost(): void {
-    const trimmed = this.postForm.get('content')?.value?.trim();
-    if (!trimmed) return;
-
+  onPostSubmit(payload: { content: string; parentDocumentId?: string }): void {
     const user = this.userStore.me.data();
-    if (user) {
-      this.postService
-        .addPost(trimmed)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: () => this.postForm.reset(),
-        });
-    }
+    if (!user) return;
+    this.postService
+      .addPost(payload.content)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.postFormRef().reset(),
+      });
   }
 }

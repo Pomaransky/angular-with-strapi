@@ -20,6 +20,20 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "posts"
+    },
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "comments",
+      "description": "Post nadrzędny (gdy ten post jest komentarzem)"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "parent",
+      "description": "Komentarze do tego posta (też są postami)"
     }
   }
 }

@@ -68,10 +68,10 @@ async function setupDefaultRolesAndPermissions() {
     // Role
     'plugin::users-permissions.role.find',
     'plugin::users-permissions.role.findOne',
-    // Post
-    'plugin::users-permissions.post.find',
-    'plugin::users-permissions.post.findOne',
-    'plugin::users-permissions.post.create',
+    // Post (api::post.post – API z src/api/post)
+    'api::post.post.find',
+    'api::post.post.findOne',
+    'api::post.post.create',
   ];
 
   // Permissions for Admin role
