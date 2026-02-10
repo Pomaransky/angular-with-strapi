@@ -1,11 +1,18 @@
 @if (post; as postItem) {
-@if (link) {
-<a [routerLink]="['/post', postItem.documentId]" class="block w-full max-w-[500px]">
-  <ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
-</a>
-} @else {
-<ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
-}
+  @if (link) {
+    <a
+      [routerLink]="['/post', postItem.documentId]"
+      class="block w-full max-w-[500px]"
+    >
+      <ng-container
+        *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+      />
+    </a>
+  } @else {
+    <ng-container
+      *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+    />
+  }
 }
 
 <ng-template #cardTpl let-postItem>
@@ -26,7 +33,6 @@
         <p>
           {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
         </p>
-
       </div>
     </div>
   </p-card>

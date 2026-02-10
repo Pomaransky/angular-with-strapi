@@ -1,7 +1,7 @@
 @if (user(); as userData) {
   <p-card class="shadow-lg">
     <div class="flex items-center space-x-4 mb-6">
-      <app-avatar [userData]="userData" size="lg"/>
+      <app-avatar [userData]="userData" size="lg" />
       <div>
         <h2 class="text-2xl font-bold">
           {{ userData.username }}

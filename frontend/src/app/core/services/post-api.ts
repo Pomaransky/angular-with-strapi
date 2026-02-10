@@ -20,13 +20,18 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(`posts/${documentId}?populate=author&populate=comments.author`).pipe(
+    return this.get<{ data: Post }>(
+      `posts/${documentId}?populate=author&populate=comments.author`,
+    ).pipe(
       map((res) => res.data),
       catchError(() => throwError(() => new Error('Failed to fetch post'))),
     );
   }
 
-  getPosts(params: TableLoadParams, rootOnly = false): Observable<Paginated<Post>> {
+  getPosts(
+    params: TableLoadParams,
+    rootOnly = false,
+  ): Observable<Paginated<Post>> {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);
     const { sort, filter } = tableLoadParamsToStrapiQuery(params);
@@ -42,10 +47,7 @@ export class PostApi extends ApiService {
     );
   }
 
-  addPost(
-    postContent: string,
-    parentDocumentId?: string,
-  ): Observable<Post> {
+  addPost(postContent: string, parentDocumentId?: string): Observable<Post> {
     const user = this.userStore.me.data();
     if (!user) {
       return throwError(() => new Error('User not found'));
