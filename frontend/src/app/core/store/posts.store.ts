@@ -78,7 +78,7 @@ export const PostsStore = signalStore(
     setCurrentPost(post: Post | null) {
       patchState(store, { currentPost: post });
     },
-    prependPost(post: Post) {
+    prependPost(post: Post, parentDocumentId?: string) {
       const current = store.posts().data;
       const merged: Paginated<Post> = {
         ...current,
@@ -92,6 +92,16 @@ export const PostsStore = signalStore(
         },
       };
       patchState(store, { posts: { ...store.posts(), data: merged } });
+
+      const currPost = store.currentPost();
+      if (parentDocumentId && currPost?.documentId === parentDocumentId) {
+        patchState(store, {
+          currentPost: {
+            ...currPost,
+            commentsTotal: (currPost.commentsTotal ?? 0) + 1,
+          },
+        });
+      }
     },
   })),
 );

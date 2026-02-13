@@ -70,7 +70,7 @@ export class PostApi extends ApiService {
     return this.post<{ data: Post }>('posts?populate=author', { data }).pipe(
       map((res) => res.data),
       tap((post) => {
-        this.postsStore.prependPost(post);
+        this.postsStore.prependPost(post, parentDocumentId);
         if (isComment) {
           this.toastService.successToast('Comment added');
         } else {
