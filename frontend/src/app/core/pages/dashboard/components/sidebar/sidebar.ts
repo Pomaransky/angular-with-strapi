@@ -34,7 +34,6 @@ export class Sidebar implements OnInit {
   items = computed(() => this.getFilteredMenuItems());
 
   isMenuPopup = false;
-  appTitle = 'AWS APP';
 
   ngOnInit(): void {
     this.checkWindowDimensions();

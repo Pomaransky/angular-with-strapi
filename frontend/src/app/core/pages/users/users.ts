@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { DeepSignal } from '@ngrx/signals';
@@ -15,6 +16,8 @@ import { DetailsDialog } from './components';
 import { Table } from '../../components';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { USERS_TABLE_CONFIG } from './constants/users-table-config.const';
+import { Title } from '@angular/platform-browser';
+import { PageTitle } from '../../constants';
 
 @Component({
   selector: 'app-users',
@@ -23,12 +26,13 @@ import { USERS_TABLE_CONFIG } from './constants/users-table-config.const';
   styleUrl: './users.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Users {
+export class Users implements OnInit {
   @ViewChild(DetailsDialog) detailsDialog!: DetailsDialog;
 
   private userService = inject(UserApiService);
   private userStore = inject(UserStore);
   private destroyRef = inject(DestroyRef);
+  private titleService = inject(Title);
 
   usersTableConfig = USERS_TABLE_CONFIG;
 
@@ -36,6 +40,10 @@ export class Users {
   totalRecords: DeepSignal<number> =
     this.userStore.users.data.meta.pagination.total;
   isUsersLoading: DeepSignal<boolean> = this.userStore.users.isLoading;
+
+  ngOnInit(): void {
+    this.titleService.setTitle(PageTitle.PULSAR_USERS);
+  }
 
   onTableLoad(params: TableLoadParams): void {
     this.userService

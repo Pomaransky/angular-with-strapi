@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  OnInit,
 } from '@angular/core';
 import {
   FormGroup,
@@ -22,6 +23,8 @@ import { DividerModule } from 'primeng/divider';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { PageTitle } from '../../constants';
 
 @Component({
   selector: 'app-login',
@@ -39,17 +42,22 @@ import { Router } from '@angular/router';
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Login {
+export class Login implements OnInit {
   private authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
-
+  private titleService = inject(Title);
+  
   loginForm!: FormGroup;
   isLoading = false;
   errorMessage = '';
 
   constructor() {
     this.initLoginForm();
+  }
+
+  ngOnInit(): void {
+    this.titleService.setTitle(PageTitle.PULSAR_LOGIN);
   }
 
   private initLoginForm(): void {
