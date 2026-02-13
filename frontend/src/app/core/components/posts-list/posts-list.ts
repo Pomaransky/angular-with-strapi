@@ -59,6 +59,7 @@ export class PostsList implements OnInit, OnDestroy, OnChanges {
   }
 
   private loadPosts(params: TableLoadParams): void {
+    this.postStore.resetPosts();
     this.postApi
       .getPosts(params, this.parentDocumentId)
       .pipe(
