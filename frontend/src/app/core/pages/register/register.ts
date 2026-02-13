@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  OnInit,
 } from '@angular/core';
 import {
   Validators,
@@ -20,6 +21,8 @@ import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { REGISTER_VALIDATIONS } from './constants/register-form-validations.const';
 import { InputField } from '../../components';
+import { Title } from '@angular/platform-browser';
+import { PageTitle } from '../../constants';
 
 @Component({
   selector: 'app-register',
@@ -34,11 +37,12 @@ import { InputField } from '../../components';
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Register {
+export class Register implements OnInit {
   private authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
-
+  private titleService = inject(Title);
+  
   registerForm!: FormGroup;
   isLoading = false;
   errorMessage = '';
@@ -46,6 +50,10 @@ export class Register {
 
   constructor() {
     this.initRegisterForm();
+  }
+
+  ngOnInit(): void {
+    this.titleService.setTitle(PageTitle.PULSAR_REGISTER);
   }
 
   private initRegisterForm(): void {

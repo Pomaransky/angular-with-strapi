@@ -44,9 +44,10 @@ export class Header implements OnInit {
     const currentMenuItem = menuItems.find((item: MenuItem) => {
       const link = item.routerLink;
       if (typeof link !== 'string') return link === currentUrl;
-      if (link === currentUrl) return true;
-      if (link.includes(':')) {
-        const pattern = link.replace(/:[^/]+/g, '[^/]+');
+      const path = link.startsWith('/') ? link : `/${link}`;
+      if (path === currentUrl) return true;
+      if (path.includes(':')) {
+        const pattern = path.replace(/:[^/]+/g, '[^/]+');
         return new RegExp(`^${pattern}$`).test(currentUrl);
       }
       return false;
