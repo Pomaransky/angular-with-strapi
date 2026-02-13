@@ -22,16 +22,22 @@
         <app-avatar [userData]="postItem.author" size="sm" />
         <p class="opacity-60">{{ postItem.author.username }}</p>
       </div>
-      <p class="text-sm" [class.line-clamp-3]="clipContent">
+      <p class="text-sm" [class.line-clamp-3]="isMainPost">
         {{ postItem.content | richTextToPlain }}
       </p>
       <div class="text-xs opacity-60 flex items-center justify-between gap-4">
         <p>
-          <i class="pi pi-comments"></i>
-          {{ postItem.comments?.length ?? 0 }}
+          @if (!isMainPost) {
+            <i class="pi pi-comments"></i>
+            {{ postItem.commentsTotal ?? 0 }}
+          }
         </p>
         <p>
-          {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          @if (isMainPost) {
+            {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          } @else {
+            {{ postItem.createdAt | dateFromNow }}
+          }
         </p>
       </div>
     </div>

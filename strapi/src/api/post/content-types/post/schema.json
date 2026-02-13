@@ -25,15 +25,20 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::post.post",
-      "inversedBy": "comments",
-      "description": "Post nadrzędny (gdy ten post jest komentarzem)"
+      "description": "Parent post (when this post is a comment)",
+      "inversedBy": "comments"
     },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post",
-      "mappedBy": "parent",
-      "description": "Komentarze do tego posta (też są postami)"
+      "description": "Comments to this post (also posts)",
+      "mappedBy": "parent"
+    },
+    "commentsTotal": {
+      "type": "integer",
+      "description": "Total number of comments to this post",
+      "default": 0
     }
   }
 }

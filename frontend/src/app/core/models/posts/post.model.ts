@@ -9,5 +9,5 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  comments?: Post[];
+  commentsTotal: number;
 }
