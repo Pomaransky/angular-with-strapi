@@ -40,7 +40,9 @@ export const PostsStore = signalStore(
   })),
   withMethods((store) => ({
     resetPostsLoadParams() {
-      patchState(store, { posts: { ...store.posts(), lastLoadParams: DEFAULT_POSTS_LOAD_PARAMS } });
+      patchState(store, {
+        posts: { ...store.posts(), lastLoadParams: DEFAULT_POSTS_LOAD_PARAMS },
+      });
     },
     addPosts(posts: Paginated<Post>) {
       const current = store.posts().data;

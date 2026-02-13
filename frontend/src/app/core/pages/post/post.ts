@@ -7,7 +7,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PostForm, PostCard, type PostFormSubmit, PostsList } from '../../components';
+import {
+  PostForm,
+  PostCard,
+  type PostFormSubmit,
+  PostsList,
+} from '../../components';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 

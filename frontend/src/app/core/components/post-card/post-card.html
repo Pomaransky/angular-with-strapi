@@ -1,11 +1,18 @@
 @if (post; as postItem) {
-@if (link) {
-<a [routerLink]="['/post', postItem.documentId]" class="block w-full max-w-[500px]">
-  <ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
-</a>
-} @else {
-<ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
-}
+  @if (link) {
+    <a
+      [routerLink]="['/post', postItem.documentId]"
+      class="block w-full max-w-[500px]"
+    >
+      <ng-container
+        *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+      />
+    </a>
+  } @else {
+    <ng-container
+      *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
+    />
+  }
 }
 
 <ng-template #cardTpl let-postItem>
@@ -21,8 +28,8 @@
       <div class="text-xs opacity-60 flex items-center justify-between gap-4">
         <p>
           @if (!isMainPost) {
-          <i class="pi pi-comments"></i>
-          {{ postItem.commentsTotal ?? 0 }}
+            <i class="pi pi-comments"></i>
+            {{ postItem.commentsTotal ?? 0 }}
           }
         </p>
         <p>

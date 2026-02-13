@@ -1,4 +1,7 @@
 <div class="flex flex-col items-center gap-4">
-  <app-post-form class="w-full max-w-[500px]" (submitForm)="onPostSubmit($event)" />
+  <app-post-form
+    class="w-full max-w-[500px]"
+    (submitForm)="onPostSubmit($event)"
+  />
   <app-posts-list class="w-full max-w-[500px]" />
 </div>

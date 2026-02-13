@@ -1,6 +1,8 @@
 <div class="flex flex-col items-center gap-4">
   @if (!isPostsLoading() && postsData().length === 0) {
-    <p class="text-sm text-gray-500">No {{ parentDocumentId ? "comments" : "posts" }} yet</p>
+    <p class="text-sm text-gray-500">
+      No {{ parentDocumentId ? "comments" : "posts" }} yet
+    </p>
   }
 
   @for (post of postsData(); track post.documentId) {
@@ -21,5 +23,4 @@
   @if (isPostsLoading()) {
     <p-progressSpinner class="w-8 h-8" strokeWidth="4" />
   }
-  
 </div>

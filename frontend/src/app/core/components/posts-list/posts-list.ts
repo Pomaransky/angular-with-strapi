@@ -7,9 +7,10 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Post, TableLoadParams } from '../../models';
+import { TableLoadParams } from '../../models';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 import { PostCard } from '../post-card/post-card';
@@ -24,7 +25,7 @@ import { tap } from 'rxjs';
   styleUrl: './posts-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostsList implements OnInit, OnDestroy {
+export class PostsList implements OnInit, OnDestroy, OnChanges {
   @Input() parentDocumentId: string | undefined = undefined;
   private postStore = inject(PostsStore);
   private postApi = inject(PostApi);
@@ -39,7 +40,7 @@ export class PostsList implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(!this.parentDocumentId) {
+    if (!this.parentDocumentId) {
       this.loadPosts(this.postStore.posts.lastLoadParams());
     }
   }
@@ -58,10 +59,13 @@ export class PostsList implements OnInit, OnDestroy {
   }
 
   private loadPosts(params: TableLoadParams): void {
-    console.log('loadPosts', params, this.parentDocumentId);
-    this.postApi.getPosts(params, this.parentDocumentId).pipe(takeUntilDestroyed(this.destroyRef), tap((posts) =>
-      this.postStore.setPosts(posts)
-    )).subscribe();
+    this.postApi
+      .getPosts(params, this.parentDocumentId)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((posts) => this.postStore.setPosts(posts)),
+      )
+      .subscribe();
   }
 
   private loadMore(): void {

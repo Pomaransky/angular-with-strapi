@@ -20,9 +20,7 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(
-      `posts/${documentId}?populate=author`,
-    ).pipe(
+    return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
       map((res) => res.data),
       catchError(() => throwError(() => new Error('Failed to fetch post'))),
     );
@@ -35,7 +33,9 @@ export class PostApi extends ApiService {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);
     const { sort, filter } = tableLoadParamsToStrapiQuery(params);
-    const parent = parentId ? `&filters[parent][documentId][$eq]=${parentId}` : '&filters[parent][$null]=true';
+    const parent = parentId
+      ? `&filters[parent][documentId][$eq]=${parentId}`
+      : '&filters[parent][$null]=true';
     const base = `posts?populate=author&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
     const url = `${base}${sort}${filter}${parent}`;
     return this.get<Paginated<Post>>(url).pipe(
