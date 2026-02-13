@@ -4,12 +4,14 @@ import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { Avatar } from '../avatar/avatar';
 import { RichTextToPlainPipe } from '../../pipes/rich-text-to-plain.pipe';
+import { DateFromNowPipe } from '../../pipes/from-now.pipe';
 import { Post } from '../../models';
 
 @Component({
   selector: 'app-post-card',
   imports: [
     DatePipe,
+    DateFromNowPipe,
     NgTemplateOutlet,
     RouterLink,
     CardModule,
@@ -23,5 +25,5 @@ import { Post } from '../../models';
 export class PostCard {
   @Input({ required: true }) post!: Post;
   @Input() link = false;
-  @Input() clipContent = false;
+  @Input() isMainPost = false;
 }

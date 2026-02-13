@@ -21,7 +21,7 @@ export class PostApi extends ApiService {
 
   getPost(documentId: string): Observable<Post> {
     return this.get<{ data: Post }>(
-      `posts/${documentId}?populate=author&populate=comments.author`,
+      `posts/${documentId}?populate=author`,
     ).pipe(
       map((res) => res.data),
       catchError(() => throwError(() => new Error('Failed to fetch post'))),
@@ -30,14 +30,14 @@ export class PostApi extends ApiService {
 
   getPosts(
     params: TableLoadParams,
-    rootOnly = false,
+    parentId?: string,
   ): Observable<Paginated<Post>> {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);
     const { sort, filter } = tableLoadParamsToStrapiQuery(params);
-    const rootOnlyFilter = rootOnly ? '&filters[parent][$null]=true' : '';
-    const base = `posts?populate=author&populate=comments&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
-    const url = `${base}${sort}${filter}${rootOnlyFilter}`;
+    const parent = parentId ? `&filters[parent][documentId][$eq]=${parentId}` : '&filters[parent][$null]=true';
+    const base = `posts?populate=author&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
+    const url = `${base}${sort}${filter}${parent}`;
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
       catchError(() => {
@@ -70,11 +70,10 @@ export class PostApi extends ApiService {
     return this.post<{ data: Post }>('posts?populate=author', { data }).pipe(
       map((res) => res.data),
       tap((post) => {
+        this.postsStore.prependPost(post);
         if (isComment) {
-          this.postsStore.appendCommentToCurrentPost(post);
           this.toastService.successToast('Comment added');
         } else {
-          this.postsStore.prependPost(post);
           this.toastService.successToast('Post added successfully');
         }
       }),

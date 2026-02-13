@@ -9,6 +9,12 @@ import { Paginated, Post, TableLoadParams } from '../models';
 import { initialPaginatedState } from '../utils/initial-paginated-state';
 import { toObservable } from '@angular/core/rxjs-interop';
 
+export const DEFAULT_POSTS_LOAD_PARAMS: TableLoadParams = {
+  page: 1,
+  pageSize: 10,
+  sort: { field: 'createdAt', order: 'desc' },
+};
+
 interface PostsState {
   posts: {
     data: Paginated<Post>;
@@ -22,11 +28,7 @@ const initialState: PostsState = {
   posts: {
     data: initialPaginatedState<Post>([]),
     isLoading: false,
-    lastLoadParams: {
-      page: 1,
-      pageSize: 10,
-      sort: { field: 'createdAt', order: 'desc' },
-    },
+    lastLoadParams: DEFAULT_POSTS_LOAD_PARAMS,
   },
   currentPost: null,
 };
@@ -37,6 +39,9 @@ export const PostsStore = signalStore(
     posts$: toObservable(posts),
   })),
   withMethods((store) => ({
+    resetPostsLoadParams() {
+      patchState(store, { posts: { ...store.posts(), lastLoadParams: DEFAULT_POSTS_LOAD_PARAMS } });
+    },
     addPosts(posts: Paginated<Post>) {
       const current = store.posts().data;
       const params = store.posts().lastLoadParams;
@@ -59,21 +64,14 @@ export const PostsStore = signalStore(
         },
       });
     },
+    setPosts(posts: Paginated<Post>) {
+      patchState(store, { posts: { ...store.posts(), data: posts } });
+    },
     setPostsLoading(isLoading: boolean) {
       patchState(store, { posts: { ...store.posts(), isLoading } });
     },
     setCurrentPost(post: Post | null) {
       patchState(store, { currentPost: post });
-    },
-    appendCommentToCurrentPost(comment: Post) {
-      const current = store.currentPost();
-      if (!current) return;
-      patchState(store, {
-        currentPost: {
-          ...current,
-          comments: [...(current.comments ?? []), comment],
-        },
-      });
     },
     prependPost(post: Post) {
       const current = store.posts().data;

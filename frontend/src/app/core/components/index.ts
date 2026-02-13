@@ -6,3 +6,4 @@ export * from './table/table';
 export * from './avatar/avatar';
 export * from './post-form/post-form';
 export * from './post-card/post-card';
+export * from './posts-list/posts-list';

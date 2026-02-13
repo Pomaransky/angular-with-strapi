@@ -1,18 +1,11 @@
 @if (post; as postItem) {
-  @if (link) {
-    <a
-      [routerLink]="['/post', postItem.documentId]"
-      class="block w-full max-w-[500px]"
-    >
-      <ng-container
-        *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
-      />
-    </a>
-  } @else {
-    <ng-container
-      *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
-    />
-  }
+@if (link) {
+<a [routerLink]="['/post', postItem.documentId]" class="block w-full max-w-[500px]">
+  <ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
+</a>
+} @else {
+<ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }" />
+}
 }
 
 <ng-template #cardTpl let-postItem>
@@ -22,16 +15,22 @@
         <app-avatar [userData]="postItem.author" size="sm" />
         <p class="opacity-60">{{ postItem.author.username }}</p>
       </div>
-      <p class="text-sm" [class.line-clamp-3]="clipContent">
+      <p class="text-sm" [class.line-clamp-3]="isMainPost">
         {{ postItem.content | richTextToPlain }}
       </p>
       <div class="text-xs opacity-60 flex items-center justify-between gap-4">
         <p>
+          @if (!isMainPost) {
           <i class="pi pi-comments"></i>
-          {{ postItem.comments?.length ?? 0 }}
+          {{ postItem.commentsTotal ?? 0 }}
+          }
         </p>
         <p>
-          {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          @if (isMainPost) {
+            {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          } @else {
+            {{ postItem.createdAt | dateFromNow }}
+          }
         </p>
       </div>
     </div>

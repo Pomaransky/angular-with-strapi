@@ -115,7 +115,79 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register({ strapi }: { strapi: Core.Strapi }) {
+    strapi.documents.use(async (context, next) => {
+      if (context.uid !== 'api::post.post') return next();
+      const isCreate = context.action === 'create';
+      const isDelete = context.action === 'delete';
+
+      let parentDocumentId: string | null = null;
+      if (isDelete && context.params?.documentId) {
+        try {
+          const doc = await strapi.documents('api::post.post').findOne({
+            documentId: context.params.documentId,
+            populate: { parent: true },
+          }) as { parent?: { documentId?: string } | string } | null;
+          parentDocumentId =
+            typeof doc?.parent === 'object' && doc?.parent?.documentId
+              ? doc.parent.documentId
+              : typeof doc?.parent === 'string'
+                ? doc.parent
+                : null;
+        } catch (e) {
+          strapi.log.warn('Post middleware: could not read parent for delete', e);
+        }
+      }
+
+      const result = await next();
+
+      try {
+        if (isCreate && result) {
+          const data = context.params?.data as { parent?: string } | undefined;
+          const created = result as { parent?: { documentId?: string } | string };
+          const parentFromPayload = typeof data?.parent === 'string' ? data.parent : null;
+          const parentFromResult =
+            typeof created.parent === 'object' && created.parent?.documentId
+              ? created.parent.documentId
+              : typeof created.parent === 'string'
+                ? created.parent
+                : null;
+          const parent = parentFromPayload ?? parentFromResult;
+          if (parent) {
+            const parentDoc = await strapi.documents('api::post.post').findOne({
+              documentId: parent,
+              status: 'published',
+              fields: ['commentsTotal'],
+            }) as unknown as { commentsTotal?: number | string } | null;
+            const current = Number(parentDoc?.commentsTotal ?? 0) || 0;
+            await strapi.documents('api::post.post').update({
+              documentId: parent,
+              status: 'published',
+              data: { commentsTotal: current + 1 },
+            });
+          }
+        }
+
+        if (isDelete && parentDocumentId) {
+          const parentDoc = await strapi.documents('api::post.post').findOne({
+            documentId: parentDocumentId,
+            status: 'published',
+            fields: ['commentsTotal'],
+          }) as unknown as { commentsTotal?: number | string } | null;
+          const current = Number(parentDoc?.commentsTotal ?? 0) || 0;
+          await strapi.documents('api::post.post').update({
+            documentId: parentDocumentId,
+            status: 'published',
+            data: { commentsTotal: Math.max(0, current - 1) },
+          });
+        }
+      } catch (e) {
+        strapi.log.warn('Post middleware: could not update commentsTotal', e);
+      }
+
+      return result;
+    });
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
