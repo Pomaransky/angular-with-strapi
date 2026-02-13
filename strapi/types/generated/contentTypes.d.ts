@@ -446,6 +446,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    commentsTotal: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     content: Schema.Attribute.Blocks & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

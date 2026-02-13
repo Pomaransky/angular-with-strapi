@@ -7,13 +7,18 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PostForm, PostCard, type PostFormSubmit } from '../../components';
+import {
+  PostForm,
+  PostCard,
+  type PostFormSubmit,
+  PostsList,
+} from '../../components';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 
 @Component({
   selector: 'app-post',
-  imports: [PostForm, PostCard],
+  imports: [PostForm, PostCard, PostsList],
   templateUrl: './post.html',
   styleUrl: './post.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +29,7 @@ export class Post {
   private destroyRef = inject(DestroyRef);
 
   post = this.postsStore.currentPost;
+
   showCommentForm = signal(false);
   commentFormRef = viewChild<PostForm>('commentFormRef');
 
