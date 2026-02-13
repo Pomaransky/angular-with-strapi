@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { UserStore } from '../../store/user.store';
@@ -12,6 +13,8 @@ import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../models/auth/user.model';
 import { DatePipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
+import { Title } from '@angular/platform-browser';
+import { PageTitle } from '../../constants';
 
 @Component({
   selector: 'app-profile',
@@ -28,8 +31,9 @@ import { CardModule } from 'primeng/card';
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Profile {
+export class Profile implements OnInit {
   private userStore = inject(UserStore);
+  private titleService = inject(Title);
   user: DeepSignal<User | null> = this.userStore.me.data;
   isUserLoading: DeepSignal<boolean> = this.userStore.me.isLoading;
 
@@ -37,5 +41,9 @@ export class Profile {
 
   onEdit(): void {
     this.editProfileDialog.showDialog();
+  }
+
+  ngOnInit(): void {
+    this.titleService.setTitle(PageTitle.PULSAR_PROFILE);
   }
 }

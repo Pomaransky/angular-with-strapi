@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnInit,
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -10,6 +11,8 @@ import { UserStore } from '../../../../store/user.store';
 import { PostApi } from '../../../../services/post-api';
 import { ButtonModule } from 'primeng/button';
 import { PostForm, PostsList } from '../../../../components';
+import { Title } from '@angular/platform-browser';
+import { PageTitle } from '../../../../constants';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +21,17 @@ import { PostForm, PostsList } from '../../../../components';
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {
+export class Home implements OnInit {
   private postService = inject(PostApi);
   private userStore = inject(UserStore);
   private destroyRef = inject(DestroyRef);
+  private titleService = inject(Title);
 
   postFormRef = viewChild.required(PostForm);
+
+  ngOnInit(): void {
+    this.titleService.setTitle(PageTitle.PULSAR);
+  }
 
   onPostSubmit(payload: { content: string; parentDocumentId?: string }): void {
     const user = this.userStore.me.data();
