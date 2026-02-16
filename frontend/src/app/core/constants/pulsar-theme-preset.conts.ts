@@ -1,6 +1,17 @@
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 
+const primaryColorScheme = {
+  light: {
+    background: '{surface.0}',
+    borderColor: '{violet.200}',
+  },
+  dark: {
+    background: '{slate.950}',
+    borderColor: '{slate.700}',
+  },
+};
+
 export const pulsarThemePreset = definePreset(Aura, {
   semantic: {
     primary: {
@@ -47,46 +58,30 @@ export const pulsarThemePreset = definePreset(Aura, {
     menu: {
       colorScheme: {
         light: {
-          root: {
-            background: '{surface.0}',
-            borderColor: '{violet.200}',
-          },
+          root: {...primaryColorScheme.light, borderColor: '{surface.0}'},
         },
         dark: {
-          root: {
-            background: '{slate.950}',
-            borderColor: '{slate.700}',
-          },
+          root: {...primaryColorScheme.dark, borderColor: '{slate.950}'},
         },
       },
     },
     card: {
       colorScheme: {
         light: {
-          root: {
-            background: '{surface.0}',
-          },
+          root: { background: '{surface.0}', shadow: 'none'},
         },
         dark: {
-          root: {
-            background: '{slate.950}',
-          },
+          root: { background: '{slate.950}', shadow: 'none'},
         },
       },
     },
     drawer: {
       colorScheme: {
         light: {
-          root: {
-            background: '{surface.0}',
-            borderColor: '{violet.200}',
-          },
+          root: primaryColorScheme.light,
         },
         dark: {
-          root: {
-            background: '{slate.950}',
-            borderColor: '{slate.700}',
-          },
+          root: primaryColorScheme.dark,
         },
       },
       header: {
@@ -107,18 +102,70 @@ export const pulsarThemePreset = definePreset(Aura, {
       },
       colorScheme: {
         light: {
-          root: {
-            background: '{surface.0}',
-            borderColor: '{violet.200}',
-          },
+          root: primaryColorScheme.light,
         },
         dark: {
-          root: {
-            background: '{slate.950}',
-            borderColor: '{slate.700}',
-          },
+          root: primaryColorScheme.dark,
         },
       },
     },
+    textarea: {
+      colorScheme: {
+        light: {
+          root: primaryColorScheme.light,
+        },
+        dark: {
+          root: primaryColorScheme.dark,
+        },
+      },
+    },
+    inputtext: {
+      colorScheme: {
+        light: {
+          root: primaryColorScheme.light,
+        },
+        dark: {
+          root: primaryColorScheme.dark,
+        },
+      },
+    },
+    datepicker: {
+      colorScheme: {
+        light: {
+          header: primaryColorScheme.light,
+          panel: primaryColorScheme.light,
+          dropdown: primaryColorScheme.light,
+        },
+        dark: {
+          header: primaryColorScheme.dark,
+          panel: primaryColorScheme.dark,
+          dropdown: primaryColorScheme.dark,
+        },
+      },
+    },
+    datatable:{
+      colorScheme: {
+        light: {
+          headerCell: primaryColorScheme.light,
+          row: primaryColorScheme.light,
+          bodyCell: primaryColorScheme.light,
+        },
+        dark: {
+          headerCell: primaryColorScheme.dark,
+          row: primaryColorScheme.dark,
+          bodyCell: primaryColorScheme.dark,
+        },
+      },
+    },
+    paginator:{
+      colorScheme: {
+        light: {
+          root: primaryColorScheme.light,
+        },
+        dark: {
+          root: primaryColorScheme.dark,
+        },
+      },
+    }
   },
 });
