@@ -13,37 +13,37 @@
         class="flex flex-col gap-4"
       >
         <app-input-field
-          label="Username"
+          [label]="'register.username' | translate"
           inputId="username"
           formControlName="username"
-          placeholder="Enter your username"
+          [placeholder]="'register.usernamePlaceholder' | translate"
           [validationMessages]="validations.username"
         />
 
         <app-input-field
-          label="Email"
+          [label]="'register.email' | translate"
           inputId="email"
           type="email"
           formControlName="email"
-          placeholder="Enter your email"
+          [placeholder]="'register.emailPlaceholder' | translate"
           [validationMessages]="validations.email"
         />
 
         <app-input-field
-          label="Password"
+          [label]="'register.password' | translate"
           inputId="password"
           type="password"
           formControlName="password"
-          placeholder="Enter your password"
+          [placeholder]="'register.passwordPlaceholder' | translate"
           [validationMessages]="validations.password"
         />
 
         <app-input-field
-          label="Confirm Password"
+          [label]="'register.confirmPassword' | translate"
           inputId="confirmPassword"
           type="password"
           formControlName="confirmPassword"
-          placeholder="Confirm your password"
+          [placeholder]="'register.confirmPasswordPlaceholder' | translate"
           [validationMessages]="validations.confirmPassword"
         />
 
@@ -51,7 +51,7 @@
           type="submit"
           [disabled]="registerForm.invalid || isLoading"
           [loading]="isLoading"
-          label="Register"
+          [label]="'register.register' | translate"
           styleClass="w-full p-button-lg mt-2"
           icon="pi pi-user-plus"
         ></p-button>
@@ -69,9 +69,9 @@
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1 mr-2">
-        <span class="mr-2">Already have an account?</span>
+        <span class="mr-2">{{ "register.haveAccount" | translate }}</span>
         <p-button
-          label="Login"
+          [label]="'register.login' | translate"
           styleClass="linkBtn p-button-xs"
           icon="pi pi-sign-in"
           (click)="onLogin()"

@@ -15,6 +15,7 @@ import { TagModule } from 'primeng/tag';
 import { DetailsDialog } from './components';
 import { Table } from '../../components';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 import { USERS_TABLE_CONFIG } from './constants/users-table-config.const';
 import { Title } from '@angular/platform-browser';
 import { PageTitle } from '../../constants';
@@ -33,6 +34,7 @@ export class Users implements OnInit {
   private userStore = inject(UserStore);
   private destroyRef = inject(DestroyRef);
   private titleService = inject(Title);
+  private translate = inject(TranslateService);
 
   usersTableConfig = USERS_TABLE_CONFIG;
 
@@ -55,19 +57,19 @@ export class Users implements OnInit {
   rowActions(user: User): RowActionItem[] {
     return [
       {
-        label: 'Block',
+        label: this.translate.instant('users.block'),
         icon: 'pi pi-lock',
         disabled: user.blocked,
         actionId: 'block',
       },
       {
-        label: 'Unblock',
+        label: this.translate.instant('users.unblock'),
         icon: 'pi pi-unlock',
         disabled: !user.blocked,
         actionId: 'unblock',
       },
       {
-        label: 'Details',
+        label: this.translate.instant('users.details'),
         icon: 'pi pi-info-circle',
         actionId: 'details',
       },

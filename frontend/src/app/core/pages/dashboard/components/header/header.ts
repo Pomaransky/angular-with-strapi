@@ -11,11 +11,12 @@ import { menuItems } from '../../../../constants/menu-items.const';
 import { MenuItem } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
 import { Settings } from '../../../../components/settings/settings';
 
 @Component({
   selector: 'app-header',
-  imports: [Settings],
+  imports: [Settings, TranslateModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { REGISTER_VALIDATIONS } from './constants/register-form-validations.const';
 import { InputField } from '../../components';
 import { Title } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { PageTitle } from '../../constants';
 import { Settings } from '../../components/settings/settings';
 
@@ -33,6 +34,7 @@ import { Settings } from '../../components/settings/settings';
     ButtonModule,
     MessageModule,
     InputField,
+    TranslateModule,
     Settings,
   ],
   templateUrl: './register.html',

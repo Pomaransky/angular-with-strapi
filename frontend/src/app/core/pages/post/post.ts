@@ -13,12 +13,13 @@ import {
   type PostFormSubmit,
   PostsList,
 } from '../../components';
+import { TranslateModule } from '@ngx-translate/core';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 
 @Component({
   selector: 'app-post',
-  imports: [PostForm, PostCard, PostsList],
+  imports: [PostForm, PostCard, PostsList, TranslateModule],
   templateUrl: './post.html',
   styleUrl: './post.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

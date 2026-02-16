@@ -1,9 +1,9 @@
-<p-card >
+<p-card>
   @if (showSearch) {
     <div class="flex justify-end mb-2">
       <app-input-field
         inputId="table-search"
-        [placeholder]="searchPlaceholder"
+        [placeholder]="searchPlaceholder | translate"
         [ngModel]="filterValue"
         (ngModelChange)="onSearchInput($event)"
         icon="search"
@@ -32,7 +32,7 @@
             [pSortableColumnDisabled]="!column.sortable"
             class="text-nowrap"
           >
-            {{ column.label }}
+            {{ column.label | translate }}
             @if (column.sortable) {
               <p-sortIcon [field]="column.key" />
             }

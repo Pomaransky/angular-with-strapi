@@ -19,8 +19,10 @@ import { finalize } from 'rxjs';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
 import { DatePickerModule } from 'primeng/datepicker';
+import { TranslateModule } from '@ngx-translate/core';
 import { InputField } from '../../../../components';
 import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form-validations.const';
+
 @Component({
   selector: 'app-edit-profile-dialog',
   imports: [
@@ -29,6 +31,7 @@ import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form
     ReactiveFormsModule,
     DatePickerModule,
     InputField,
+    TranslateModule,
   ],
   templateUrl: './edit-profile-dialog.html',
   styleUrl: './edit-profile-dialog.scss',
