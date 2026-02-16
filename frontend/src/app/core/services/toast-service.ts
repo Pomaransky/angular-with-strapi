@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -6,11 +7,12 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastService {
   private messageService = inject(MessageService);
-
+  private translate = inject(TranslateService);
+  
   successToast(message: string): void {
     this.messageService.add({
       severity: 'success',
-      summary: 'Success',
+      summary: this.translate.instant('common.success'),
       detail: message,
     });
   }
@@ -18,7 +20,7 @@ export class ToastService {
   errorToast(message: string): void {
     this.messageService.add({
       severity: 'error',
-      summary: 'Error',
+      summary: this.translate.instant('common.error'),
       detail: message,
     });
   }

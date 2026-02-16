@@ -9,14 +9,14 @@
     <ng-template #content>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-5">
         <div>
-          <label for="identifier">Email or Username</label>
+          <label for="identifier">{{ 'login.emailOrUsername' | translate }}</label>
           <input
             id="identifier"
             type="text"
             class="w-full"
             pInputText
             formControlName="identifier"
-            placeholder="Enter your email or username"
+            [placeholder]="'login.emailOrUsernamePlaceholder' | translate"
             [class.ng-invalid]="
               loginForm.get('identifier')?.invalid &&
               loginForm.get('identifier')?.touched
@@ -28,18 +28,18 @@
           ) {
             <small class="p-error block">
               @if (loginForm.get("identifier")?.errors?.["required"]) {
-                <span class="text-red-500">Email or username is required</span>
+                <span class="text-red-500">{{ 'login.emailOrUsernameRequired' | translate }}</span>
               }
             </small>
           }
         </div>
 
         <div>
-          <label for="password">Password</label>
+          <label for="password">{{ 'login.password' | translate }}</label>
           <p-password
             inputId="password"
             formControlName="password"
-            placeholder="Enter your password"
+            [placeholder]="'login.passwordPlaceholder' | translate"
             [toggleMask]="true"
             [feedback]="false"
             [class.ng-invalid]="
@@ -55,12 +55,10 @@
           ) {
             <small class="p-error block">
               @if (loginForm.get("password")?.errors?.["required"]) {
-                <span class="text-red-500">Password is required</span>
+                <span class="text-red-500">{{ 'login.passwordRequired' | translate }}</span>
               }
               @if (loginForm.get("password")?.errors?.["minlength"]) {
-                <span class="text-red-500"
-                  >Password must be at least 6 characters</span
-                >
+                <span class="text-red-500">{{ 'login.passwordMinLength' | translate }}</span>
               }
             </small>
           }
@@ -70,7 +68,7 @@
           type="submit"
           [disabled]="loginForm.invalid || isLoading"
           [loading]="isLoading"
-          label="Sign In"
+          [label]="'login.signIn' | translate"
           styleClass="w-full p-button-lg"
           icon="pi pi-sign-in"
         ></p-button>
@@ -88,9 +86,9 @@
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1">
-        <span class="mr-2">Don't have an account?</span>
+        <span class="mr-2">{{ 'login.noAccount' | translate }}</span>
         <p-button
-          label="Register"
+          [label]="'login.register' | translate"
           styleClass="linkBtn p-button-xs"
           icon="pi pi-user-plus"
           (click)="onRegister()"

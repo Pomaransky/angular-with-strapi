@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center gap-4">
   @if (!isPostsLoading() && postsData().length === 0) {
     <p class="text-sm text-gray-500">
-      No {{ parentDocumentId ? "comments" : "posts" }} yet
+      {{ (parentDocumentId ? 'post.noCommentsYet' : 'post.noPostsYet') | translate }}
     </p>
   }
 

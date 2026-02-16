@@ -3,15 +3,26 @@
   [visible]="drawerVisible()"
   (visibleChange)="drawerVisible.set($event)"
   position="right"
-  header="Settings"
+  [header]="'settings.title' | translate"
   [dismissible]="true"
   [closable]="true"
 >
   <div class="flex items-center justify-between gap-4 py-2">
-    <span class="text-color">Dark mode</span>
+    <span class="text-color">{{ 'settings.darkMode' | translate }}</span>
     <p-toggleSwitch
-      [ngModel]="isDark()"
+      [ngModel]="isDark"
       (onChange)="onDarkModeChange($event.checked)"
+    />
+  </div>
+  <div class="flex items-center justify-between gap-4 py-2">
+    <span class="text-color">{{ 'settings.language' | translate }}</span>
+    <p-select
+      [options]="languageOptions"
+      [ngModel]="currentLanguage()"
+      (ngModelChange)="onLanguageChange($event)"
+      optionLabel="label"
+      optionValue="value"
+      [style]="{ minWidth: '8rem' }"
     />
   </div>
 </p-drawer>

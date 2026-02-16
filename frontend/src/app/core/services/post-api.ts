@@ -6,6 +6,7 @@ import { ApiService } from './api-service';
 import { PostsStore } from '../store/posts.store';
 import { ToastService } from './toast-service';
 import { UserStore } from '../store/user.store';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class PostApi extends ApiService {
   private postsStore = inject(PostsStore);
   private userStore = inject(UserStore);
   private toastService = inject(ToastService);
+  private translate = inject(TranslateService);
 
   constructor() {
     super();
@@ -22,7 +24,9 @@ export class PostApi extends ApiService {
   getPost(documentId: string): Observable<Post> {
     return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
       map((res) => res.data),
-      catchError(() => throwError(() => new Error('Failed to fetch post'))),
+      catchError(() =>
+        throwError(() => new Error(this.translate.instant('posts.postFetchError'))),
+      ),
     );
   }
 
@@ -41,7 +45,7 @@ export class PostApi extends ApiService {
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
       catchError(() => {
-        return throwError(() => new Error('Failed to fetch posts'));
+        return throwError(() => new Error(this.translate.instant('posts.postsFetchError')));
       }),
       finalize(() => this.postsStore.setPostsLoading(false)),
     );
@@ -50,7 +54,7 @@ export class PostApi extends ApiService {
   addPost(postContent: string, parentDocumentId?: string): Observable<Post> {
     const user = this.userStore.me.data();
     if (!user) {
-      return throwError(() => new Error('User not found'));
+      return throwError(() => new Error(this.translate.instant('user.userNotFound')));
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { documentId: _, role: __, ...author } = user;
@@ -72,15 +76,15 @@ export class PostApi extends ApiService {
       tap((post) => {
         this.postsStore.prependPost(post, parentDocumentId);
         if (isComment) {
-          this.toastService.successToast('Comment added');
+          this.toastService.successToast(this.translate.instant('posts.commentAdded'));
         } else {
-          this.toastService.successToast('Post added successfully');
+          this.toastService.successToast(this.translate.instant('posts.postAdded'));
         }
       }),
       catchError((error) => {
         const msg =
           error.error?.error?.message ||
-          (isComment ? 'Failed to add comment' : 'Failed to add post');
+          this.translate.instant(isComment ? 'posts.addCommentError' : 'posts.addPostError');
         this.toastService.errorToast(msg);
         return throwError(() => new Error(msg));
       }),

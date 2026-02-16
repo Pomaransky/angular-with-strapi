@@ -8,22 +8,22 @@ export interface MenuItemWithPermissions extends MenuItem {
 
 export const menuItems: MenuItemWithPermissions[] = [
   {
-    label: 'Home',
+    label: 'menu.home',
     icon: 'pi pi-home',
     routerLink: AppRoutePath.HOME,
   },
   {
-    label: 'Post',
+    label: 'menu.post',
     routerLink: AppRoutePath.POST,
     visible: false,
   },
   {
-    label: 'Profile',
+    label: 'menu.profile',
     icon: 'pi pi-user',
     routerLink: AppRoutePath.PROFILE,
   },
   {
-    label: 'Users',
+    label: 'menu.users',
     icon: 'pi pi-users',
     routerLink: AppRoutePath.USERS,
     permissions: [UserRoleType.ADMIN],

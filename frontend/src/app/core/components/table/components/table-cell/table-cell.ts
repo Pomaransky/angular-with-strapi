@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TagModule } from 'primeng/tag';
 import { TableColumnType } from '../../../../models';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-table-cell',
-  imports: [TagModule, DatePipe],
+  imports: [TagModule, DatePipe, TranslateModule],
   templateUrl: './table-cell.html',
   styleUrl: './table-cell.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,9 +20,9 @@ export class TableCell {
 
   get tagValue(): string {
     if (this.columnKey === 'confirmed')
-      return this.value ? 'Confirmed' : 'Not Confirmed';
+      return this.value ? 'profile.confirmed' : 'profile.notConfirmed';
     if (this.columnKey === 'blocked')
-      return this.value ? 'Blocked' : 'Unblocked';
+      return this.value ? 'profile.blocked' : 'profile.active';
     return '';
   }
 

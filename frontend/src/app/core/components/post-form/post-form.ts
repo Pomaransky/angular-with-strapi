@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { InputField } from '../input-field/input-field';
 import { ValidationMessage } from '../../models';
@@ -23,7 +24,7 @@ export interface PostFormSubmit {
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule, InputField, ButtonModule],
+  imports: [ReactiveFormsModule, InputField, ButtonModule, TranslateModule],
   templateUrl: './post-form.html',
   styleUrl: './post-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,8 +32,8 @@ export interface PostFormSubmit {
 export class PostForm {
   private fb = inject(FormBuilder);
 
-  @Input() placeholder = "What's on your mind?";
-  @Input() submitLabel = 'Post it!';
+  @Input() placeholder = 'post.whatsOnYourMind';
+  @Input() submitLabel = 'post.postLabel';
   @Input() rows = 5;
   @Input() parentDocumentId: string | undefined = undefined;
 
