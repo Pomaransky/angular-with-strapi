@@ -11,17 +11,32 @@
     </div>
 
     <div class="space-y-3">
-      <app-data-row label="Document ID" [value]="userData.documentId || '-'" />
-      <app-data-row label="First Name" [value]="userData.firstName || '-'" />
-      <app-data-row label="Last Name" [value]="userData.lastName || '-'" />
       <app-data-row
-        label="Birth Date"
+        [label]="'profile.documentId' | translate"
+        [value]="userData.documentId || '-'"
+      />
+      <app-data-row
+        [label]="'profile.firstName' | translate"
+        [value]="userData.firstName || '-'"
+      />
+      <app-data-row
+        [label]="'profile.lastName' | translate"
+        [value]="userData.lastName || '-'"
+      />
+      <app-data-row
+        [label]="'profile.birthDate' | translate"
         [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'"
       />
-      <app-data-row label="Provider" [value]="userData.provider || '-'" />
       <app-data-row
-        label="Status"
-        [value]="userData.confirmed ? 'Confirmed' : 'Not Confirmed'"
+        [label]="'profile.provider' | translate"
+        [value]="userData.provider || '-'"
+      />
+      <app-data-row
+        [label]="'profile.status' | translate"
+        [value]="
+          (userData.confirmed ? 'profile.confirmed' : 'profile.notConfirmed')
+            | translate
+        "
         [icon]="
           userData.confirmed ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'
         "
@@ -32,8 +47,10 @@
         "
       />
       <app-data-row
-        label="Account"
-        [value]="userData.blocked ? 'Blocked' : 'Active'"
+        [label]="'profile.account' | translate"
+        [value]="
+          (userData.blocked ? 'profile.blocked' : 'profile.active') | translate
+        "
         [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
         [valueClass]="
           userData.blocked
@@ -41,16 +58,19 @@
             : 'text-green-600 font-medium'
         "
       />
-      <app-data-row label="Role" [value]="userData.role.name || '-'" />
       <app-data-row
-        label="About Me"
+        [label]="'profile.role' | translate"
+        [value]="userData.role.name || '-'"
+      />
+      <app-data-row
+        [label]="'profile.aboutMe' | translate"
         [value]="userData.aboutMe || '-'"
         [vertical]="true"
       />
     </div>
     <div class="flex justify-end mt-6">
       <p-button
-        label="Edit Profile"
+        [label]="'profile.editProfile' | translate"
         severity="primary"
         icon="pi pi-pencil"
         (click)="onEdit()"
@@ -58,12 +78,14 @@
     </div>
   </p-card>
 } @else if (!isUserLoading() && !user()) {
-  <div class="flex justify-center items-center h-64">Something went wrong</div>
+  <div class="flex justify-center items-center h-64">
+    {{ "profile.somethingWentWrong" | translate }}
+  </div>
 }
 
 @if (isUserLoading()) {
   <div class="flex justify-center items-center h-64">
-    <app-spinner loadingText="Loading profile..." />
+    <app-spinner [loadingText]="'profile.loadingProfile' | translate" />
   </div>
 }
 

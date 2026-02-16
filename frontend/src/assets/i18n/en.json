@@ -1,0 +1,147 @@
+{
+  "auth": {
+    "registerSuccess": "Successfully registered {{username}}, please login to continue"
+  },
+  "posts": {
+    "postFetchError": "Failed to fetch post",
+    "postsFetchError": "Failed to fetch posts",
+    "commentAdded": "Comment added",
+    "postAdded": "Post added successfully",
+    "addCommentError": "Failed to add comment",
+    "addPostError": "Failed to add post"
+  },
+  "user": {
+    "userNotFound": "User not found",
+    "userDataUpdated": "User data updated successfully",
+    "userDataUpdateError": "Failed to update user data",
+    "usersFetchError": "Failed to fetch users",
+    "userBlocked": "User blocked successfully",
+    "userUnblocked": "User unblocked successfully",
+    "updateBlockStatusError": "Failed to update user block status"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search...",
+    "success": "Success",
+    "error": "Error"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "darkMode": "Dark mode"
+  },
+  "login": {
+    "emailOrUsername": "Email or Username",
+    "emailOrUsernamePlaceholder": "Enter your email or username",
+    "emailOrUsernameRequired": "Email or username is required",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "signIn": "Sign In",
+    "noAccount": "Don't have an account?",
+    "register": "Register"
+  },
+  "register": {
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "register": "Register",
+    "haveAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "registerValidations": {
+    "usernameRequired": "Username is required",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email address",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "confirmPasswordRequired": "Confirm password is required",
+    "passwordsMismatch": "Passwords do not match"
+  },
+  "sidebar": {
+    "logout": "Logout"
+  },
+  "confirmDialog": {
+    "confirmLogout": "Confirm logout",
+    "confirmLogoutMessage": "Are you sure you want to logout?",
+    "logout": "Logout"
+  },
+  "profile": {
+    "documentId": "Document ID",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "birthDate": "Birth Date",
+    "provider": "Provider",
+    "status": "Status",
+    "account": "Account",
+    "role": "Role",
+    "aboutMe": "About Me",
+    "confirmed": "Confirmed",
+    "notConfirmed": "Not Confirmed",
+    "blocked": "Blocked",
+    "active": "Active",
+    "editProfile": "Edit Profile",
+    "somethingWentWrong": "Something went wrong",
+    "loadingProfile": "Loading profile..."
+  },
+  "editProfile": {
+    "title": "Edit Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "birthDate": "Birth Date",
+    "aboutMe": "About Me"
+  },
+  "editProfileValidations": {
+    "aboutMeMaxLength": "About Me must be less than 255 characters"
+  },
+  "users": {
+    "block": "Block",
+    "unblock": "Unblock",
+    "details": "Details",
+    "profileDetails": "Profile Details",
+    "username": "Username",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "confirmed": "Confirmed",
+    "blocked": "Blocked",
+    "createdAt": "Created At"
+  },
+  "post": {
+    "addComment": "Add comment",
+    "writeComment": "Write a comment...",
+    "commentButton": "Comment",
+    "whatsOnYourMind": "What's on your mind?",
+    "postLabel": "Post",
+    "noPostsYet": "No posts yet",
+    "noCommentsYet": "No comments yet"
+  },
+  "postValidations": {
+    "maxLength": "Post must be less than 255 characters"
+  },
+  "menu": {
+    "home": "Home",
+    "post": "Post",
+    "profile": "Profile",
+    "users": "Users"
+  },
+  "notFound": {
+    "title": "Page not found"
+  },
+  "table": {
+    "search": "Search..."
+  },
+  "primeng": {
+    "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  }
+}

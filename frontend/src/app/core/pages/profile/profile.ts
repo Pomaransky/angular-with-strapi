@@ -14,6 +14,7 @@ import { User } from '../../models/auth/user.model';
 import { DatePipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { Title } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { PageTitle } from '../../constants';
 
 @Component({
@@ -26,6 +27,7 @@ import { PageTitle } from '../../constants';
     DatePipe,
     CardModule,
     Avatar,
+    TranslateModule,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',

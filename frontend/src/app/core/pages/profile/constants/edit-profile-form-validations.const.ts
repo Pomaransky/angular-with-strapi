@@ -6,6 +6,6 @@ interface EditProfileFormValidations {
 
 export const EDIT_PROFILE_FORM_VALIDATIONS: EditProfileFormValidations = {
   aboutMe: [
-    { key: 'maxlength', message: 'About Me must be less than 255 characters' },
+    { key: 'maxlength', message: 'editProfileValidations.aboutMeMaxLength' },
   ],
 };

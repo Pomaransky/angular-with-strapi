@@ -15,7 +15,9 @@
         >
           <i class="pi pi-user-edit !text-3xl"></i>
         </div>
-        <span class="font-bold text-2xl block my-6">Edit Profile</span>
+        <span class="font-bold text-2xl block my-6">{{
+          "editProfile.title" | translate
+        }}</span>
 
         <div class="w-full space-y-4">
           <form
@@ -24,23 +26,23 @@
             class="flex flex-col gap-5"
           >
             <app-input-field
-              label="First Name"
+              [label]="'editProfile.firstName' | translate"
               inputId="firstName"
               formControlName="firstName"
               labelWidth="10rem"
             />
 
             <app-input-field
-              label="Last Name"
+              [label]="'editProfile.lastName' | translate"
               inputId="lastName"
               formControlName="lastName"
               labelWidth="10rem"
             />
 
             <div class="flex gap-4">
-              <label for="birthDate" class="font-semibold w-28"
-                >Birth Date</label
-              >
+              <label for="birthDate" class="font-semibold w-28">{{
+                "editProfile.birthDate" | translate
+              }}</label>
               <p-datepicker
                 id="birthDate"
                 formControlName="birthDate"
@@ -52,7 +54,7 @@
             </div>
 
             <app-input-field
-              label="About Me"
+              [label]="'editProfile.aboutMe' | translate"
               inputId="aboutMe"
               formControlName="aboutMe"
               type="textarea"
@@ -65,13 +67,13 @@
         <div class="w-full flex items-center justify-end gap-2 mt-6">
           <p-button
             type="submit"
-            label="Cancel"
+            [label]="'common.cancel' | translate"
             [outlined]="true"
             (click)="visible.set(false)"
             styleClass="w-32"
           ></p-button>
           <p-button
-            label="Save"
+            [label]="'common.save' | translate"
             (click)="onEdit()"
             styleClass="w-32"
             [disabled]="editForm.invalid"
