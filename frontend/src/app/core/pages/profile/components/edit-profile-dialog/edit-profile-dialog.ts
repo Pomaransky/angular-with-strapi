@@ -21,7 +21,6 @@ import { User } from '../../../../models/auth/user.model';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputField } from '../../../../components';
 import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form-validations.const';
-
 @Component({
   selector: 'app-edit-profile-dialog',
   imports: [
@@ -38,6 +37,7 @@ import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form
 export class EditProfileDialog {
   private userApiService = inject(UserApiService);
   private userStore = inject(UserStore);
+
   visible = signal<boolean>(false);
   user: DeepSignal<User | null> = this.userStore.me.data;
   editForm!: FormGroup;
