@@ -1,6 +1,6 @@
 import { MenuItem } from 'primeng/api';
 import { UserRoleType } from '../models/auth';
-import { AppRoutePath } from './appRoutePath.enum';
+import { AppRoutePath } from './app-route-path.enum';
 
 export interface MenuItemWithPermissions extends MenuItem {
   permissions?: UserRoleType[];

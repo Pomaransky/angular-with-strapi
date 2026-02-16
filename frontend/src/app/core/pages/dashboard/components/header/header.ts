@@ -7,14 +7,15 @@ import {
   inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { menuItems } from '../../../../constants/menuItems.const';
+import { menuItems } from '../../../../constants/menu-items.const';
 import { MenuItem } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/operators';
+import { Settings } from '../../../../components/settings/settings';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [Settings],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

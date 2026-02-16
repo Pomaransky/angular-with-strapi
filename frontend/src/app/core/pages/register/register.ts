@@ -23,6 +23,7 @@ import { REGISTER_VALIDATIONS } from './constants/register-form-validations.cons
 import { InputField } from '../../components';
 import { Title } from '@angular/platform-browser';
 import { PageTitle } from '../../constants';
+import { Settings } from '../../components/settings/settings';
 
 @Component({
   selector: 'app-register',
@@ -32,6 +33,7 @@ import { PageTitle } from '../../constants';
     ButtonModule,
     MessageModule,
     InputField,
+    Settings,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',

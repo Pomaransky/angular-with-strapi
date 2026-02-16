@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -15,14 +17,18 @@ import { UserStore } from './core/store/user.store';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import Aura from '@primeuix/themes/aura';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostsStore } from './core/store/posts.store';
+import { ThemeService } from './core/services/theme-service';
+import { pulsarThemePreset } from './core/constants';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
+    provideAppInitializer(() => {
+      inject(ThemeService).init();
+    }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
     UserStore,
@@ -30,12 +36,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: pulsarThemePreset,
         options: {
           cssLayer: {
             name: 'primeng',
-            order: 'base, components, primeng, utilities',
+            order: 'theme, base, components, primeng, utilities',
           },
+          darkModeSelector: '.dark',
         },
       },
     }),

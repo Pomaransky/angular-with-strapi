@@ -25,6 +25,7 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PageTitle } from '../../constants';
+import { Settings } from '../../components/settings/settings';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,7 @@ import { PageTitle } from '../../constants';
     MessageModule,
     CardModule,
     DividerModule,
+    Settings,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
