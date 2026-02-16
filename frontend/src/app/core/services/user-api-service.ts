@@ -48,11 +48,15 @@ export class UserApiService extends ApiService {
   ): Observable<User | null> {
     return this.put<User>(`user/me`, user).pipe(
       tap(() => {
-        this.toastService.successToast(this.translate.instant('user.userDataUpdated'));
+        this.toastService.successToast(
+          this.translate.instant('user.userDataUpdated'),
+        );
       }),
       switchMap(() => this.getMe()),
       catchError((error) => {
-        const msg = error.error?.error?.message ?? this.translate.instant('user.userDataUpdateError');
+        const msg =
+          error.error?.error?.message ??
+          this.translate.instant('user.userDataUpdateError');
         this.toastService.errorToast(msg);
         return throwError(() => new Error(msg));
       }),
@@ -89,7 +93,9 @@ export class UserApiService extends ApiService {
     return this.put<User>(`users/${userId}`, { blocked }).pipe(
       tap(() => {
         this.toastService.successToast(
-          this.translate.instant(blocked ? 'user.userBlocked' : 'user.userUnblocked'),
+          this.translate.instant(
+            blocked ? 'user.userBlocked' : 'user.userUnblocked',
+          ),
         );
       }),
       switchMap((user) => {

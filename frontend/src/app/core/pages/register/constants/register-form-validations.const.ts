@@ -8,7 +8,9 @@ interface RegisterValidations {
 }
 
 export const REGISTER_VALIDATIONS: RegisterValidations = {
-  username: [{ key: 'required', message: 'registerValidations.usernameRequired' }],
+  username: [
+    { key: 'required', message: 'registerValidations.usernameRequired' },
+  ],
   email: [
     { key: 'required', message: 'registerValidations.emailRequired' },
     { key: 'email', message: 'registerValidations.invalidEmail' },
@@ -20,6 +22,9 @@ export const REGISTER_VALIDATIONS: RegisterValidations = {
   ],
   confirmPassword: [
     { key: 'required', message: 'registerValidations.confirmPasswordRequired' },
-    { key: 'passwordMismatch', message: 'registerValidations.passwordsMismatch' },
+    {
+      key: 'passwordMismatch',
+      message: 'registerValidations.passwordsMismatch',
+    },
   ],
 };

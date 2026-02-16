@@ -56,7 +56,10 @@ export class Sidebar implements OnInit {
         label: this.translate.instant(item.label ?? ''),
       };
       if (item.permissions && item.permissions.length > 0) {
-        return { ...base, visible: userRole ? item.permissions.includes(userRole) : false };
+        return {
+          ...base,
+          visible: userRole ? item.permissions.includes(userRole) : false,
+        };
       }
       return base;
     });

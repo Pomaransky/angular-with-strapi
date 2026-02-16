@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   DestroyRef,
   inject,
   signal,
@@ -38,7 +37,7 @@ interface LanguageOption {
 export class Settings {
   private appStore = inject(AppStore);
   private destroyRef = inject(DestroyRef);
-  
+
   drawerVisible = signal(false);
   isDark = this.appStore.theme() === Theme.DARK;
   currentLanguage = this.appStore.language;
@@ -53,6 +52,9 @@ export class Settings {
   }
 
   onLanguageChange(lang: SupportedLanguages): void {
-    this.appStore.setLanguage(lang).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    this.appStore
+      .setLanguage(lang)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 }

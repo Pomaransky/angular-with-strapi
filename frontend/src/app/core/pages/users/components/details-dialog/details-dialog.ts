@@ -17,7 +17,15 @@ import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-details-dialog',
-  imports: [DialogModule, Spinner, ButtonModule, DataRow, CardModule, Avatar, TranslateModule],
+  imports: [
+    DialogModule,
+    Spinner,
+    ButtonModule,
+    DataRow,
+    CardModule,
+    Avatar,
+    TranslateModule,
+  ],
   templateUrl: './details-dialog.html',
   styleUrl: './details-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

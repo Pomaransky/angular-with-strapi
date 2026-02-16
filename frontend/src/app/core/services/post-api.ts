@@ -25,7 +25,9 @@ export class PostApi extends ApiService {
     return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
       map((res) => res.data),
       catchError(() =>
-        throwError(() => new Error(this.translate.instant('posts.postFetchError'))),
+        throwError(
+          () => new Error(this.translate.instant('posts.postFetchError')),
+        ),
       ),
     );
   }
@@ -45,7 +47,9 @@ export class PostApi extends ApiService {
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
       catchError(() => {
-        return throwError(() => new Error(this.translate.instant('posts.postsFetchError')));
+        return throwError(
+          () => new Error(this.translate.instant('posts.postsFetchError')),
+        );
       }),
       finalize(() => this.postsStore.setPostsLoading(false)),
     );
@@ -54,7 +58,9 @@ export class PostApi extends ApiService {
   addPost(postContent: string, parentDocumentId?: string): Observable<Post> {
     const user = this.userStore.me.data();
     if (!user) {
-      return throwError(() => new Error(this.translate.instant('user.userNotFound')));
+      return throwError(
+        () => new Error(this.translate.instant('user.userNotFound')),
+      );
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { documentId: _, role: __, ...author } = user;
@@ -76,15 +82,21 @@ export class PostApi extends ApiService {
       tap((post) => {
         this.postsStore.prependPost(post, parentDocumentId);
         if (isComment) {
-          this.toastService.successToast(this.translate.instant('posts.commentAdded'));
+          this.toastService.successToast(
+            this.translate.instant('posts.commentAdded'),
+          );
         } else {
-          this.toastService.successToast(this.translate.instant('posts.postAdded'));
+          this.toastService.successToast(
+            this.translate.instant('posts.postAdded'),
+          );
         }
       }),
       catchError((error) => {
         const msg =
           error.error?.error?.message ||
-          this.translate.instant(isComment ? 'posts.addCommentError' : 'posts.addPostError');
+          this.translate.instant(
+            isComment ? 'posts.addCommentError' : 'posts.addPostError',
+          );
         this.toastService.errorToast(msg);
         return throwError(() => new Error(msg));
       }),

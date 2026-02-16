@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 export class ToastService {
   private messageService = inject(MessageService);
   private translate = inject(TranslateService);
-  
+
   successToast(message: string): void {
     this.messageService.add({
       severity: 'success',

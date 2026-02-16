@@ -9,7 +9,9 @@
     <ng-template #content>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-5">
         <div>
-          <label for="identifier">{{ 'login.emailOrUsername' | translate }}</label>
+          <label for="identifier">{{
+            "login.emailOrUsername" | translate
+          }}</label>
           <input
             id="identifier"
             type="text"
@@ -28,14 +30,16 @@
           ) {
             <small class="p-error block">
               @if (loginForm.get("identifier")?.errors?.["required"]) {
-                <span class="text-red-500">{{ 'login.emailOrUsernameRequired' | translate }}</span>
+                <span class="text-red-500">{{
+                  "login.emailOrUsernameRequired" | translate
+                }}</span>
               }
             </small>
           }
         </div>
 
         <div>
-          <label for="password">{{ 'login.password' | translate }}</label>
+          <label for="password">{{ "login.password" | translate }}</label>
           <p-password
             inputId="password"
             formControlName="password"
@@ -55,10 +59,14 @@
           ) {
             <small class="p-error block">
               @if (loginForm.get("password")?.errors?.["required"]) {
-                <span class="text-red-500">{{ 'login.passwordRequired' | translate }}</span>
+                <span class="text-red-500">{{
+                  "login.passwordRequired" | translate
+                }}</span>
               }
               @if (loginForm.get("password")?.errors?.["minlength"]) {
-                <span class="text-red-500">{{ 'login.passwordMinLength' | translate }}</span>
+                <span class="text-red-500">{{
+                  "login.passwordMinLength" | translate
+                }}</span>
               }
             </small>
           }
@@ -86,7 +94,7 @@
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1">
-        <span class="mr-2">{{ 'login.noAccount' | translate }}</span>
+        <span class="mr-2">{{ "login.noAccount" | translate }}</span>
         <p-button
           [label]="'login.register' | translate"
           styleClass="linkBtn p-button-xs"

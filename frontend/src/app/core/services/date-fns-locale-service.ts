@@ -10,7 +10,7 @@ const LOCALES: Record<SupportedLanguages, Locale> = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateFnsLocaleService {
   private appStore = inject(AppStore);

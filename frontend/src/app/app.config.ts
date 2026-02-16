@@ -21,8 +21,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostsStore } from './core/store/posts.store';
 import { AppStore } from './core/store/app.store';
 import { pulsarThemePreset, SupportedLanguages } from './core/constants';
-import { provideTranslateService } from "@ngx-translate/core";
-import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,7 +49,6 @@ export const appConfig: ApplicationConfig = {
           },
           darkModeSelector: '.dark',
         },
-
       },
     }),
     provideTranslateService({
@@ -57,7 +56,7 @@ export const appConfig: ApplicationConfig = {
       lang: SupportedLanguages.EN,
       loader: provideTranslateHttpLoader({
         prefix: 'assets/i18n/',
-        suffix: '.json'
+        suffix: '.json',
       }),
     }),
     ConfirmationService,

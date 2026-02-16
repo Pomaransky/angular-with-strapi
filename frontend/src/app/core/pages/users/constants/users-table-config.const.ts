@@ -16,10 +16,22 @@ export const USERS_TABLE_CONFIG: TableConfig = {
       sortable: true,
       filterable: true,
     },
-    { key: 'firstName', label: 'users.firstName', type: TableColumnType.STRING },
+    {
+      key: 'firstName',
+      label: 'users.firstName',
+      type: TableColumnType.STRING,
+    },
     { key: 'lastName', label: 'users.lastName', type: TableColumnType.STRING },
-    { key: 'confirmed', label: 'users.confirmed', type: TableColumnType.STATUS_TAG },
-    { key: 'blocked', label: 'users.blocked', type: TableColumnType.STATUS_TAG },
+    {
+      key: 'confirmed',
+      label: 'users.confirmed',
+      type: TableColumnType.STATUS_TAG,
+    },
+    {
+      key: 'blocked',
+      label: 'users.blocked',
+      type: TableColumnType.STATUS_TAG,
+    },
     {
       key: 'createdAt',
       label: 'users.createdAt',

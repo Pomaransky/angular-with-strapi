@@ -21,7 +21,12 @@ import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-posts-list',
-  imports: [PostCard, ProgressSpinnerModule, InfiniteScrollDirective, TranslateModule],
+  imports: [
+    PostCard,
+    ProgressSpinnerModule,
+    InfiniteScrollDirective,
+    TranslateModule,
+  ],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

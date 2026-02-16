@@ -15,7 +15,10 @@ export class LanguageService {
 
   getSystemLanguage(): SupportedLanguages {
     const systemLanguage = navigator.language?.split('-')[0]?.toLowerCase();
-    return systemLanguage && Object.values(SupportedLanguages).includes(systemLanguage as SupportedLanguages)
+    return systemLanguage &&
+      Object.values(SupportedLanguages).includes(
+        systemLanguage as SupportedLanguages,
+      )
       ? (systemLanguage as SupportedLanguages)
       : SupportedLanguages.EN;
   }

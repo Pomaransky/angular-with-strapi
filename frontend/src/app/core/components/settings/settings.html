@@ -8,14 +8,14 @@
   [closable]="true"
 >
   <div class="flex items-center justify-between gap-4 py-2">
-    <span class="text-color">{{ 'settings.darkMode' | translate }}</span>
+    <span class="text-color">{{ "settings.darkMode" | translate }}</span>
     <p-toggleSwitch
       [ngModel]="isDark"
       (onChange)="onDarkModeChange($event.checked)"
     />
   </div>
   <div class="flex items-center justify-between gap-4 py-2">
-    <span class="text-color">{{ 'settings.language' | translate }}</span>
+    <span class="text-color">{{ "settings.language" | translate }}</span>
     <p-select
       [options]="languageOptions"
       [ngModel]="currentLanguage()"

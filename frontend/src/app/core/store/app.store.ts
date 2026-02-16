@@ -1,10 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  patchState,
-  signalStore,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { Observable, switchMap, tap } from 'rxjs';
 import { Theme, SupportedLanguages } from '../constants';
 import { ThemeService } from '../services/theme-service';
@@ -53,15 +48,17 @@ export const AppStore = signalStore(
       initLanguageAsync(): Observable<Translation> {
         const saved = languageService.getFromStorage();
         const hadStored =
-          saved && Object.values(SupportedLanguages).includes(saved as SupportedLanguages);
+          saved &&
+          Object.values(SupportedLanguages).includes(
+            saved as SupportedLanguages,
+          );
         const lang: SupportedLanguages = hadStored
           ? (saved as SupportedLanguages)
           : languageService.getSystemLanguage();
         return this.setLanguage(lang);
       },
       toggleTheme() {
-        const mode =
-          store.theme() === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+        const mode = store.theme() === Theme.DARK ? Theme.LIGHT : Theme.DARK;
         this.setTheme(mode);
       },
     };
