@@ -27,7 +27,8 @@ export class ThemeService {
   init(): void {
     if (!this.doc) return;
     const saved = this.readThemeFromLocalStorage();
-    const mode: Theme = saved === Theme.DARK || saved === Theme.LIGHT ? saved : Theme.LIGHT;
+    const mode: Theme =
+      saved === Theme.DARK || saved === Theme.LIGHT ? saved : Theme.LIGHT;
     this.applyToDom(mode);
     this._themeMode.set(mode);
   }

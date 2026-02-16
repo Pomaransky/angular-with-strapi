@@ -44,7 +44,7 @@ export class Register implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private titleService = inject(Title);
-  
+
   registerForm!: FormGroup;
   isLoading = false;
   errorMessage = '';

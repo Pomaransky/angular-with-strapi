@@ -49,7 +49,7 @@ export class Login implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private titleService = inject(Title);
-  
+
   loginForm!: FormGroup;
   isLoading = false;
   errorMessage = '';

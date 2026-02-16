@@ -7,35 +7,76 @@
       </div>
     </ng-template>
     <ng-template #content>
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col gap-4">
-        <app-input-field label="Username" inputId="username" formControlName="username"
-          placeholder="Enter your username" [validationMessages]="validations.username" />
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onRegister()"
+        class="flex flex-col gap-4"
+      >
+        <app-input-field
+          label="Username"
+          inputId="username"
+          formControlName="username"
+          placeholder="Enter your username"
+          [validationMessages]="validations.username"
+        />
 
-        <app-input-field label="Email" inputId="email" type="email" formControlName="email"
-          placeholder="Enter your email" [validationMessages]="validations.email" />
+        <app-input-field
+          label="Email"
+          inputId="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [validationMessages]="validations.email"
+        />
 
-        <app-input-field label="Password" inputId="password" type="password" formControlName="password"
-          placeholder="Enter your password" [validationMessages]="validations.password" />
+        <app-input-field
+          label="Password"
+          inputId="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          [validationMessages]="validations.password"
+        />
 
-        <app-input-field label="Confirm Password" inputId="confirmPassword" type="password"
-          formControlName="confirmPassword" placeholder="Confirm your password"
-          [validationMessages]="validations.confirmPassword" />
+        <app-input-field
+          label="Confirm Password"
+          inputId="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+          [validationMessages]="validations.confirmPassword"
+        />
 
-        <p-button type="submit" [disabled]="registerForm.invalid || isLoading" [loading]="isLoading" label="Register"
-          styleClass="w-full p-button-lg mt-2" icon="pi pi-user-plus"></p-button>
+        <p-button
+          type="submit"
+          [disabled]="registerForm.invalid || isLoading"
+          [loading]="isLoading"
+          label="Register"
+          styleClass="w-full p-button-lg mt-2"
+          icon="pi pi-user-plus"
+        ></p-button>
 
         @if (errorMessage) {
-        <div class="mt-5">
-          <p-message severity="error" [text]="errorMessage" styleClass="max-w-full"></p-message>
-        </div>
+          <div class="mt-5">
+            <p-message
+              severity="error"
+              [text]="errorMessage"
+              styleClass="max-w-full"
+            ></p-message>
+          </div>
         }
       </form>
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1 mr-2">
         <span class="mr-2">Already have an account?</span>
-        <p-button label="Login" styleClass="linkBtn p-button-xs" icon="pi pi-sign-in" (click)="onLogin()"
-          link></p-button>
+        <p-button
+          label="Login"
+          styleClass="linkBtn p-button-xs"
+          icon="pi pi-sign-in"
+          (click)="onLogin()"
+          link
+        ></p-button>
       </div>
     </ng-template>
   </p-card>
