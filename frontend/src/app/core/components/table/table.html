@@ -1,4 +1,4 @@
-<p-card>
+<p-card >
   @if (showSearch) {
     <div class="flex justify-end mb-2">
       <app-input-field
@@ -13,7 +13,7 @@
   }
   <p-table
     [value]="data"
-    [stripedRows]="true"
+    [stripedRows]="false"
     [paginator]="true"
     [lazy]="true"
     [rows]="pageSize"
