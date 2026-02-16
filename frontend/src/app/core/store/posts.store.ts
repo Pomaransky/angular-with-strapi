@@ -70,7 +70,9 @@ export const PostsStore = signalStore(
       patchState(store, { posts: { ...store.posts(), data: posts } });
     },
     resetPosts() {
-      patchState(store, { posts: { ...store.posts(), data: initialPaginatedState<Post>([]) } });
+      patchState(store, {
+        posts: { ...store.posts(), data: initialPaginatedState<Post>([]) },
+      });
     },
     setPostsLoading(isLoading: boolean) {
       patchState(store, { posts: { ...store.posts(), isLoading } });

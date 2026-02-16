@@ -12,13 +12,14 @@ import { ConfirmationService } from 'primeng/api';
 import {
   menuItems,
   MenuItemWithPermissions,
-} from '../../../../constants/menuItems.const';
+} from '../../../../constants/menu-items.const';
 import { AuthService } from '../../../../services/auth-service';
 import { UserStore } from '../../../../store/user.store';
+import { Settings } from '../../../../components/settings/settings';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MenuModule, DividerModule, ButtonModule],
+  imports: [MenuModule, DividerModule, ButtonModule, Settings],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

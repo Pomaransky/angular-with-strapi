@@ -1,0 +1,17 @@
+<p-button icon="pi pi-cog" (click)="drawerVisible.set(true)" />
+<p-drawer
+  [visible]="drawerVisible()"
+  (visibleChange)="drawerVisible.set($event)"
+  position="right"
+  header="Settings"
+  [dismissible]="true"
+  [closable]="true"
+>
+  <div class="flex items-center justify-between gap-4 py-2">
+    <span class="text-color">Dark mode</span>
+    <p-toggleSwitch
+      [ngModel]="isDark()"
+      (onChange)="onDarkModeChange($event.checked)"
+    />
+  </div>
+</p-drawer>
