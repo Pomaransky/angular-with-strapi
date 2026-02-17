@@ -43,7 +43,8 @@
     "passwordMinLength": "Password must be at least 6 characters",
     "signIn": "Sign In",
     "noAccount": "Don't have an account?",
-    "register": "Register"
+    "register": "Register",
+    "demoAppInfo": "Strapi Cloud Demo (backend) project is scaled down to save resources. Strapi needs time to start back up - so the first request may take more time (wait a moment and try to refresh the page if it takes too long)."
   },
   "register": {
     "username": "Username",

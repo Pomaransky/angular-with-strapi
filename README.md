@@ -1,8 +1,8 @@
-# Pulsar
-A platform for publishing posts and comments. Users can create posts, browse the feed on the home page, and open individual posts with a paginated list of comments. Admin can view and block users. Frontend built with Angular, backend with Strapi 5.
+# Pulsar (still under development - new features etc.)
+A platform for publishing posts and comments. Users can create posts, browse the feed on the home page, and open individual posts with a paginated list of comments. Admin can view and block users. The app supports a light/dark theme and multiple languages with ngx-translate and PrimeNG locale.
 
 #### Demo: https://pulsar-app.netlify.app/
-#### Strapi Cloud Demo project scaled down to save resources. Strapi needs time to start it back up - so requests to demo may take more time (wait a moment and try refresh the page).
+#### Strapi Cloud Demo (backend) project is scaled down to save resources. Strapi needs time to start back up - so the first request may take longer (wait a moment and try to refresh the page if it takes too long).
 Test admin credentials:
 Username: **admin**
 Password: **zaq1@WSX**

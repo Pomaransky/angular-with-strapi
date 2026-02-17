@@ -21,12 +21,7 @@ import { Spinner } from '../spinner/spinner';
 
 @Component({
   selector: 'app-posts-list',
-  imports: [
-    PostCard,
-    Spinner,
-    InfiniteScrollDirective,
-    TranslateModule,
-  ],
+  imports: [PostCard, Spinner, InfiniteScrollDirective, TranslateModule],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
