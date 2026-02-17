@@ -5,6 +5,7 @@ import { CardModule } from 'primeng/card';
 import { Avatar } from '../avatar/avatar';
 import { RichTextToPlainPipe } from '../../pipes/rich-text-to-plain.pipe';
 import { DateFromNowPipe } from '../../pipes/from-now.pipe';
+import { TooltipModule } from 'primeng/tooltip';
 import { Post } from '../../models';
 
 @Component({
@@ -17,6 +18,7 @@ import { Post } from '../../models';
     CardModule,
     Avatar,
     RichTextToPlainPipe,
+    TooltipModule,
   ],
   templateUrl: './post-card.html',
   styleUrl: './post-card.scss',

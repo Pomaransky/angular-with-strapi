@@ -22,7 +22,14 @@ import { Spinner } from '../../../../components';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MenuModule, DividerModule, ButtonModule, Settings, TranslateModule, Spinner],
+  imports: [
+    MenuModule,
+    DividerModule,
+    ButtonModule,
+    Settings,
+    TranslateModule,
+    Spinner,
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
