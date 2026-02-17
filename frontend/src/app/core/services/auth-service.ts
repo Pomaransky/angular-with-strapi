@@ -8,6 +8,7 @@ import {
 } from '../models/auth';
 import { UserStore } from '../store/user.store';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from './toast-service';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class AuthService extends ApiService {
   private userStore = inject(UserStore);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private translate = inject(TranslateService);
 
   constructor() {
     super();
@@ -39,12 +41,13 @@ export class AuthService extends ApiService {
     return this.post<AuthResponse>('auth/local/register', credentials).pipe(
       tap((response: AuthResponse) => {
         this.toastService.successToast(
-          `Successfully registered ${response.user.username}, please login to continue`,
+          this.translate.instant('auth.registerSuccess', {
+            username: response.user.username,
+          }),
         );
         this.router.navigate(['/login']);
       }),
       catchError((error) => {
-        this.toastService.errorToast(error.error.error.message);
         return throwError(() => new Error(error.error.error.message));
       }),
     );

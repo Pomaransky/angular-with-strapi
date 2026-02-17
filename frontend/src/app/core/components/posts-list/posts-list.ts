@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableLoadParams } from '../../models';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
+import { TranslateModule } from '@ngx-translate/core';
 import { PostCard } from '../post-card/post-card';
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { tap } from 'rxjs';
@@ -20,7 +21,12 @@ import { Spinner } from '../spinner/spinner';
 
 @Component({
   selector: 'app-posts-list',
-  imports: [PostCard, Spinner, InfiniteScrollDirective],
+  imports: [
+    PostCard,
+    Spinner,
+    InfiniteScrollDirective,
+    TranslateModule,
+  ],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -25,7 +25,7 @@
           />
         </div>
 
-        <span class="font-bold text-2xl block my-6">Profile Details</span>
+        <span class="font-bold text-2xl block my-6">{{ "users.profileDetails" | translate }}</span>
         @if (isLoading()) {
           <div class="flex justify-center items-center w-full mt-8">
             <app-spinner />
@@ -44,19 +44,30 @@
             </div>
 
             <div class="space-y-3">
-              <app-data-row label="Document ID" [value]="userData.documentId" />
               <app-data-row
-                label="First Name"
+                [label]="'profile.documentId' | translate"
+                [value]="userData.documentId"
+              />
+              <app-data-row
+                [label]="'profile.firstName' | translate"
                 [value]="userData.firstName || '-'"
               />
               <app-data-row
-                label="Last Name"
+                [label]="'profile.lastName' | translate"
                 [value]="userData.lastName || '-'"
               />
-              <app-data-row label="Provider" [value]="userData.provider" />
               <app-data-row
-                label="Status"
-                [value]="userData.confirmed ? 'Confirmed' : 'Not Confirmed'"
+                [label]="'profile.provider' | translate"
+                [value]="userData.provider"
+              />
+              <app-data-row
+                [label]="'profile.status' | translate"
+                [value]="
+                  (userData.confirmed
+                    ? 'profile.confirmed'
+                    : 'profile.notConfirmed'
+                  ) | translate
+                "
                 [icon]="
                   userData.confirmed
                     ? 'pi pi-check-circle'
@@ -67,15 +78,18 @@
                 "
               />
               <app-data-row
-                label="Account"
-                [value]="userData.blocked ? 'Blocked' : 'Active'"
+                [label]="'profile.account' | translate"
+                [value]="
+                  (userData.blocked ? 'profile.blocked' : 'profile.active')
+                    | translate
+                "
                 [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
                 [valueClass]="
                   userData.blocked ? 'text-red-600' : 'text-green-600'
                 "
               />
               <app-data-row
-                label="About Me"
+                [label]="'profile.aboutMe' | translate"
                 [value]="userData.aboutMe || '-'"
                 [vertical]="true"
               />

@@ -5,7 +5,7 @@
   [totalRecords]="totalRecords()"
   [isLoading]="isUsersLoading()"
   (loadParams)="onTableLoad($event)"
-  [rowActions]="rowActions"
+  [rowActions]="rowActions.bind(this)"
   [onRowAction]="onRowAction.bind(this)"
 />
 

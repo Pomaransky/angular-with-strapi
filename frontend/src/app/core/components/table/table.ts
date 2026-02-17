@@ -17,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { TableColumn, RowActionItem, TableLoadParams } from '../../models';
 import { TableCell } from './components/table-cell/table-cell';
 import { InputField } from '../input-field/input-field';
@@ -34,6 +35,7 @@ const SEARCH_DEBOUNCE_MS = 500;
     FormsModule,
     InputField,
     CardModule,
+    TranslateModule,
   ],
   templateUrl: './table.html',
   styleUrl: './table.scss',
@@ -53,7 +55,7 @@ export class Table<T = unknown> implements OnChanges, OnInit {
   @Input() onRowAction?: (row: T, actionId: string) => void;
 
   @Input() showSearch = true;
-  @Input() searchPlaceholder = 'Search...';
+  @Input() searchPlaceholder = 'table.search';
 
   @Output() loadParams = new EventEmitter<TableLoadParams>();
 

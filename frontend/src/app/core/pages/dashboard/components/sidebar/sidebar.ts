@@ -13,14 +13,16 @@ import {
   menuItems,
   MenuItemWithPermissions,
 } from '../../../../constants/menu-items.const';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../services/auth-service';
 import { UserStore } from '../../../../store/user.store';
+import { AppStore } from '../../../../store/app.store';
 import { Settings } from '../../../../components/settings/settings';
 import { Spinner } from '../../../../components';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MenuModule, DividerModule, ButtonModule, Settings, Spinner],
+  imports: [MenuModule, DividerModule, ButtonModule, Settings, TranslateModule, Spinner],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,9 +34,14 @@ export class Sidebar implements OnInit {
   private authService = inject(AuthService);
   private confirmationService = inject(ConfirmationService);
   private userStore = inject(UserStore);
+  private translate = inject(TranslateService);
+  private appStore = inject(AppStore);
 
-  items = computed(() => this.getFilteredMenuItems());
   isUserLoading = this.userStore.me.isLoading;
+  items = computed(() => {
+    this.appStore.language();
+    return this.getFilteredMenuItems();
+  });
 
   isMenuPopup = false;
 
@@ -46,13 +53,17 @@ export class Sidebar implements OnInit {
     const userRole = this.userStore.me.data()?.role?.type;
 
     return menuItems.map((item: MenuItemWithPermissions) => {
+      const base = {
+        ...item,
+        label: this.translate.instant(item.label ?? ''),
+      };
       if (item.permissions && item.permissions.length > 0) {
         return {
-          ...item,
+          ...base,
           visible: userRole ? item.permissions.includes(userRole) : false,
         };
       }
-      return item;
+      return base;
     });
   }
 
@@ -67,10 +78,10 @@ export class Sidebar implements OnInit {
   logout(event: Event): void {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure you want to logout?',
-      header: 'Confirm logout',
-      acceptLabel: 'Logout',
-      rejectLabel: 'Cancel',
+      message: this.translate.instant('confirmDialog.confirmLogoutMessage'),
+      header: this.translate.instant('confirmDialog.confirmLogout'),
+      acceptLabel: this.translate.instant('confirmDialog.logout'),
+      rejectLabel: this.translate.instant('common.cancel'),
       icon: 'pi pi-sign-out',
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-info',

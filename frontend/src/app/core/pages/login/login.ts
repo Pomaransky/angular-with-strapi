@@ -26,6 +26,7 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PageTitle } from '../../constants';
 import { Settings } from '../../components/settings/settings';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +40,7 @@ import { Settings } from '../../components/settings/settings';
     CardModule,
     DividerModule,
     Settings,
+    TranslateModule,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',

@@ -1,0 +1,148 @@
+{
+  "auth": {
+    "registerSuccess": "Rejestracja użytkownika {{username}} zakończona. Zaloguj się, aby kontynuować"
+  },
+  "posts": {
+    "postFetchError": "Nie udało się pobrać posta",
+    "postsFetchError": "Nie udało się pobrać postów",
+    "commentAdded": "Komentarz dodany",
+    "postAdded": "Post opublikowany pomyślnie",
+    "addCommentError": "Nie udało się dodać komentarza",
+    "addPostError": "Nie udało się dodać posta"
+  },
+  "user": {
+    "userNotFound": "Nie znaleziono użytkownika",
+    "userDataUpdated": "Dane użytkownika zaktualizowane pomyślnie",
+    "userDataUpdateError": "Nie udało się zaktualizować danych użytkownika",
+    "usersFetchError": "Nie udało się pobrać użytkowników",
+    "userBlocked": "Użytkownik zablokowany pomyślnie",
+    "userUnblocked": "Użytkownik odblokowany pomyślnie",
+    "updateBlockStatusError": "Nie udało się zaktualizować statusu blokady"
+  },
+  "common": {
+    "yes": "Tak",
+    "no": "Nie",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "search": "Szukaj...",
+    "success": "Sukces",
+    "error": "Błąd"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "language": "Język",
+    "darkMode": "Tryb ciemny"
+  },
+  "login": {
+    "emailOrUsername": "E-mail lub nazwa użytkownika",
+    "emailOrUsernamePlaceholder": "Wpisz e-mail lub nazwę użytkownika",
+    "emailOrUsernameRequired": "E-mail lub nazwa użytkownika jest wymagana",
+    "password": "Hasło",
+    "passwordPlaceholder": "Wpisz hasło",
+    "passwordRequired": "Hasło jest wymagane",
+    "passwordMinLength": "Hasło musi mieć co najmniej 6 znaków",
+    "signIn": "Zaloguj się",
+    "noAccount": "Nie masz konta?",
+    "register": "Zarejestruj się"
+  },
+  "register": {
+    "username": "Nazwa użytkownika",
+    "usernamePlaceholder": "Wpisz nazwę użytkownika",
+    "email": "E-mail",
+    "emailPlaceholder": "Wpisz e-mail",
+    "password": "Hasło",
+    "passwordPlaceholder": "Wpisz hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Potwierdź hasło",
+    "register": "Zarejestruj się",
+    "haveAccount": "Masz już konto?",
+    "login": "Zaloguj się"
+  },
+  "registerValidations": {
+    "usernameRequired": "Nazwa użytkownika jest wymagana",
+    "emailRequired": "E-mail jest wymagany",
+    "invalidEmail": "Nieprawidłowy adres e-mail",
+    "passwordRequired": "Hasło jest wymagane",
+    "passwordMinLength": "Hasło musi mieć co najmniej 8 znaków",
+    "passwordPattern": "Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny",
+    "confirmPasswordRequired": "Potwierdzenie hasła jest wymagane",
+    "passwordsMismatch": "Hasła nie są identyczne"
+  },
+  "sidebar": {
+    "logout": "Wyloguj się"
+  },
+  "confirmDialog": {
+    "confirmLogout": "Potwierdź wylogowanie",
+    "confirmLogoutMessage": "Czy na pewno chcesz się wylogować?",
+    "logout": "Wyloguj się"
+  },
+  "profile": {
+    "documentId": "ID dokumentu",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "birthDate": "Data urodzenia",
+    "provider": "Dostawca",
+    "status": "Status",
+    "account": "Konto",
+    "role": "Rola",
+    "aboutMe": "O mnie",
+    "confirmed": "Potwierdzony",
+    "notConfirmed": "Niepotwierdzony",
+    "blocked": "Zablokowany",
+    "active": "Aktywny",
+    "editProfile": "Edytuj profil",
+    "somethingWentWrong": "Coś poszło nie tak",
+    "loadingProfile": "Ładowanie profilu..."
+  },
+  "editProfile": {
+    "title": "Edytuj profil",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "birthDate": "Data urodzenia",
+    "aboutMe": "O mnie"
+  },
+  "editProfileValidations": {
+    "aboutMeMaxLength": "O mnie może mieć maksymalnie 255 znaków"
+  },
+  "users": {
+    "block": "Zablokuj",
+    "unblock": "Odblokuj",
+    "details": "Szczegóły",
+    "profileDetails": "Szczegóły profilu",
+    "username": "Nazwa użytkownika",
+    "email": "E-mail",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "confirmed": "Potwierdzony",
+    "notConfirmed": "Niepotwierdzony",
+    "blocked": "Zablokowany",
+    "createdAt": "Data utworzenia"
+  },
+  "post": {
+    "addComment": "Dodaj komentarz",
+    "writeComment": "Napisz komentarz...",
+    "commentButton": "Komentuj",
+    "whatsOnYourMind": "Co u Ciebie słychać?",
+    "postLabel": "Opublikuj",
+    "noPostsYet": "Brak postów",
+    "noCommentsYet": "Brak komentarzy"
+  },
+  "postValidations": {
+    "maxLength": "Post może mieć maksymalnie 255 znaków"
+  },
+  "menu": {
+    "home": "Strona główna",
+    "post": "Post",
+    "profile": "Profil",
+    "users": "Użytkownicy"
+  },
+  "notFound": {
+    "title": "Strona nie znaleziona"
+  },
+  "table": {
+    "search": "Szukaj..."
+  },
+  "primeng": {
+    "monthNames": ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
+  }
+}

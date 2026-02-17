@@ -3,7 +3,11 @@
 >
   <div>
     <div class="hidden md:flex items-center justify-center mb-3">
-      <img src="/logo_big.svg" alt="Pulsar" class="block h-15 object-contain" />
+      <img
+        src="/logo_big.svg"
+        alt="Pulsar"
+        class="block h-[62px] object-contain"
+      />
     </div>
     @if (items().length > 0 && !isUserLoading()) {
       <div class="absolute top-4 right-4 md:hidden flex gap-2">
@@ -26,7 +30,7 @@
               (click)="logout($event)"
               class="w-full"
             >
-              <span pButtonLabel>Logout</span>
+              <span pButtonLabel>{{ "sidebar.logout" | translate }}</span>
               <i class="pi pi-sign-out" pButtonIcon></i>
             </button>
           </div>
@@ -42,7 +46,7 @@
     (click)="logout($event)"
     class="w-full hidden md:flex"
   >
-    <span pButtonLabel>Logout</span>
+    <span pButtonLabel>{{ "sidebar.logout" | translate }}</span>
     <i class="pi pi-sign-out" pButtonIcon></i>
   </button>
 </aside>

@@ -19,20 +19,25 @@ import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostsStore } from './core/store/posts.store';
-import { ThemeService } from './core/services/theme-service';
-import { pulsarThemePreset } from './core/constants';
+import { AppStore } from './core/store/app.store';
+import { pulsarThemePreset, SupportedLanguages } from './core/constants';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideAppInitializer(() => {
-      inject(ThemeService).init();
+      const appStore = inject(AppStore);
+      appStore.initTheme();
+      return appStore.initLanguageAsync();
     }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
     UserStore,
     PostsStore,
+    AppStore,
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
@@ -45,6 +50,14 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: '.dark',
         },
       },
+    }),
+    provideTranslateService({
+      fallbackLang: SupportedLanguages.EN,
+      lang: SupportedLanguages.EN,
+      loader: provideTranslateHttpLoader({
+        prefix: 'assets/i18n/',
+        suffix: '.json',
+      }),
     }),
     ConfirmationService,
     MessageService,

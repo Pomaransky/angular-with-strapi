@@ -8,11 +8,11 @@
     formControlName="content"
     type="textarea"
     [rows]="rows"
-    [placeholder]="placeholder"
+    [placeholder]="placeholder | translate"
     [validationMessages]="validationMessages"
   />
   <button pButton type="submit" [disabled]="form.invalid">
-    <span pButtonLabel>{{ submitLabel }}</span>
+    <span pButtonLabel>{{ submitLabel | translate }}</span>
     <i class="pi pi-send" pButtonIcon></i>
   </button>
 </form>

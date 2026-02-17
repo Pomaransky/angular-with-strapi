@@ -143,6 +143,34 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
+    select: {
+      colorScheme: {
+        light: {
+          root: primaryColorScheme.light,
+          overlay: primaryColorScheme.light,
+          option: {
+            selectedBackground: '{violet.200}',
+            selectedFocusBackground: '{violet.200}',
+            focusBackground: '{violet.100}',
+            selectedFocusColor: '{violet.700}',
+            selectedColor: '{violet.700}',
+            focusColor: '{violet.700}',
+          },
+        },
+        dark: {
+          root: primaryColorScheme.dark,
+          overlay: primaryColorScheme.dark,
+          option: {
+            selectedBackground: '{violet.700}',
+            selectedFocusBackground: '{violet.700}',
+            focusBackground: '{violet.600}',
+            selectedFocusColor: '{surface.0}',
+            selectedColor: '{surface.0}',
+            focusColor: '{surface.0}',
+          },
+        },
+      },
+    },
     datatable: {
       colorScheme: {
         light: {

@@ -18,6 +18,7 @@ import { PasswordModule } from 'primeng/password';
 import { TextareaModule } from 'primeng/textarea';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
+import { TranslateModule } from '@ngx-translate/core';
 import { ValidationMessage } from '../../models';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -30,6 +31,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TextareaModule,
     IconField,
     InputIcon,
+    TranslateModule,
   ],
   templateUrl: './input-field.html',
   styleUrl: './input-field.scss',

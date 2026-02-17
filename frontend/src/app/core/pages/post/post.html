@@ -3,22 +3,22 @@
     <div class="flex flex-col w-full max-w-[500px] gap-4">
       <app-post-card [post]="postData" [isMainPost]="true" />
       <div class="flex items-center justify-between gap-2 p-1">
-        <p class="text-sm font-medium opacity-80">
-          {{ postData.commentsTotal }}
-          {{ postData.commentsTotal === 1 ? "comment" : "comments" }}
-        </p>
+        <div class="text-sm font-medium opacity-80 flex items-center gap-2">
+          <i class="pi pi-comments"></i>
+          <span>{{ postData.commentsTotal }}</span>
+        </div>
         <button
           type="button"
           class="text-sm text-primary font-medium p-0 border-none bg-transparent cursor-pointer hover:underline"
           (click)="toggleCommentForm()"
         >
-          Add comment
+          {{ "post.addComment" | translate }}
         </button>
       </div>
       @if (showCommentForm()) {
         <app-post-form
-          placeholder="Write a comment..."
-          submitLabel="Comment"
+          [placeholder]="'post.writeComment' | translate"
+          [submitLabel]="'post.commentButton' | translate"
           [rows]="3"
           [parentDocumentId]="postData.documentId"
           (submitForm)="onCommentSubmit($event)"
