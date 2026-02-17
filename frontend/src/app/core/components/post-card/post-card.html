@@ -36,7 +36,12 @@
           @if (isMainPost) {
             {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
           } @else {
-            {{ postItem.createdAt | dateFromNow }}
+            <span
+              pTooltip="{{ postItem.createdAt | date: 'dd/MM/yyyy HH:mm' }}"
+              tooltipPosition="top"
+              tooltipStyleClass="text-xs"
+              >{{ postItem.createdAt | dateFromNow }}</span
+            >
           }
         </p>
       </div>

@@ -43,7 +43,8 @@
     "passwordMinLength": "Hasło musi mieć co najmniej 6 znaków",
     "signIn": "Zaloguj się",
     "noAccount": "Nie masz konta?",
-    "register": "Zarejestruj się"
+    "register": "Zarejestruj się",
+    "demoAppInfo": "Strapi Cloud Demo (backend) jest skalowany w celu oszczędzania zasobów. Strapi potrzebuje czasu na uruchomienie - więc pierwsze żądanie może zająć więcej czasu ( poczekaj chwilę i spróbuj odświeżyć stronę jeśli to trwa zbyt długo)."
   },
   "register": {
     "username": "Nazwa użytkownika",
@@ -121,7 +122,7 @@
   "post": {
     "addComment": "Dodaj komentarz",
     "writeComment": "Napisz komentarz...",
-    "commentButton": "Komentuj",
+    "commentButton": "Zamieść komentarz",
     "whatsOnYourMind": "Co u Ciebie słychać?",
     "postLabel": "Opublikuj",
     "noPostsYet": "Brak postów",
