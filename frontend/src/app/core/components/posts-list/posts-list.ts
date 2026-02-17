@@ -15,15 +15,15 @@ import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 import { TranslateModule } from '@ngx-translate/core';
 import { PostCard } from '../post-card/post-card';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { tap } from 'rxjs';
+import { Spinner } from '../spinner/spinner';
 
 @Component({
   selector: 'app-posts-list',
   imports: [
     PostCard,
-    ProgressSpinnerModule,
+    Spinner,
     InfiniteScrollDirective,
     TranslateModule,
   ],

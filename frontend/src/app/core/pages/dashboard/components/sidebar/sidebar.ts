@@ -18,10 +18,11 @@ import { AuthService } from '../../../../services/auth-service';
 import { UserStore } from '../../../../store/user.store';
 import { AppStore } from '../../../../store/app.store';
 import { Settings } from '../../../../components/settings/settings';
+import { Spinner } from '../../../../components';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MenuModule, DividerModule, ButtonModule, Settings, TranslateModule],
+  imports: [MenuModule, DividerModule, ButtonModule, Settings, TranslateModule, Spinner],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +37,7 @@ export class Sidebar implements OnInit {
   private translate = inject(TranslateService);
   private appStore = inject(AppStore);
 
+  isUserLoading = this.userStore.me.isLoading;
   items = computed(() => {
     this.appStore.language();
     return this.getFilteredMenuItems();

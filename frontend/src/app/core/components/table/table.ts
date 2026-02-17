@@ -22,6 +22,7 @@ import { TableColumn, RowActionItem, TableLoadParams } from '../../models';
 import { TableCell } from './components/table-cell/table-cell';
 import { InputField } from '../input-field/input-field';
 import { CardModule } from 'primeng/card';
+import { TranslateService } from '@ngx-translate/core';
 
 const SEARCH_DEBOUNCE_MS = 500;
 
@@ -44,6 +45,7 @@ const SEARCH_DEBOUNCE_MS = 500;
 export class Table<T = unknown> implements OnChanges, OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
+  private translate = inject(TranslateService);
 
   @Input({ required: true }) data!: T[];
   @Input({ required: true }) columns!: TableColumn[];
@@ -81,6 +83,12 @@ export class Table<T = unknown> implements OnChanges, OnInit {
         this.filterValue = value.trim();
         this.cdr.markForCheck();
         this.emitLoad(1);
+      });
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.rowActionsMenuItemsCache.clear();
+        this.cdr.markForCheck();
       });
   }
 
