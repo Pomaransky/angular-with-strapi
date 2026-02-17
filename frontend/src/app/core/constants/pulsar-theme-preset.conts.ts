@@ -58,20 +58,20 @@ export const pulsarThemePreset = definePreset(Aura, {
     menu: {
       colorScheme: {
         light: {
-          root: {...primaryColorScheme.light, borderColor: '{surface.0}'},
+          root: { ...primaryColorScheme.light, borderColor: '{surface.0}' },
         },
         dark: {
-          root: {...primaryColorScheme.dark, borderColor: '{slate.950}'},
+          root: { ...primaryColorScheme.dark, borderColor: '{slate.950}' },
         },
       },
     },
     card: {
       colorScheme: {
         light: {
-          root: { background: '{surface.0}', shadow: 'none'},
+          root: { background: '{surface.0}', shadow: 'none' },
         },
         dark: {
-          root: { background: '{slate.950}', shadow: 'none'},
+          root: { background: '{slate.950}', shadow: 'none' },
         },
       },
     },
@@ -143,7 +143,7 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
-    datatable:{
+    datatable: {
       colorScheme: {
         light: {
           headerCell: primaryColorScheme.light,
@@ -157,7 +157,7 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
-    paginator:{
+    paginator: {
       colorScheme: {
         light: {
           root: primaryColorScheme.light,
@@ -166,6 +166,6 @@ export const pulsarThemePreset = definePreset(Aura, {
           root: primaryColorScheme.dark,
         },
       },
-    }
+    },
   },
 });

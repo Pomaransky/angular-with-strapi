@@ -5,27 +5,36 @@
     <div class="hidden md:flex items-center justify-center mb-3">
       <img src="/logo_big.svg" alt="Pulsar" class="block h-15 object-contain" />
     </div>
-    <div class="absolute top-4 right-4 md:hidden flex gap-2">
-      <app-settings />
-      <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
-    </div>
-    <p-menu #menu [model]="items()" [popup]="isMenuPopup">
-      <ng-template #start>
-        <h2
-          class="md:hidden flex items-center justify-center pt-4 border-b border-violet-200 dark:border-slate-700 pb-4"
-        >
-          <img src="/logo_big.svg" alt="Pulsar" class="w-35" />
-        </h2>
-      </ng-template>
-      <ng-template #end>
-        <div class="p-4 pt-2 md:hidden">
-          <button pButton type="button" (click)="logout($event)" class="w-full">
-            <span pButtonLabel>Logout</span>
-            <i class="pi pi-sign-out" pButtonIcon></i>
-          </button>
-        </div>
-      </ng-template>
-    </p-menu>
+    @if (items().length > 0 && !isUserLoading()) {
+      <div class="absolute top-4 right-4 md:hidden flex gap-2">
+        <app-settings />
+        <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+      </div>
+      <p-menu #menu [model]="items()" [popup]="isMenuPopup">
+        <ng-template #start>
+          <h2
+            class="md:hidden flex items-center justify-center pt-4 border-b border-violet-200 dark:border-slate-700 pb-4"
+          >
+            <img src="/logo_big.svg" alt="Pulsar" class="w-35" />
+          </h2>
+        </ng-template>
+        <ng-template #end>
+          <div class="p-4 pt-2 md:hidden">
+            <button
+              pButton
+              type="button"
+              (click)="logout($event)"
+              class="w-full"
+            >
+              <span pButtonLabel>Logout</span>
+              <i class="pi pi-sign-out" pButtonIcon></i>
+            </button>
+          </div>
+        </ng-template>
+      </p-menu>
+    } @else {
+      <app-spinner />
+    }
   </div>
   <button
     pButton

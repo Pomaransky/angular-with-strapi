@@ -14,13 +14,13 @@ import { TableLoadParams } from '../../models';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
 import { PostCard } from '../post-card/post-card';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { tap } from 'rxjs';
+import { Spinner } from '../spinner/spinner';
 
 @Component({
   selector: 'app-posts-list',
-  imports: [PostCard, ProgressSpinnerModule, InfiniteScrollDirective],
+  imports: [PostCard, Spinner, InfiniteScrollDirective],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

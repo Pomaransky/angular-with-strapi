@@ -16,10 +16,11 @@ import {
 import { AuthService } from '../../../../services/auth-service';
 import { UserStore } from '../../../../store/user.store';
 import { Settings } from '../../../../components/settings/settings';
+import { Spinner } from '../../../../components';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MenuModule, DividerModule, ButtonModule, Settings],
+  imports: [MenuModule, DividerModule, ButtonModule, Settings, Spinner],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +34,7 @@ export class Sidebar implements OnInit {
   private userStore = inject(UserStore);
 
   items = computed(() => this.getFilteredMenuItems());
+  isUserLoading = this.userStore.me.isLoading;
 
   isMenuPopup = false;
 
