@@ -9,6 +9,6 @@ export interface Media {
   formats: {
     thumbnail: {
       url: string;
-    }
-  }
+    };
+  };
 }

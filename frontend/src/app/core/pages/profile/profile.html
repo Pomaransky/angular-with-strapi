@@ -1,72 +1,127 @@
 @if (user(); as userData) {
-<p-card>
-  <div class="flex items-center space-x-4 mb-6">
-    <p-fileupload #avatarUpload name="avatar[]" accept="image/jpeg, image/png" [customUpload]="true"
-      [maxFileSize]="avatarMaxSizeBytes" [invalidFileSizeMessageSummary]="'upload.maxFileSizeExceeded' | translate"
-      [invalidFileSizeMessageDetail]="'upload.maxFileSizeExceeded' | translate" (onSelect)="onChangeAvatar($event)">
-      <ng-template #header let-chooseCallback="chooseCallback">
-        <button type="button"
-          class="relative border-0 bg-transparent p-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-center"
-          (click)="chooseCallback()" [pTooltip]="'profile.changeAvatar' | translate" tooltipPosition="bottom">
-          <app-avatar size="lg" [userData]="userData" />
-          <div
-            class="w-full h-full absolute top-0 right-0 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 hover:bg-violet-500/50">
-            <i class="pi pi-pencil text-2xl"></i>
-          </div>
-        </button>
-      </ng-template>
-      <ng-template #content let-file let-uploadCallback="uploadCallback"></ng-template>
-    </p-fileupload>
-    <div>
-      <h2 class="text-2xl font-bold">
-        {{ userData.username }}
-      </h2>
-      <p class="text-gray-400">{{ userData.email }}</p>
+  <p-card>
+    <div class="flex items-center space-x-4 mb-6">
+      <p-fileupload
+        #avatarUpload
+        name="avatar[]"
+        accept="image/jpeg, image/png"
+        [customUpload]="true"
+        [maxFileSize]="avatarMaxSizeBytes"
+        [invalidFileSizeMessageSummary]="
+          'upload.maxFileSizeExceeded' | translate
+        "
+        [invalidFileSizeMessageDetail]="
+          'upload.maxFileSizeExceeded' | translate
+        "
+        (onSelect)="onChangeAvatar($event)"
+      >
+        <ng-template #header let-chooseCallback="chooseCallback">
+          <button
+            type="button"
+            class="relative border-0 bg-transparent p-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-center"
+            (click)="chooseCallback()"
+            [pTooltip]="'profile.changeAvatar' | translate"
+            tooltipPosition="bottom"
+          >
+            <app-avatar size="lg" [userData]="userData" />
+            <div
+              class="w-full h-full absolute top-0 right-0 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 hover:bg-violet-500/50"
+            >
+              <i class="pi pi-pencil text-2xl"></i>
+            </div>
+          </button>
+        </ng-template>
+        <ng-template
+          #content
+          let-file
+          let-uploadCallback="uploadCallback"
+        ></ng-template>
+      </p-fileupload>
+      <div>
+        <h2 class="text-2xl font-bold">
+          {{ userData.username }}
+        </h2>
+        <p class="text-gray-400">{{ userData.email }}</p>
+      </div>
     </div>
-  </div>
 
-  <div class="space-y-3">
-    <app-data-row [label]="'profile.documentId' | translate" [value]="userData.documentId || '-'" />
-    <app-data-row [label]="'profile.firstName' | translate" [value]="userData.firstName || '-'" />
-    <app-data-row [label]="'profile.lastName' | translate" [value]="userData.lastName || '-'" />
-    <app-data-row [label]="'profile.birthDate' | translate"
-      [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'" />
-    <app-data-row [label]="'profile.provider' | translate" [value]="userData.provider || '-'" />
-    <app-data-row [label]="'profile.status' | translate" [value]="
+    <div class="space-y-3">
+      <app-data-row
+        [label]="'profile.documentId' | translate"
+        [value]="userData.documentId || '-'"
+      />
+      <app-data-row
+        [label]="'profile.firstName' | translate"
+        [value]="userData.firstName || '-'"
+      />
+      <app-data-row
+        [label]="'profile.lastName' | translate"
+        [value]="userData.lastName || '-'"
+      />
+      <app-data-row
+        [label]="'profile.birthDate' | translate"
+        [value]="(userData.birthDate | date: 'dd/MM/yyyy') || '-'"
+      />
+      <app-data-row
+        [label]="'profile.provider' | translate"
+        [value]="userData.provider || '-'"
+      />
+      <app-data-row
+        [label]="'profile.status' | translate"
+        [value]="
           (userData.confirmed ? 'profile.confirmed' : 'profile.notConfirmed')
             | translate
-        " [icon]="
+        "
+        [icon]="
           userData.confirmed ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'
-        " [valueClass]="
+        "
+        [valueClass]="
           userData.confirmed
             ? 'text-green-600 font-medium'
             : 'text-amber-600 font-medium'
-        " />
-    <app-data-row [label]="'profile.account' | translate" [value]="
+        "
+      />
+      <app-data-row
+        [label]="'profile.account' | translate"
+        [value]="
           (userData.blocked ? 'profile.blocked' : 'profile.active') | translate
-        " [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'" [valueClass]="
+        "
+        [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
+        [valueClass]="
           userData.blocked
             ? 'text-red-600 font-medium'
             : 'text-green-600 font-medium'
-        " />
-    <app-data-row [label]="'profile.role' | translate" [value]="userData.role.name || '-'" />
-    <app-data-row [label]="'profile.aboutMe' | translate" [value]="userData.aboutMe || '-'" [vertical]="true" />
-  </div>
-  <div class="flex justify-end mt-6">
-    <p-button [label]="'profile.editProfile' | translate" severity="primary" icon="pi pi-pencil"
-      (click)="onEdit()"></p-button>
-  </div>
-</p-card>
+        "
+      />
+      <app-data-row
+        [label]="'profile.role' | translate"
+        [value]="userData.role.name || '-'"
+      />
+      <app-data-row
+        [label]="'profile.aboutMe' | translate"
+        [value]="userData.aboutMe || '-'"
+        [vertical]="true"
+      />
+    </div>
+    <div class="flex justify-end mt-6">
+      <p-button
+        [label]="'profile.editProfile' | translate"
+        severity="primary"
+        icon="pi pi-pencil"
+        (click)="onEdit()"
+      ></p-button>
+    </div>
+  </p-card>
 } @else if (!isUserLoading() && !user()) {
-<div class="flex justify-center items-center h-64">
-  {{ "profile.somethingWentWrong" | translate }}
-</div>
+  <div class="flex justify-center items-center h-64">
+    {{ "profile.somethingWentWrong" | translate }}
+  </div>
 }
 
 @if (isUserLoading()) {
-<div class="flex justify-center items-center h-64">
-  <app-spinner [loadingText]="'profile.loadingProfile' | translate" />
-</div>
+  <div class="flex justify-center items-center h-64">
+    <app-spinner [loadingText]="'profile.loadingProfile' | translate" />
+  </div>
 }
 
 <app-edit-profile-dialog></app-edit-profile-dialog>

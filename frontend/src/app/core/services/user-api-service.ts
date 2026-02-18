@@ -29,19 +29,31 @@ export class UserApiService extends ApiService {
   constructor() {
     super();
   }
-  
-  uploadAvatar(file: File, userId: number, currentAvatarId: string | null): Observable<unknown> {
-    return this.fileApiService.uploadFile(file, 'plugin::users-permissions.user', userId, 'avatar').pipe(
-      switchMap(() => currentAvatarId ? this.fileApiService.deleteFile(currentAvatarId) : of(null)),
-      tap((res) => {
-        console.log(res);
-        this.toastService.successToast(this.translate.instant('upload.success'));
-      }),
-      catchError((err) => {
-        this.toastService.errorToast(this.translate.instant('upload.error'));
-        return throwError(() => err);
-      }),
-    );
+
+  uploadAvatar(
+    file: File,
+    userId: number,
+    currentAvatarId: string | null,
+  ): Observable<unknown> {
+    return this.fileApiService
+      .uploadFile(file, 'plugin::users-permissions.user', userId, 'avatar')
+      .pipe(
+        switchMap(() =>
+          currentAvatarId
+            ? this.fileApiService.deleteFile(currentAvatarId)
+            : of(null),
+        ),
+        tap((res) => {
+          console.log(res);
+          this.toastService.successToast(
+            this.translate.instant('upload.success'),
+          );
+        }),
+        catchError((err) => {
+          this.toastService.errorToast(this.translate.instant('upload.error'));
+          return throwError(() => err);
+        }),
+      );
   }
 
   getMe(): Observable<User | null> {

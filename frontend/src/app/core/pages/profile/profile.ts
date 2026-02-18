@@ -17,7 +17,11 @@ import { CardModule } from 'primeng/card';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageTitle } from '../../constants';
-import { FileSelectEvent, FileUpload, FileUploadModule } from 'primeng/fileupload';
+import {
+  FileSelectEvent,
+  FileUpload,
+  FileUploadModule,
+} from 'primeng/fileupload';
 import { ToastService } from '../../services/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { UserApiService } from '../../services/user-api-service';
@@ -74,22 +78,29 @@ export class Profile implements OnInit {
     }
 
     const currentAvatarId = currentUser.avatar?.id?.toString() ?? null;
-    this.userApiService.uploadAvatar(file, currentUser.id, currentAvatarId).pipe(
-      takeUntilDestroyed(this.destroyRef),
-      switchMap(() => this.userApiService.getMe()),
-    ).subscribe();
+    this.userApiService
+      .uploadAvatar(file, currentUser.id, currentAvatarId)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(() => this.userApiService.getMe()),
+      )
+      .subscribe();
   }
 
   private checkFileRequirements(file: File): boolean {
     if (file.size > this.avatarMaxSizeBytes) {
       this.toastService.errorToast(
-        this.translate.instant('upload.maxFileSizeExceeded', { maxSize: '1 MB' }),
+        this.translate.instant('upload.maxFileSizeExceeded', {
+          maxSize: '1 MB',
+        }),
       );
       return false;
     }
     if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
       this.toastService.errorToast(
-        this.translate.instant('upload.invalidFileType', { fileTypes: 'JPEG, PNG' }),
+        this.translate.instant('upload.invalidFileType', {
+          fileTypes: 'JPEG, PNG',
+        }),
       );
       return false;
     }
