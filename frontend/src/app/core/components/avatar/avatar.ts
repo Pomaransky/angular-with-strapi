@@ -12,16 +12,20 @@ import { environment } from '../../../../environments/environment';
 export class Avatar {
   @Input() userData: User | null = null;
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
-  
+
   get defaultData(): string {
     if (!this.userData) return '';
-    return this.userData.firstName && this.userData.lastName
-      ? this.userData.firstName.charAt(0) + this.userData.lastName.charAt(0)
+    const firstNameLetter = this.userData.firstName?.charAt(0) ?? '';
+    const lastNameLetter = this.userData.lastName?.charAt(0) ?? '';
+
+    return firstNameLetter && lastNameLetter
+      ? firstNameLetter + lastNameLetter
       : this.userData.username.charAt(0);
   }
 
   get url(): string | null {
-    return this.userData?.avatar?.formats?.thumbnail?.url ? `${environment.apiUrl}${this.userData.avatar.formats.thumbnail.url}` : null;
+    const avatarUrl = this.userData?.avatar?.formats.thumbnail.url;
+    return avatarUrl ? `${environment.apiUrl}${avatarUrl}` : null;
   }
 
   get boxSize(): string {
