@@ -19,6 +19,12 @@
     "userUnblocked": "User unblocked successfully",
     "updateBlockStatusError": "Failed to update user block status"
   },
+  "upload": {
+    "success": "Avatar uploaded successfully",
+    "error": "Upload failed",
+    "maxFileSizeExceeded": "File is too large. Maximum size is {{maxSize}}.",
+    "invalidFileType": "Invalid file type. Only {{fileTypes}} files are allowed."
+  },
   "common": {
     "yes": "Yes",
     "no": "No",
@@ -92,6 +98,7 @@
     "blocked": "Blocked",
     "active": "Active",
     "editProfile": "Edit Profile",
+    "changeAvatar": "Change avatar",
     "somethingWentWrong": "Something went wrong",
     "loadingProfile": "Loading profile..."
   },

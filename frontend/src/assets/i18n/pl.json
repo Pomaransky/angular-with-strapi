@@ -19,6 +19,12 @@
     "userUnblocked": "Użytkownik odblokowany pomyślnie",
     "updateBlockStatusError": "Nie udało się zaktualizować statusu blokady"
   },
+  "upload": {
+    "success": "Avatar przesłany pomyślnie",
+    "error": "Nie udało się przesłać pliku",
+    "maxFileSizeExceeded": "Plik jest za duży. Maksymalny rozmiar to {{maxSize}}.",
+    "invalidFileType": "Nieprawidłowy typ pliku. Dozwolone są tylko pliki {{fileTypes}}."
+  },
   "common": {
     "yes": "Tak",
     "no": "Nie",
@@ -92,6 +98,7 @@
     "blocked": "Zablokowany",
     "active": "Aktywny",
     "editProfile": "Edytuj profil",
+    "changeAvatar": "Zmień avatar",
     "somethingWentWrong": "Coś poszło nie tak",
     "loadingProfile": "Ładowanie profilu..."
   },

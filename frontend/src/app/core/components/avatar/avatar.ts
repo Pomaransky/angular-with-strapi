@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '../../models';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-avatar',
@@ -9,13 +10,18 @@ import { User } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Avatar {
-  @Input({ required: true }) userData!: User;
+  @Input() userData: User | null = null;
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
-
+  
   get defaultData(): string {
+    if (!this.userData) return '';
     return this.userData.firstName && this.userData.lastName
       ? this.userData.firstName.charAt(0) + this.userData.lastName.charAt(0)
       : this.userData.username.charAt(0);
+  }
+
+  get url(): string | null {
+    return this.userData?.avatar?.formats?.thumbnail?.url ? `${environment.apiUrl}${this.userData.avatar.formats.thumbnail.url}` : null;
   }
 
   get boxSize(): string {
