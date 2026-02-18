@@ -42,7 +42,7 @@ export class PostApi extends ApiService {
     const parent = parentId
       ? `&filters[parent][documentId][$eq]=${parentId}`
       : '&filters[parent][$null]=true';
-    const base = `posts?populate=author&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
+    const base = `posts?populate=author.avatar&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
     const url = `${base}${sort}${filter}${parent}`;
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
