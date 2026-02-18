@@ -62,8 +62,6 @@ export class PostApi extends ApiService {
         () => new Error(this.translate.instant('user.userNotFound')),
       );
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { documentId: _, role: __, ...author } = user;
     const data: Record<string, unknown> = {
       content: [
         {
@@ -71,10 +69,10 @@ export class PostApi extends ApiService {
           children: [{ type: 'text', text: postContent }],
         },
       ],
-      author,
+      author: { set: [user.documentId] },
     };
     if (parentDocumentId) {
-      data['parent'] = parentDocumentId;
+      data['parent'] = { set: [parentDocumentId] };
     }
     const isComment = !!parentDocumentId;
     return this.post<{ data: Post }>('posts?populate=author', { data }).pipe(
