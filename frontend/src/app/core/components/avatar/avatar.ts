@@ -25,7 +25,7 @@ export class Avatar {
 
   get url(): string | null {
     const avatarUrl = this.userData?.avatar?.formats.thumbnail.url;
-    return avatarUrl ? `${environment.apiUrl}${avatarUrl}` : null;
+    return avatarUrl ? avatarUrl : null;
   }
 
   get boxSize(): string {
