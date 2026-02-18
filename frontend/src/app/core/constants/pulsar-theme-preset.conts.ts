@@ -195,5 +195,27 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
+    fileupload: {
+      header: {
+        padding: '0',
+      },
+      content: {
+        padding: '0',
+      },
+      colorScheme: {
+        light: {
+          root: {
+            background: '{transparent}',
+            borderColor: '{transparent}',
+          },
+        },
+        dark: {
+          root: {
+            background: '{transparent}',
+            borderColor: '{transparent}',
+          },
+        },
+      },
+    },
   },
 });

@@ -1,3 +1,4 @@
+import { Media } from '../media.type';
 import { UserRole } from './user-role.model';
 
 export interface User {
@@ -13,5 +14,6 @@ export interface User {
   lastName?: string;
   aboutMe?: string;
   birthDate?: string;
+  avatar?: Media;
   createdAt?: string;
 }

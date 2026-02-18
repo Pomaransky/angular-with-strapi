@@ -1,7 +1,42 @@
 @if (user(); as userData) {
   <p-card>
     <div class="flex items-center space-x-4 mb-6">
-      <app-avatar [userData]="userData" size="lg" />
+      <p-fileupload
+        #avatarUpload
+        name="avatar[]"
+        accept="image/jpeg, image/png"
+        [customUpload]="true"
+        [maxFileSize]="avatarMaxSizeBytes"
+        [invalidFileSizeMessageSummary]="
+          'upload.maxFileSizeExceeded' | translate
+        "
+        [invalidFileSizeMessageDetail]="
+          'upload.maxFileSizeExceeded' | translate
+        "
+        (onSelect)="onChangeAvatar($event)"
+      >
+        <ng-template #header let-chooseCallback="chooseCallback">
+          <button
+            type="button"
+            class="relative border-0 bg-transparent p-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-center"
+            (click)="chooseCallback()"
+            [pTooltip]="'profile.changeAvatar' | translate"
+            tooltipPosition="bottom"
+          >
+            <app-avatar size="lg" [userData]="userData" />
+            <div
+              class="w-full h-full absolute top-0 right-0 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 hover:bg-violet-500/50"
+            >
+              <i class="pi pi-pencil text-2xl"></i>
+            </div>
+          </button>
+        </ng-template>
+        <ng-template
+          #content
+          let-file
+          let-uploadCallback="uploadCallback"
+        ></ng-template>
+      </p-fileupload>
       <div>
         <h2 class="text-2xl font-bold">
           {{ userData.username }}

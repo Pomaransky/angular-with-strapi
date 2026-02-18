@@ -13,3 +13,4 @@ export * from './row-action-item.type';
 export * from './table-column-type.enum';
 export * from './posts/post.model';
 export * from './rich-text.model';
+export * from './media.type';

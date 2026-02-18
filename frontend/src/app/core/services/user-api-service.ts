@@ -15,6 +15,7 @@ import { Paginated, TableLoadParams, User } from '../models';
 import { ToastService } from './toast-service';
 import { tableLoadParamsToStrapiQuery } from '../utils/table-load-params-to-query';
 import { TranslateService } from '@ngx-translate/core';
+import { FileApiService } from './file-api-service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,14 +24,41 @@ export class UserApiService extends ApiService {
   private userStore = inject(UserStore);
   private toastService = inject(ToastService);
   private translate = inject(TranslateService);
+  private fileApiService = inject(FileApiService);
 
   constructor() {
     super();
   }
 
+  uploadAvatar(
+    file: File,
+    userId: number,
+    currentAvatarId: string | null,
+  ): Observable<unknown> {
+    return this.fileApiService
+      .uploadFile(file, 'plugin::users-permissions.user', userId, 'avatar')
+      .pipe(
+        switchMap(() =>
+          currentAvatarId
+            ? this.fileApiService.deleteFile(currentAvatarId)
+            : of(null),
+        ),
+        tap((res) => {
+          console.log(res);
+          this.toastService.successToast(
+            this.translate.instant('upload.success'),
+          );
+        }),
+        catchError((err) => {
+          this.toastService.errorToast(this.translate.instant('upload.error'));
+          return throwError(() => err);
+        }),
+      );
+  }
+
   getMe(): Observable<User | null> {
     this.userStore.setMeLoading(true);
-    return this.get<User>('users/me?populate=role').pipe(
+    return this.get<User>('users/me?populate=role&populate=avatar').pipe(
       tap((user) => {
         this.userStore.setMe(user);
       }),
