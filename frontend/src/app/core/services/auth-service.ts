@@ -24,6 +24,21 @@ export class AuthService extends ApiService {
     super();
     this.checkExistingToken();
   }
+  
+  changePassword(currentPassword: string, password: string, passwordConfirmation: string): Observable<AuthResponse> {
+    return this.post<AuthResponse>(`auth/change-password`, { currentPassword, password, passwordConfirmation }).pipe(
+      tap((response) => {
+        localStorage.setItem('jwt_token', response.jwt);
+        this.toastService.successToast(
+          this.translate.instant('changePassword.passwordChangedSuccess'),
+        );
+      }),
+      catchError((error) => {
+        this.toastService.errorToast(error.error.error.message);
+        return throwError(() => new Error(error.error.error.message));
+      }),
+    );
+  }
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
     return this.post<AuthResponse>('auth/local', credentials).pipe(

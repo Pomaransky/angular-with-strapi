@@ -13,6 +13,8 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TextareaModule } from 'primeng/textarea';
@@ -26,9 +28,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-input-field',
   imports: [
     ReactiveFormsModule,
+    FloatLabelModule,
     InputTextModule,
     PasswordModule,
     TextareaModule,
+    DatePickerModule,
     IconField,
     InputIcon,
     TranslateModule,
@@ -45,7 +49,9 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input({ required: true }) inputId!: string;
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type: 'text' | 'email' | 'password' | 'textarea' = 'text';
+  @Input() type: 'text' | 'email' | 'password' | 'textarea' | 'datepicker' = 'text';
+  @Input() dateFormat = 'dd/mm/yy';
+  @Input() showDateIcon = true;
   @Input() validationMessages: ValidationMessage[] = [];
   @Input() toggleMask = true;
   @Input() feedback = false;
@@ -127,8 +133,12 @@ export class InputField implements ControlValueAccessor, OnInit {
     return errors;
   }
 
-  writeValue(value: string): void {
-    this.value = value || '';
+  writeValue(value: string | Date | null): void {
+    if (this.type === 'datepicker') {
+      this.cdr.markForCheck();
+      return;
+    }
+    this.value = value != null ? String(value) : '';
     this.internalControl.setValue(this.value, { emitEvent: false });
     this.cdr.markForCheck();
   }

@@ -99,6 +99,7 @@
     "active": "Aktywny",
     "editProfile": "Edytuj profil",
     "changeAvatar": "Zmień avatar",
+    "changePassword": "Zmień hasło",
     "somethingWentWrong": "Coś poszło nie tak",
     "loadingProfile": "Ładowanie profilu..."
   },
@@ -111,6 +112,13 @@
   },
   "editProfileValidations": {
     "aboutMeMaxLength": "O mnie może mieć maksymalnie 255 znaków"
+  },
+  "changePassword": {
+    "title": "Zmień hasło",
+    "currentPassword": "Aktualne hasło",
+    "newPassword": "Nowe hasło",
+    "confirmPassword": "Potwierdź nowe hasło",
+    "passwordChangedSuccess": "Hasło zmienione pomyślnie"
   },
   "users": {
     "block": "Zablokuj",

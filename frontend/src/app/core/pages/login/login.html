@@ -7,103 +7,32 @@
       </div>
     </ng-template>
     <ng-template #content>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-5">
-        <div>
-          <label for="identifier">{{
-            "login.emailOrUsername" | translate
-          }}</label>
-          <input
-            id="identifier"
-            type="text"
-            class="w-full"
-            pInputText
-            formControlName="identifier"
-            [placeholder]="'login.emailOrUsernamePlaceholder' | translate"
-            [class.ng-invalid]="
-              loginForm.get('identifier')?.invalid &&
-              loginForm.get('identifier')?.touched
-            "
-          />
-          @if (
-            loginForm.get("identifier")?.invalid &&
-            loginForm.get("identifier")?.touched
-          ) {
-            <small class="p-error block">
-              @if (loginForm.get("identifier")?.errors?.["required"]) {
-                <span class="text-red-500">{{
-                  "login.emailOrUsernameRequired" | translate
-                }}</span>
-              }
-            </small>
-          }
-        </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col gap-4">
+        <app-input-field [label]="'login.emailOrUsername' | translate" inputId="identifier" formControlName="identifier"
+          type="text" [validationMessages]="validations.identifier" />
 
-        <div>
-          <label for="password">{{ "login.password" | translate }}</label>
-          <p-password
-            inputId="password"
-            formControlName="password"
-            [placeholder]="'login.passwordPlaceholder' | translate"
-            [toggleMask]="true"
-            [feedback]="false"
-            [class.ng-invalid]="
-              loginForm.get('password')?.invalid &&
-              loginForm.get('password')?.touched
-            "
-            class="w-full"
-            inputStyleClass="w-full"
-          ></p-password>
-          @if (
-            loginForm.get("password")?.invalid &&
-            loginForm.get("password")?.touched
-          ) {
-            <small class="p-error block">
-              @if (loginForm.get("password")?.errors?.["required"]) {
-                <span class="text-red-500">{{
-                  "login.passwordRequired" | translate
-                }}</span>
-              }
-              @if (loginForm.get("password")?.errors?.["minlength"]) {
-                <span class="text-red-500">{{
-                  "login.passwordMinLength" | translate
-                }}</span>
-              }
-            </small>
-          }
-        </div>
+        <app-input-field [label]="'login.password' | translate" inputId="password" formControlName="password"
+          type="password" [feedback]="false" [validationMessages]="validations.password" />
 
-        <p-button
-          type="submit"
-          [disabled]="loginForm.invalid || isLoading"
-          [loading]="isLoading"
-          [label]="'login.signIn' | translate"
-          styleClass="w-full p-button-lg"
-          icon="pi pi-sign-in"
-        ></p-button>
+        <p-button type="submit" [disabled]="loginForm.invalid || isLoading" [loading]="isLoading"
+          [label]="'login.signIn' | translate" styleClass="w-full p-button-lg" icon="pi pi-sign-in"></p-button>
 
         @if (errorMessage) {
-          <div class="mt-5">
-            <p-message
-              severity="error"
-              [text]="errorMessage"
-              styleClass="max-w-full"
-            ></p-message>
-          </div>
+        <div class="mt-5">
+          <p-message severity="error" [text]="errorMessage" styleClass="max-w-full"></p-message>
+        </div>
         }
       </form>
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1">
         <span class="mr-2">{{ "login.noAccount" | translate }}</span>
-        <p-button
-          [label]="'login.register' | translate"
-          styleClass="linkBtn p-button-xs"
-          icon="pi pi-user-plus"
-          (click)="onRegister()"
-          link
-        ></p-button>
+        <p-button [label]="'login.register' | translate" styleClass="linkBtn p-button-xs" icon="pi pi-user-plus"
+          (click)="onRegister()" link></p-button>
       </div>
-      <div class="text-sm mt-3">{{ "login.demoAppInfo" | translate }}</div>
+
+      <div class="text-sm mt-3 italic">
+        <i class="pi pi-exclamation-triangle mr-1"></i> {{ "login.demoAppInfo" | translate }}</div>
     </ng-template>
   </p-card>
 </div>

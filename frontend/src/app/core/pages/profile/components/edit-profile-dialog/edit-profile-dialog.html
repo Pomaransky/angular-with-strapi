@@ -1,85 +1,64 @@
-<p-dialog
+<app-dialog
   [visible]="visible()"
-  [modal]="true"
-  styleClass="w-full sm:w-[500px]"
   (visibleChange)="visible.set($event)"
-  [draggable]="false"
-  [closable]="true"
-  [dismissableMask]="true"
+  [title]="'editProfile.title' | translate"
+  icon="pi pi-user-edit"
+  styleClass="w-full sm:w-[500px]"
 >
-  <ng-template #headless>
-    <div class="flex items-center justify-between">
-      <div class="w-full flex flex-col items-start p-8">
-        <div
-          class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
-        >
-          <i class="pi pi-user-edit !text-3xl"></i>
-        </div>
-        <span class="font-bold text-2xl block my-6">{{
-          "editProfile.title" | translate
-        }}</span>
+  <form
+    [formGroup]="editForm"
+    (ngSubmit)="onEdit()"
+    class="flex flex-col gap-5"
+  >
+    <app-input-field
+      [label]="'editProfile.firstName' | translate"
+      inputId="firstName"
+      formControlName="firstName"
+      labelWidth="10rem"
+    />
 
-        <div class="w-full space-y-4">
-          <form
-            [formGroup]="editForm"
-            (ngSubmit)="onEdit()"
-            class="flex flex-col gap-5"
-          >
-            <app-input-field
-              [label]="'editProfile.firstName' | translate"
-              inputId="firstName"
-              formControlName="firstName"
-              labelWidth="10rem"
-            />
+    <app-input-field
+      [label]="'editProfile.lastName' | translate"
+      inputId="lastName"
+      formControlName="lastName"
+      labelWidth="10rem"
+    />
 
-            <app-input-field
-              [label]="'editProfile.lastName' | translate"
-              inputId="lastName"
-              formControlName="lastName"
-              labelWidth="10rem"
-            />
+    <app-input-field
+      [label]="'editProfile.birthDate' | translate"
+      inputId="birthDate"
+      formControlName="birthDate"
+      type="datepicker"
+      [dateFormat]="'dd/mm/yy'"
+      [showDateIcon]="true"
+      labelWidth="10rem"
+    />
 
-            <div class="flex gap-4">
-              <label for="birthDate" class="font-semibold w-28">{{
-                "editProfile.birthDate" | translate
-              }}</label>
-              <p-datepicker
-                id="birthDate"
-                formControlName="birthDate"
-                class="flex-auto"
-                autocomplete="off"
-                [showIcon]="true"
-                dateFormat="dd/mm/yy"
-              />
-            </div>
+    <app-input-field
+      [label]="'editProfile.aboutMe' | translate"
+      inputId="aboutMe"
+      formControlName="aboutMe"
+      type="textarea"
+      [rows]="4"
+      labelWidth="10rem"
+      [validationMessages]="validations.aboutMe"
+    />
+  </form>
 
-            <app-input-field
-              [label]="'editProfile.aboutMe' | translate"
-              inputId="aboutMe"
-              formControlName="aboutMe"
-              type="textarea"
-              [rows]="4"
-              labelWidth="10rem"
-              [validationMessages]="validations.aboutMe"
-            />
-          </form>
-        </div>
-        <div class="w-full flex items-center justify-end gap-2 mt-6">
-          <p-button
-            type="submit"
-            [label]="'common.cancel' | translate"
-            [outlined]="true"
-            (click)="visible.set(false)"
-            styleClass="w-32"
-          ></p-button>
-          <p-button
-            [label]="'common.save' | translate"
-            (click)="onEdit()"
-            styleClass="w-32"
-            [disabled]="editForm.invalid"
-          ></p-button>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</p-dialog>
+  <div dialogFooter class="w-full flex items-center justify-end gap-2 mt-6">
+    <p-button
+      type="button"
+      [label]="'common.cancel' | translate"
+      [outlined]="true"
+      (click)="visible.set(false)"
+      styleClass="w-32"
+    />
+    <p-button
+      type="button"
+      [label]="'common.save' | translate"
+      (click)="onEdit()"
+      styleClass="w-32"
+      [disabled]="editForm.invalid"
+    />
+  </div>
+</app-dialog>

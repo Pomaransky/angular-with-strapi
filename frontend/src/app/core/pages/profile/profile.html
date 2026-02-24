@@ -103,11 +103,19 @@
         [vertical]="true"
       />
     </div>
-    <div class="flex justify-end mt-6">
+    <div class="flex flex-col sm:flex-row justify-end mt-6 gap-2">
+      <p-button
+      styleClass="w-full"
+        [label]="'profile.changePassword' | translate"
+        severity="primary"
+        icon="pi pi-lock"
+        (click)="onChangePassword()"
+      ></p-button>
       <p-button
         [label]="'profile.editProfile' | translate"
         severity="primary"
         icon="pi pi-pencil"
+        styleClass="w-full"
         (click)="onEdit()"
       ></p-button>
     </div>
@@ -125,3 +133,4 @@
 }
 
 <app-edit-profile-dialog></app-edit-profile-dialog>
+<app-change-password-dialog #changePasswordDialog></app-change-password-dialog>
