@@ -10,19 +10,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserApiService } from '../../../../services/user-api-service';
 import { finalize, tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { DialogModule } from 'primeng/dialog';
-import { Spinner, DataRow, Avatar } from '../../../../components';
+import { Spinner, DataRow, Avatar, Dialog } from '../../../../components';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-details-dialog',
   imports: [
-    DialogModule,
+    Dialog,
     Spinner,
     ButtonModule,
     DataRow,
-    CardModule,
     Avatar,
     TranslateModule,
   ],

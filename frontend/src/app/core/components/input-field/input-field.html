@@ -1,58 +1,81 @@
 <div [class.horizontal]="labelWidth" [class]="containerClass">
-  @if (label) {
-    <label
-      [for]="inputId"
-      [style.width]="labelWidth || null"
-      [class.font-semibold]="labelWidth"
-      >{{ label }}</label
-    >
-  }
-
   <div class="w-full" [class.flex-auto]="labelWidth">
     @if (type === "password") {
-      <p-password
-        [inputId]="inputId"
-        [formControl]="internalControl"
-        (onBlur)="onBlur()"
-        [placeholder]="placeholder"
-        [toggleMask]="toggleMask"
-        [feedback]="feedback"
-        [class.ng-invalid]="isInvalid"
-        class="w-full"
-        inputStyleClass="w-full"
-      ></p-password>
-    } @else if (type === "textarea") {
-      <textarea
-        [id]="inputId"
-        [value]="value"
-        (input)="onInputChange($event)"
-        (blur)="onBlur()"
-        [placeholder]="placeholder"
-        [disabled]="disabled"
-        [rows]="rows"
-        [class.ng-invalid]="isInvalid"
-        class="w-full resize-none"
-        fluid
-        pTextarea
-      ></textarea>
-    } @else {
-      <p-iconfield>
-        @if (icon) {
-          <p-inputicon [class]="'pi pi-' + icon" />
+      <p-floatlabel variant="in">
+        <p-password
+          [inputId]="inputId"
+          [formControl]="internalControl"
+          (onBlur)="onBlur()"
+          [toggleMask]="toggleMask"
+          [feedback]="feedback"
+          [class.ng-invalid]="isInvalid"
+          class="w-full"
+          inputStyleClass="w-full"
+        />
+        @if (label) {
+          <label [for]="inputId">{{ label }}</label>
         }
-        <input
+      </p-floatlabel>
+    } @else if (type === "datepicker" && control) {
+        <p-floatlabel variant="in">
+          <p-datepicker
+            [inputId]="inputId"
+            [formControl]="control"
+            (onBlur)="onBlur()"
+            [showIcon]="showDateIcon"
+            [dateFormat]="dateFormat"
+            autocomplete="off"
+            [class.ng-invalid]="isInvalid"
+            [class.p-filled]="!!control.value"
+            class="w-full"
+            inputStyleClass="w-full"
+          />
+          @if (label) {
+            <label [for]="inputId">{{ label }}</label>
+          }
+        </p-floatlabel>
+    } @else if (type === "textarea") {
+      <p-floatlabel variant="in">
+        <textarea
           [id]="inputId"
-          [type]="type"
           [value]="value"
           (input)="onInputChange($event)"
           (blur)="onBlur()"
-          [placeholder]="placeholder"
           [disabled]="disabled"
+          [rows]="rows"
           [class.ng-invalid]="isInvalid"
-          class="w-full"
-          pInputText
-        />
-      </p-iconfield>
+          [class.p-filled]="!!value.trim()"
+          class="w-full resize-none"
+          fluid
+          pTextarea
+        ></textarea>
+        @if (label) {
+        <label [for]="inputId">{{ label }}</label>
+        }
+      </p-floatlabel>
+    } @else {
+      <p-floatlabel variant="in">
+        <p-iconfield>
+          @if (icon) {
+            <p-inputicon [class]="'pi pi-' + icon" />
+          }
+          <input
+            [id]="inputId"
+            [type]="type"
+            [value]="value"
+            (input)="onInputChange($event)"
+            (blur)="onBlur()"
+            [disabled]="disabled"
+            [class.ng-invalid]="isInvalid"
+            [class.p-filled]="!!value.trim()"
+            class="w-full"
+            pInputText
+          />
+        </p-iconfield>
+        @if (label) {
+          <label [for]="inputId">{{ label }}</label>
+        }
+      </p-floatlabel>
     }
 
     @if (currentErrors.length > 0) {

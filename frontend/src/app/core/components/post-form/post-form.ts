@@ -32,7 +32,7 @@ export interface PostFormSubmit {
 export class PostForm {
   private fb = inject(FormBuilder);
 
-  @Input() placeholder = 'post.whatsOnYourMind';
+  @Input() label = 'post.whatsOnYourMind';
   @Input() submitLabel = 'post.postLabel';
   @Input() rows = 5;
   @Input() parentDocumentId: string | undefined = undefined;

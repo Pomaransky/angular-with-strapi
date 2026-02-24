@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   effect,
   inject,
   signal,
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
 import { UserApiService } from '../../../../services/user-api-service';
 import { UserStore } from '../../../../store/user.store';
 import {
@@ -18,18 +18,17 @@ import {
 import { finalize } from 'rxjs';
 import { DeepSignal } from '@ngrx/signals';
 import { User } from '../../../../models/auth/user.model';
-import { DatePickerModule } from 'primeng/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
-import { InputField } from '../../../../components';
+import { InputField, Dialog } from '../../../../components';
 import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form-validations.const';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-edit-profile-dialog',
   imports: [
-    DialogModule,
+    Dialog,
     ButtonModule,
     ReactiveFormsModule,
-    DatePickerModule,
     InputField,
     TranslateModule,
   ],
@@ -40,6 +39,7 @@ import { EDIT_PROFILE_FORM_VALIDATIONS } from '../../constants/edit-profile-form
 export class EditProfileDialog {
   private userApiService = inject(UserApiService);
   private userStore = inject(UserStore);
+  private destroyRef = inject(DestroyRef);
 
   visible = signal<boolean>(false);
   user: DeepSignal<User | null> = this.userStore.me.data;
@@ -93,7 +93,8 @@ export class EditProfileDialog {
         birthDate: this.editForm.value.birthDate,
         aboutMe: this.editForm.value.aboutMe,
       })
-      .pipe(finalize(() => this.visible.set(false)))
+      // Take until destroy is theoretically not needed, but it's a good practice to use it
+      .pipe(takeUntilDestroyed(this.destroyRef), finalize(() => this.visible.set(false)))
       .subscribe();
   }
 }

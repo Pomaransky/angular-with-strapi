@@ -109,6 +109,16 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
+    confirmDialog: {
+      colorScheme: {
+        light: {
+          root: primaryColorScheme.light,
+        },
+        dark: {
+          root: primaryColorScheme.dark,
+        },
+      },
+    },
     textarea: {
       colorScheme: {
         light: {
@@ -217,5 +227,27 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
-  },
+    button: {
+      colorScheme: {
+        light: {
+          root: {
+            danger: {
+              background: '{red.600}',
+              color: '{white}',
+              borderColor: '{red.700}',
+            },
+          },
+        },
+        dark: {
+          root: {
+            danger: {
+              background: '{red.600}',
+              color: '{white}',
+              borderColor: '{red.700}',
+            },
+          },
+        },
+      },
+    },
+  }
 });
