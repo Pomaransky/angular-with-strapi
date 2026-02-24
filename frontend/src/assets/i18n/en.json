@@ -99,6 +99,7 @@
     "active": "Active",
     "editProfile": "Edit Profile",
     "changeAvatar": "Change avatar",
+    "changePassword": "Change password",
     "somethingWentWrong": "Something went wrong",
     "loadingProfile": "Loading profile..."
   },
@@ -111,6 +112,13 @@
   },
   "editProfileValidations": {
     "aboutMeMaxLength": "About Me must be less than 255 characters"
+  },
+  "changePassword": {
+    "title": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "passwordChangedSuccess": "Password changed successfully"
   },
   "users": {
     "block": "Block",

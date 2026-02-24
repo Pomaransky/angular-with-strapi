@@ -28,6 +28,7 @@ import { UserApiService } from '../../services/user-api-service';
 import { switchMap } from 'rxjs';
 import { TooltipModule } from 'primeng/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangePasswordDialog } from './components/change-password-dialog/change-password-dialog';
 
 @Component({
   selector: 'app-profile',
@@ -42,6 +43,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TranslateModule,
     FileUploadModule,
     TooltipModule,
+    ChangePasswordDialog,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
@@ -61,10 +63,15 @@ export class Profile implements OnInit {
   isUserLoading: DeepSignal<boolean> = this.userStore.me.isLoading;
 
   @ViewChild(EditProfileDialog) editProfileDialog!: EditProfileDialog;
+  @ViewChild(ChangePasswordDialog) changePasswordDialog!: ChangePasswordDialog;
   @ViewChild('avatarUpload') avatarUpload!: FileUpload;
 
   onEdit(): void {
     this.editProfileDialog.showDialog();
+  }
+
+  onChangePassword(): void {
+    this.changePasswordDialog.showDialog();
   }
 
   onChangeAvatar(event: FileSelectEvent): void {

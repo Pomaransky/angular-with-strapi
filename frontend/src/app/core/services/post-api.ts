@@ -22,7 +22,7 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(`posts/${documentId}?populate=author`).pipe(
+    return this.get<{ data: Post }>(`posts/${documentId}?populate=author.avatar`).pipe(
       map((res) => res.data),
       catchError(() =>
         throwError(
@@ -75,7 +75,7 @@ export class PostApi extends ApiService {
       data['parent'] = { set: [parentDocumentId] };
     }
     const isComment = !!parentDocumentId;
-    return this.post<{ data: Post }>('posts?populate=author', { data }).pipe(
+    return this.post<{ data: Post }>('posts?populate=author.avatar', { data }).pipe(
       map((res) => res.data),
       tap((post) => {
         this.postsStore.prependPost(post, parentDocumentId);

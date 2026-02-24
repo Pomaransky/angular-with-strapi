@@ -1,104 +1,78 @@
-<p-dialog
+<app-dialog
   [visible]="visible()"
-  [modal]="true"
-  styleClass="w-full sm:w-[600px] h-screen"
-  [draggable]="false"
-  [dismissableMask]="true"
-  [closeOnEscape]="true"
   (visibleChange)="visible.set($event)"
+  [title]="'users.profileDetails' | translate"
+  icon="pi pi-info-circle"
+  styleClass="w-full sm:w-[600px] h-[80vh]"
   position="right"
+  [showCloseInHeader]="true"
 >
-  <ng-template #headless>
-    <div class="flex justify-between h-full">
-      <div class="w-full flex flex-col items-start p-8 relative">
-        <div class="flex justify-between items-center w-full -mt-20">
-          <div
-            class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
-          >
-            <i class="pi pi-info-circle !text-3xl"></i>
-          </div>
-          <p-button
-            (click)="visible.set(false)"
-            severity="danger"
-            icon="pi pi-times"
-            class="w-10 h-10"
-          />
+  @if (isLoading()) {
+    <div class="flex justify-center items-center w-full mt-8">
+      <app-spinner />
+    </div>
+  }
+  @if (!isLoading() && user(); as userData) {
+    <div class="w-full space-y-4">
+      <div class="flex items-center space-x-4 mb-6">
+        <app-avatar [userData]="userData" size="lg" />
+        <div>
+          <h2 class="text-2xl font-bold">{{ userData.username }}</h2>
+          <p class="text-gray-400">{{ userData.email }}</p>
         </div>
+      </div>
 
-        <span class="font-bold text-2xl block my-6">{{
-          "users.profileDetails" | translate
-        }}</span>
-        @if (isLoading()) {
-          <div class="flex justify-center items-center w-full mt-8">
-            <app-spinner />
-          </div>
-        }
-        @if (!isLoading() && user(); as userData) {
-          <div class="w-full space-y-4">
-            <div class="flex items-center space-x-4 mb-6">
-              <app-avatar [userData]="userData" size="lg" />
-              <div>
-                <h2 class="text-2xl font-bold">
-                  {{ userData.username }}
-                </h2>
-                <p class="text-gray-400">{{ userData.email }}</p>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <app-data-row
-                [label]="'profile.documentId' | translate"
-                [value]="userData.documentId"
-              />
-              <app-data-row
-                [label]="'profile.firstName' | translate"
-                [value]="userData.firstName || '-'"
-              />
-              <app-data-row
-                [label]="'profile.lastName' | translate"
-                [value]="userData.lastName || '-'"
-              />
-              <app-data-row
-                [label]="'profile.provider' | translate"
-                [value]="userData.provider"
-              />
-              <app-data-row
-                [label]="'profile.status' | translate"
-                [value]="
-                  (userData.confirmed
-                    ? 'profile.confirmed'
-                    : 'profile.notConfirmed'
-                  ) | translate
-                "
-                [icon]="
-                  userData.confirmed
-                    ? 'pi pi-check-circle'
-                    : 'pi pi-exclamation-circle'
-                "
-                [valueClass]="
-                  userData.confirmed ? 'text-green-600' : 'text-amber-600'
-                "
-              />
-              <app-data-row
-                [label]="'profile.account' | translate"
-                [value]="
-                  (userData.blocked ? 'profile.blocked' : 'profile.active')
-                    | translate
-                "
-                [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
-                [valueClass]="
-                  userData.blocked ? 'text-red-600' : 'text-green-600'
-                "
-              />
-              <app-data-row
-                [label]="'profile.aboutMe' | translate"
-                [value]="userData.aboutMe || '-'"
-                [vertical]="true"
-              />
-            </div>
-          </div>
-        }
+      <div class="space-y-3">
+        <app-data-row
+          [label]="'profile.documentId' | translate"
+          [value]="userData.documentId"
+        />
+        <app-data-row
+          [label]="'profile.firstName' | translate"
+          [value]="userData.firstName || '-'"
+        />
+        <app-data-row
+          [label]="'profile.lastName' | translate"
+          [value]="userData.lastName || '-'"
+        />
+        <app-data-row
+          [label]="'profile.provider' | translate"
+          [value]="userData.provider"
+        />
+        <app-data-row
+          [label]="'profile.status' | translate"
+          [value]="
+            (userData.confirmed
+              ? 'profile.confirmed'
+              : 'profile.notConfirmed'
+            ) | translate
+          "
+          [icon]="
+            userData.confirmed
+              ? 'pi pi-check-circle'
+              : 'pi pi-exclamation-circle'
+          "
+          [valueClass]="
+            userData.confirmed ? 'text-green-600' : 'text-amber-600'
+          "
+        />
+        <app-data-row
+          [label]="'profile.account' | translate"
+          [value]="
+            (userData.blocked ? 'profile.blocked' : 'profile.active')
+              | translate
+          "
+          [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
+          [valueClass]="
+            userData.blocked ? 'text-red-600' : 'text-green-600'
+          "
+        />
+        <app-data-row
+          [label]="'profile.aboutMe' | translate"
+          [value]="userData.aboutMe || '-'"
+          [vertical]="true"
+        />
       </div>
     </div>
-  </ng-template>
-</p-dialog>
+  }
+</app-dialog>

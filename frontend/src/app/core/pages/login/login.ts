@@ -15,8 +15,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { LoginCredentials } from '../../models/auth';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -26,7 +24,9 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PageTitle } from '../../constants';
 import { Settings } from '../../components/settings/settings';
+import { InputField } from '../../components';
 import { TranslateModule } from '@ngx-translate/core';
+import { LOGIN_FORM_VALIDATIONS } from './constants/login-form-validations.const';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     CommonModule,
     ButtonModule,
-    InputTextModule,
-    PasswordModule,
+    InputField,
     MessageModule,
     CardModule,
     DividerModule,
@@ -53,6 +52,7 @@ export class Login implements OnInit {
   private titleService = inject(Title);
 
   loginForm!: FormGroup;
+  validations = LOGIN_FORM_VALIDATIONS;
   isLoading = false;
   errorMessage = '';
 

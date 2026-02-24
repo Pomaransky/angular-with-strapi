@@ -17,7 +17,7 @@
       </div>
       @if (showCommentForm()) {
         <app-post-form
-          [placeholder]="'post.writeComment' | translate"
+          [label]="'post.writeComment' | translate"
           [submitLabel]="'post.commentButton' | translate"
           [rows]="3"
           [parentDocumentId]="postData.documentId"
