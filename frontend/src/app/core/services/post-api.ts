@@ -32,7 +32,7 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(`posts/${documentId}?populate=author.avatar`).pipe(
+    return this.get<{ data: Post }>(`posts/${documentId}?populate=author.avatar&populate=media`).pipe(
       map((res) => res.data),
       catchError(() =>
         throwError(
