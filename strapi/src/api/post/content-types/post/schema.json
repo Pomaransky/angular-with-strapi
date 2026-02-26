@@ -37,8 +37,17 @@
     },
     "commentsTotal": {
       "type": "integer",
-      "description": "Total number of comments to this post",
       "default": 0
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

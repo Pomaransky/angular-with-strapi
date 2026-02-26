@@ -16,13 +16,13 @@ export class FileApiService extends ApiService {
     ref: string,
     refId: number,
     field: string,
-  ): Observable<Media> {
+  ): Observable<Media[]> {
     const formData = new FormData();
     formData.append('files', file);
     formData.append('ref', ref);
     formData.append('refId', String(refId));
     formData.append('field', field);
-    return this.post<Media>('upload', formData);
+    return this.post<Media[]>('upload', formData);
   }
 
   deleteFile(fileId: string): Observable<Media> {

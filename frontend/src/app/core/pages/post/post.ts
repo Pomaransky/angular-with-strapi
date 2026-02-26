@@ -41,7 +41,7 @@ export class Post {
   onCommentSubmit(payload: PostFormSubmit): void {
     if (!payload.parentDocumentId) return;
     this.postApi
-      .addPost(payload.content, payload.parentDocumentId)
+      .addPost(payload.content, payload.parentDocumentId, payload.media)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {

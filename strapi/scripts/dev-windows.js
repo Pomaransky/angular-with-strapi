@@ -12,12 +12,13 @@ const tmpDir = path.resolve(strapiDir, '.tmp');
 fs.mkdirSync(tmpDir, { recursive: true });
 
 const patchPath = path.resolve(strapiDir, 'scripts', 'patch-unlink.js');
+const patchPathPosix = patchPath.split(path.sep).join('/');
 const env = {
   ...process.env,
   TMP: tmpDir,
   TEMP: tmpDir,
   TMPDIR: tmpDir,
-  NODE_OPTIONS: (process.env.NODE_OPTIONS || '') + ` --require ${patchPath}`.trim(),
+  NODE_OPTIONS: (process.env.NODE_OPTIONS || '') + ` --require ${patchPathPosix}`.trim(),
 };
 
 const strapiBin = path.join(strapiDir, 'node_modules', '@strapi', 'strapi', 'bin', 'strapi.js');

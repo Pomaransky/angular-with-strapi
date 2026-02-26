@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { StrapiRefUid } from '../models';
 import { ApiService } from './api-service';
 import {
   catchError,
@@ -36,7 +37,7 @@ export class UserApiService extends ApiService {
     currentAvatarId: string | null,
   ): Observable<unknown> {
     return this.fileApiService
-      .uploadFile(file, 'plugin::users-permissions.user', userId, 'avatar')
+      .uploadFile(file, StrapiRefUid.USER, userId, 'avatar')
       .pipe(
         switchMap(() =>
           currentAvatarId

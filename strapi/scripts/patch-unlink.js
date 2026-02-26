@@ -1,13 +1,18 @@
 /**
  * On Windows EPERM: pretend unlink succeeded for files in .tmp so Strapi doesn't crash.
- * Load with node -r ./scripts/patch-unlink.js
+ * Sharp keeps file handles open on Windows (esp. GIF) - unlink fails. Load with node -r ./scripts/patch-unlink.js
  */
 const fs = require('fs');
 const path = require('path');
 
 function isInTmp(filePath) {
-  const normalized = path.normalize(String(filePath));
-  return normalized.includes(path.sep + '.tmp' + path.sep) || normalized.endsWith(path.sep + '.tmp');
+  const str = String(filePath);
+  const normalized = path.normalize(str).replace(/\\/g, '/');
+  return normalized.includes('/.tmp/') || normalized.endsWith('/.tmp');
+}
+
+function swallowTempUnlinkError(err, p) {
+  return err && (err.code === 'EPERM' || err.code === 'EBUSY') && err.syscall === 'unlink' && isInTmp(p);
 }
 
 const unlinkSync = fs.unlinkSync.bind(fs);
@@ -15,9 +20,7 @@ fs.unlinkSync = function (p) {
   try {
     return unlinkSync(p);
   } catch (err) {
-    if (err.code === 'EPERM' && err.syscall === 'unlink' && isInTmp(p)) {
-      return;
-    }
+    if (swallowTempUnlinkError(err, p)) return;
     throw err;
   }
 };
@@ -28,9 +31,17 @@ fs.unlink = function (p, callback) {
     return unlink(p, callback);
   }
   unlink(p, (err) => {
-    if (err && err.code === 'EPERM' && err.syscall === 'unlink' && isInTmp(p)) {
-      return callback();
-    }
+    if (swallowTempUnlinkError(err, p)) return callback();
     callback(err);
   });
 };
+
+if (fs.promises && fs.promises.unlink) {
+  const unlinkPromise = fs.promises.unlink.bind(fs.promises);
+  fs.promises.unlink = function (p) {
+    return unlinkPromise(p).catch((err) => {
+      if (swallowTempUnlinkError(err, p)) return;
+      throw err;
+    });
+  };
+}

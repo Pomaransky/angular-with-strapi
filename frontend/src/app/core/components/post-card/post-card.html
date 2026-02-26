@@ -25,6 +25,9 @@
       <p class="text-sm" [class.line-clamp-3]="isMainPost">
         {{ postItem.content | richTextToPlain }}
       </p>
+      @if (postItem.media) {
+        <img [src]="postItem.media.url" [alt]="postItem.media.name" class="w-full h-auto object-cover" />
+      }
       <div class="text-xs opacity-60 flex items-center justify-between gap-4">
         <p>
           @if (!isMainPost) {
