@@ -94,7 +94,10 @@ export class EditProfileDialog {
         aboutMe: this.editForm.value.aboutMe,
       })
       // Take until destroy is theoretically not needed, but it's a good practice to use it
-      .pipe(takeUntilDestroyed(this.destroyRef), finalize(() => this.visible.set(false)))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.visible.set(false)),
+      )
       .subscribe();
   }
 }

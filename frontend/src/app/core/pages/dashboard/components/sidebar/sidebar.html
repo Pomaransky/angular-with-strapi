@@ -24,15 +24,13 @@
         </ng-template>
         <ng-template #end>
           <div class="p-4 pt-2 md:hidden">
-            <button
-              pButton
+            <p-button
               type="button"
-              (click)="logout($event)"
-              class="w-full"
-            >
-              <span pButtonLabel>{{ "sidebar.logout" | translate }}</span>
-              <i class="pi pi-sign-out" pButtonIcon></i>
-            </button>
+              [label]="'sidebar.logout' | translate"
+              icon="pi pi-sign-out"
+              styleClass="w-full"
+              (onClick)="logout($event)"
+            />
           </div>
         </ng-template>
       </p-menu>
@@ -40,13 +38,11 @@
       <app-spinner class="hidden md:block" />
     }
   </div>
-  <button
-    pButton
+  <p-button
     type="button"
-    (click)="logout($event)"
-    class="w-full hidden md:flex"
-  >
-    <span pButtonLabel>{{ "sidebar.logout" | translate }}</span>
-    <i class="pi pi-sign-out" pButtonIcon></i>
-  </button>
+    [label]="'sidebar.logout' | translate"
+    icon="pi pi-sign-out"
+    styleClass="w-full hidden md:flex"
+    (onClick)="logout($event)"
+  />
 </aside>

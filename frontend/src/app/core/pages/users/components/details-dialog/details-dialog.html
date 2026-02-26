@@ -42,10 +42,8 @@
         <app-data-row
           [label]="'profile.status' | translate"
           [value]="
-            (userData.confirmed
-              ? 'profile.confirmed'
-              : 'profile.notConfirmed'
-            ) | translate
+            (userData.confirmed ? 'profile.confirmed' : 'profile.notConfirmed')
+              | translate
           "
           [icon]="
             userData.confirmed
@@ -63,9 +61,7 @@
               | translate
           "
           [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
-          [valueClass]="
-            userData.blocked ? 'text-red-600' : 'text-green-600'
-          "
+          [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
         />
         <app-data-row
           [label]="'profile.aboutMe' | translate"

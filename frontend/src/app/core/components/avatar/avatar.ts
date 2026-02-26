@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '../../models';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-avatar',

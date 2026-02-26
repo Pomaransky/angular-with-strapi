@@ -1,5 +1,17 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputField, Dialog } from '../../../../components';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
   templateUrl: './change-password-dialog.html',
   styleUrl: './change-password-dialog.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialog implements OnInit {
   private authService = inject(AuthService);
@@ -65,7 +77,10 @@ export class ChangePasswordDialog implements OnInit {
           this.changePasswordForm.value.confirmPassword,
         )
         // Take until destroy is theoretically not needed, but it's a good practice to use it
-        .pipe(takeUntilDestroyed(this.destroyRef), tap(() => this.visible.set(false)))
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          tap(() => this.visible.set(false)),
+        )
         .subscribe();
     }
   }

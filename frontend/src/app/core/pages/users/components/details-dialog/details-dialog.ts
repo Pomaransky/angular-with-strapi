@@ -15,14 +15,7 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-details-dialog',
-  imports: [
-    Dialog,
-    Spinner,
-    ButtonModule,
-    DataRow,
-    Avatar,
-    TranslateModule,
-  ],
+  imports: [Dialog, Spinner, ButtonModule, DataRow, Avatar, TranslateModule],
   templateUrl: './details-dialog.html',
   styleUrl: './details-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
