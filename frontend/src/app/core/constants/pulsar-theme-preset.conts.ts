@@ -232,18 +232,24 @@ export const pulsarThemePreset = definePreset(Aura, {
         light: {
           root: {
             danger: {
-              background: '{red.600}',
+              background: '{red.700}',
               color: '{white}',
               borderColor: '{red.700}',
+              hoverBackground: '{red.600}',
+              hoverColor: '{white}',
+              hoverBorderColor: '{red.600}',
             },
           },
         },
         dark: {
           root: {
             danger: {
-              background: '{red.600}',
+              background: '{red.700}',
               color: '{white}',
               borderColor: '{red.700}',
+              hoverBackground: '{red.600}',
+              hoverColor: '{white}',
+              hoverBorderColor: '{red.600}',
             },
           },
         },

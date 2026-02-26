@@ -33,11 +33,15 @@ export class Home implements OnInit {
     this.titleService.setTitle(PageTitle.PULSAR);
   }
 
-  onPostSubmit(payload: { content: string; parentDocumentId?: string }): void {
+  onPostSubmit(payload: {
+    content: string;
+    parentDocumentId?: string;
+    media?: File;
+  }): void {
     const user = this.userStore.me.data();
     if (!user) return;
     this.postService
-      .addPost(payload.content)
+      .addPost(payload.content, payload.parentDocumentId, payload.media)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.postFormRef().reset(),

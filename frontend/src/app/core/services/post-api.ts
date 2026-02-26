@@ -1,8 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { Paginated, Post, TableLoadParams } from '../models';
-import { catchError, finalize, map, Observable, tap, throwError } from 'rxjs';
+import { Paginated, Post, StrapiRefUid, TableLoadParams } from '../models';
+import {
+  catchError,
+  finalize,
+  map,
+  Observable,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { tableLoadParamsToStrapiQuery } from '../utils/table-load-params-to-query';
 import { ApiService } from './api-service';
+import { FileApiService } from './file-api-service';
 import { PostsStore } from '../store/posts.store';
 import { ToastService } from './toast-service';
 import { UserStore } from '../store/user.store';
@@ -16,6 +25,7 @@ export class PostApi extends ApiService {
   private userStore = inject(UserStore);
   private toastService = inject(ToastService);
   private translate = inject(TranslateService);
+  private fileApiService = inject(FileApiService);
 
   constructor() {
     super();
@@ -42,7 +52,7 @@ export class PostApi extends ApiService {
     const parent = parentId
       ? `&filters[parent][documentId][$eq]=${parentId}`
       : '&filters[parent][$null]=true';
-    const base = `posts?populate=author.avatar&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
+    const base = `posts?populate=author.avatar&populate=media&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
     const url = `${base}${sort}${filter}${parent}`;
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
@@ -55,13 +65,18 @@ export class PostApi extends ApiService {
     );
   }
 
-  addPost(postContent: string, parentDocumentId?: string): Observable<Post> {
+  addPost(
+    postContent: string,
+    parentDocumentId?: string,
+    media?: File,
+  ): Observable<Post> {
     const user = this.userStore.me.data();
     if (!user) {
       return throwError(
         () => new Error(this.translate.instant('user.userNotFound')),
       );
     }
+
     const data: Record<string, unknown> = {
       content: [
         {
@@ -74,9 +89,28 @@ export class PostApi extends ApiService {
     if (parentDocumentId) {
       data['parent'] = { set: [parentDocumentId] };
     }
+
     const isComment = !!parentDocumentId;
-    return this.post<{ data: Post }>('posts?populate=author.avatar', { data }).pipe(
-      map((res) => res.data),
+
+    const createPost$ = this.post<{ data: Post }>(
+      'posts?populate=author.avatar',
+      { data },
+    ).pipe(map((res) => res.data));
+
+    const post$ = media
+      ? createPost$.pipe(
+        switchMap((post) => {
+          return this.fileApiService
+            .uploadFile(media, StrapiRefUid.POST, post.id, 'media')
+            .pipe(map((uploaded) => ({
+              ...post,
+              media: uploaded[0],
+            })));
+        }),
+      )
+      : createPost$;
+
+    return post$.pipe(
       tap((post) => {
         this.postsStore.prependPost(post, parentDocumentId);
         if (isComment) {
