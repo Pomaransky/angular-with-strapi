@@ -32,7 +32,9 @@ export class PostApi extends ApiService {
   }
 
   getPost(documentId: string): Observable<Post> {
-    return this.get<{ data: Post }>(`posts/${documentId}?populate=author.avatar`).pipe(
+    return this.get<{ data: Post }>(
+      `posts/${documentId}?populate=author.avatar&populate=media`,
+    ).pipe(
       map((res) => res.data),
       catchError(() =>
         throwError(
@@ -93,21 +95,23 @@ export class PostApi extends ApiService {
     const isComment = !!parentDocumentId;
 
     const createPost$ = this.post<{ data: Post }>(
-      'posts?populate=author.avatar',
+      'posts?populate=author.avatar&populate=media',
       { data },
     ).pipe(map((res) => res.data));
 
     const post$ = media
       ? createPost$.pipe(
-        switchMap((post) => {
-          return this.fileApiService
-            .uploadFile(media, StrapiRefUid.POST, post.id, 'media')
-            .pipe(map((uploaded) => ({
-              ...post,
-              media: uploaded[0],
-            })));
-        }),
-      )
+          switchMap((post) => {
+            return this.fileApiService
+              .uploadFile(media, StrapiRefUid.POST, post.id, 'media')
+              .pipe(
+                map((uploaded) => ({
+                  ...post,
+                  media: uploaded[0],
+                })),
+              );
+          }),
+        )
       : createPost$;
 
     return post$.pipe(

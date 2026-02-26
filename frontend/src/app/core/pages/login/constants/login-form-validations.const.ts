@@ -1,4 +1,4 @@
-import { ValidationMessage } from "../../../models";
+import { ValidationMessage } from '../../../models';
 
 interface LoginValidations {
   identifier: ValidationMessage[];

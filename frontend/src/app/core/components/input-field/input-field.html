@@ -17,23 +17,23 @@
         }
       </p-floatlabel>
     } @else if (type === "datepicker" && control) {
-        <p-floatlabel variant="in">
-          <p-datepicker
-            [inputId]="inputId"
-            [formControl]="control"
-            (onBlur)="onBlur()"
-            [showIcon]="showDateIcon"
-            [dateFormat]="dateFormat"
-            autocomplete="off"
-            [class.ng-invalid]="isInvalid"
-            [class.p-filled]="!!control.value"
-            class="w-full"
-            inputStyleClass="w-full"
-          />
-          @if (label) {
-            <label [for]="inputId">{{ label }}</label>
-          }
-        </p-floatlabel>
+      <p-floatlabel variant="in">
+        <p-datepicker
+          [inputId]="inputId"
+          [formControl]="control"
+          (onBlur)="onBlur()"
+          [showIcon]="showDateIcon"
+          [dateFormat]="dateFormat"
+          autocomplete="off"
+          [class.ng-invalid]="isInvalid"
+          [class.p-filled]="!!control.value"
+          class="w-full"
+          inputStyleClass="w-full"
+        />
+        @if (label) {
+          <label [for]="inputId">{{ label }}</label>
+        }
+      </p-floatlabel>
     } @else if (type === "textarea") {
       <p-floatlabel variant="in">
         <textarea
@@ -50,7 +50,7 @@
           pTextarea
         ></textarea>
         @if (label) {
-        <label [for]="inputId">{{ label }}</label>
+          <label [for]="inputId">{{ label }}</label>
         }
       </p-floatlabel>
     } @else {

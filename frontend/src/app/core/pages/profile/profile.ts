@@ -78,10 +78,12 @@ export class Profile implements OnInit {
     const currentUser = this.user();
     if (!currentUser || !file || currentUser.id === null) return;
 
-    if (!this.fileValidation.validateFile(file, {
-      maxFileSize: this.avatarMaxFileSize,
-      acceptFileTypes: this.avatarAcceptTypes,
-    })) {
+    if (
+      !this.fileValidation.validateFile(file, {
+        maxFileSize: this.avatarMaxFileSize,
+        acceptFileTypes: this.avatarAcceptTypes,
+      })
+    ) {
       this.avatarUpload?.clear();
       return;
     }

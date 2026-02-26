@@ -255,10 +255,10 @@ export const pulsarThemePreset = definePreset(Aura, {
         },
       },
     },
-    toast:{
+    toast: {
       root: {
         width: '300px',
       },
-    }
-  }
+    },
+  },
 });

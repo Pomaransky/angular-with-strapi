@@ -7,32 +7,64 @@
       </div>
     </ng-template>
     <ng-template #content>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col gap-4">
-        <app-input-field [label]="'login.emailOrUsername' | translate" inputId="identifier" formControlName="identifier"
-          type="text" [validationMessages]="validations.identifier" />
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onLogin()"
+        class="flex flex-col gap-4"
+      >
+        <app-input-field
+          [label]="'login.emailOrUsername' | translate"
+          inputId="identifier"
+          formControlName="identifier"
+          type="text"
+          [validationMessages]="validations.identifier"
+        />
 
-        <app-input-field [label]="'login.password' | translate" inputId="password" formControlName="password"
-          type="password" [feedback]="false" [validationMessages]="validations.password" />
+        <app-input-field
+          [label]="'login.password' | translate"
+          inputId="password"
+          formControlName="password"
+          type="password"
+          [feedback]="false"
+          [validationMessages]="validations.password"
+        />
 
-        <p-button type="submit" [disabled]="loginForm.invalid || isLoading" [loading]="isLoading"
-          [label]="'login.signIn' | translate" styleClass="w-full p-button-lg" icon="pi pi-sign-in"></p-button>
+        <p-button
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+          [loading]="isLoading"
+          [label]="'login.signIn' | translate"
+          styleClass="w-full p-button-lg"
+          icon="pi pi-sign-in"
+        ></p-button>
 
         @if (errorMessage) {
-        <div class="mt-5">
-          <p-message severity="error" [text]="errorMessage" styleClass="max-w-full"></p-message>
-        </div>
+          <div class="mt-5">
+            <p-message
+              severity="error"
+              [text]="errorMessage"
+              styleClass="max-w-full"
+            ></p-message>
+          </div>
         }
       </form>
     </ng-template>
     <ng-template #footer>
       <div class="text-sm mt-1">
         <span class="mr-2">{{ "login.noAccount" | translate }}</span>
-        <p-button [label]="'login.register' | translate" styleClass="linkBtn p-button-xs" icon="pi pi-user-plus"
-          (click)="onRegister()" link></p-button>
+        <p-button
+          [label]="'login.register' | translate"
+          styleClass="linkBtn p-button-xs"
+          icon="pi pi-user-plus"
+          (click)="onRegister()"
+          link
+        ></p-button>
       </div>
 
       <div class="text-sm mt-3 italic">
-        <i class="pi pi-exclamation-triangle mr-1"></i> {{ "login.demoAppInfo" | translate }}</div>
+        <i class="pi pi-exclamation-triangle mr-1"></i>
+        {{ "login.demoAppInfo" | translate }}
+      </div>
     </ng-template>
   </p-card>
 </div>
