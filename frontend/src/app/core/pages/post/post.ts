@@ -16,10 +16,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { PostsStore } from '../../store/posts.store';
 import { PostApi } from '../../services/post-api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-post',
-  imports: [PostForm, PostCard, PostsList, TranslateModule],
+  imports: [PostForm, PostCard, PostsList, TranslateModule, ButtonModule],
   templateUrl: './post.html',
   styleUrl: './post.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

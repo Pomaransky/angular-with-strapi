@@ -7,13 +7,13 @@
           <i class="pi pi-comments"></i>
           <span>{{ postData.commentsTotal }}</span>
         </div>
-        <button
+        <p-button
           type="button"
-          class="text-sm text-primary font-medium p-0 border-none bg-transparent cursor-pointer hover:underline"
+          variant="text"
+          [label]="'post.addComment' | translate"
+          styleClass="text-sm p-0 hover:underline hover:bg-transparent"
           (click)="toggleCommentForm()"
-        >
-          {{ "post.addComment" | translate }}
-        </button>
+        />
       </div>
       @if (showCommentForm()) {
         <app-post-form

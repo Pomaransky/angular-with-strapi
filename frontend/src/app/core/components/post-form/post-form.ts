@@ -20,7 +20,7 @@ import { InputField } from '../input-field/input-field';
 import { ValidationMessage } from '../../models';
 import { FileValidationService } from '../../services/file-validation.service';
 import { POST_VALIDATION_MESSAGES } from '../../pages/dashboard/constants/post-validation-messages.const';
-import { Tooltip } from "primeng/tooltip";
+import { Tooltip } from 'primeng/tooltip';
 
 export interface PostFormSubmit {
   content: string;
@@ -38,8 +38,8 @@ const ACCEPT_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
     ButtonModule,
     FileUploadModule,
     TranslateModule,
-    Tooltip
-],
+    Tooltip,
+  ],
   templateUrl: './post-form.html',
   styleUrl: './post-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,12 +53,11 @@ export class PostForm {
   @Input() rows = 5;
   @Input() parentDocumentId: string | undefined = undefined;
 
-  
   @ViewChild('mediaUpload') mediaUpload!: FileUpload;
   selectedMedia = signal<File | null>(null);
   previewUrl = signal<string | null>(null);
   acceptFileTypes = ACCEPT_FILE_TYPES;
-  
+
   submitForm = output<PostFormSubmit>();
   form: FormGroup = this.fb.group({
     content: ['', [Validators.required, Validators.maxLength(255)]],
@@ -81,10 +80,12 @@ export class PostForm {
   onMediaSelect(event: { files: File[] }): void {
     const file = event.files?.[0];
     if (!file) return;
-    if (!this.fileValidation.validateFile(file, {
-      maxFileSize: MAX_FILE_SIZE,
-      acceptFileTypes: ACCEPT_FILE_TYPES,
-    })) {
+    if (
+      !this.fileValidation.validateFile(file, {
+        maxFileSize: MAX_FILE_SIZE,
+        acceptFileTypes: ACCEPT_FILE_TYPES,
+      })
+    ) {
       this.mediaUpload?.clear();
       return;
     }

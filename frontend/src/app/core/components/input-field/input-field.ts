@@ -49,7 +49,8 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input({ required: true }) inputId!: string;
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type: 'text' | 'email' | 'password' | 'textarea' | 'datepicker' = 'text';
+  @Input() type: 'text' | 'email' | 'password' | 'textarea' | 'datepicker' =
+    'text';
   @Input() dateFormat = 'dd/mm/yy';
   @Input() showDateIcon = true;
   @Input() validationMessages: ValidationMessage[] = [];
