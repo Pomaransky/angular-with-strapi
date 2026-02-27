@@ -1,31 +1,25 @@
-@if (post(); as postData) {
-  <div class="flex flex-col items-center">
-    <div class="flex flex-col w-full max-w-[500px] gap-4">
-      <app-post-card [post]="postData" [isMainPost]="true" />
-      <div class="flex items-center justify-between gap-2 p-1">
-        <div class="text-sm font-medium opacity-80 flex items-center gap-2">
-          <i class="pi pi-comments"></i>
-          <span>{{ postData.commentsTotal }}</span>
-        </div>
-        <p-button
-          type="button"
-          variant="text"
-          [label]="'post.addComment' | translate"
-          styleClass="text-sm p-0 hover:underline hover:bg-transparent"
-          (click)="toggleCommentForm()"
-        />
+@if (!isPostLoading() && post(); as postData) {
+<div class="flex flex-col items-center">
+  <div class="flex flex-col w-full max-w-[500px] gap-4">
+    <app-post-card [post]="postData" [isMainPost]="true" />
+    <div class="flex items-center justify-between gap-2 p-1">
+      <div class="text-sm font-medium opacity-80 flex items-center gap-2">
+        <i class="pi pi-comments"></i>
+        <span>{{ postData.commentsTotal }}</span>
       </div>
-      @if (showCommentForm()) {
-        <app-post-form
-          [label]="'post.writeComment' | translate"
-          [submitLabel]="'post.commentButton' | translate"
-          [rows]="3"
-          [parentDocumentId]="postData.documentId"
-          (submitForm)="onCommentSubmit($event)"
-          #commentFormRef
-        />
-      }
-      <app-posts-list [parentDocumentId]="postData.documentId" />
+      <p-button type="button" variant="text" [label]="'post.addComment' | translate"
+        styleClass="text-sm p-0 hover:underline hover:bg-transparent" (click)="toggleCommentForm()" />
     </div>
+    @if (showCommentForm()) {
+    <app-post-form [label]="'post.writeComment' | translate" [submitLabel]="'post.commentButton' | translate" [rows]="3"
+      [parentDocumentId]="postData.documentId" (submitForm)="onCommentSubmit($event)" #commentFormRef />
+    }
+    <app-posts-list [parentDocumentId]="postData.documentId" />
   </div>
+</div>
+}
+@if(isPostLoading()) {
+<div class="flex justify-center items-center h-64">
+  <app-spinner />
+</div>
 }

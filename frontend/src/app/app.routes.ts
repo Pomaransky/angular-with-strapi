@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { loginGuard } from './core/guards/login-guard';
 import { adminGuard } from './core/guards/admin-guard';
-import { postResolver } from './core/resolvers/post.resolver';
 import { AppRoutePath } from './core/constants';
 
 export const routes: Routes = [
@@ -21,7 +20,6 @@ export const routes: Routes = [
       },
       {
         path: AppRoutePath.POST,
-        resolve: { post: postResolver },
         loadComponent: () =>
           import('./core/pages/post/post').then((m) => m.Post),
       },
