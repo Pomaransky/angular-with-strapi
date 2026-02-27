@@ -143,9 +143,16 @@ export default {
 
       try {
         if (isCreate && result) {
-          const data = context.params?.data as { parent?: string } | undefined;
+          const data = context.params?.data as {
+            parent?: string | { set?: string[] };
+          } | undefined;
           const created = result as { parent?: { documentId?: string } | string };
-          const parentFromPayload = typeof data?.parent === 'string' ? data.parent : null;
+          const parentFromPayload =
+            typeof data?.parent === 'string'
+              ? data.parent
+              : Array.isArray(data?.parent?.set) && data.parent.set[0]
+                ? data.parent.set[0]
+                : null;
           const parentFromResult =
             typeof created.parent === 'object' && created.parent?.documentId
               ? created.parent.documentId
