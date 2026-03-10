@@ -9,7 +9,16 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, EMPTY, finalize, map, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  EMPTY,
+  finalize,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import {
   PostForm,
   PostCard,
@@ -25,7 +34,14 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-post',
-  imports: [PostForm, PostCard, PostsList, TranslateModule, ButtonModule, Spinner],
+  imports: [
+    PostForm,
+    PostCard,
+    PostsList,
+    TranslateModule,
+    ButtonModule,
+    Spinner,
+  ],
   templateUrl: './post.html',
   styleUrl: './post.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

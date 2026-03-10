@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
