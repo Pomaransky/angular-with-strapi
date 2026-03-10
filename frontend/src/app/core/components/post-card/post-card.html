@@ -1,13 +1,13 @@
 @if (post; as postItem) {
   @if (link) {
-    <a
-      [routerLink]="['/post', postItem.documentId]"
-      class="block w-full max-w-[500px]"
+    <div
+      class="block w-full max-w-[500px] cursor-pointer"
+      (click)="navigateToPost(postItem)"
     >
       <ng-container
         *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
       />
-    </a>
+    </div>
   } @else {
     <ng-container
       *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
