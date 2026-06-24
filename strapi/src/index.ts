@@ -55,6 +55,11 @@ async function createAdminRole() {
 async function setupDefaultRolesAndPermissions() {
   await createAdminRole();
 
+  // Permissions for Public role
+  const publicPermissions = [
+    'api::analytics-event.analytics-event.track',
+  ];
+
   // Permissions for Authenticated role
   const authenticatedPermissions = [
     // User
@@ -72,6 +77,8 @@ async function setupDefaultRolesAndPermissions() {
     'api::post.post.find',
     'api::post.post.findOne',
     'api::post.post.create',
+    // Analytics
+    'api::analytics-event.analytics-event.track',
   ];
 
   // Permissions for Admin role
@@ -102,8 +109,14 @@ async function setupDefaultRolesAndPermissions() {
     'plugin::users-permissions.user.me',
     'plugin::users-permissions.user.update',
     'plugin::users-permissions.user.updateMe',
+    // Analytics
+    'api::analytics-event.analytics-event.find',
+    'api::analytics-event.analytics-event.findOne',
+    'api::analytics-counter.analytics-counter.find',
+    'api::analytics-counter.analytics-counter.findOne',
   ];
 
+  await setupRolePermissions('public', publicPermissions);
   await setupRolePermissions('authenticated', authenticatedPermissions);
   await setupRolePermissions('admin', adminPermissions);
 }

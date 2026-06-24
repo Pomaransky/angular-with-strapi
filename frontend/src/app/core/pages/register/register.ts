@@ -18,12 +18,13 @@ import { passwordMatchValidator } from '../../directives/password-match-directiv
 import { RegisterCredentials } from '../../models';
 import { catchError, finalize, of } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
+import { AnalyticsService } from '../../services/analytics-service';
 import { Router } from '@angular/router';
 import { REGISTER_VALIDATIONS } from './constants/register-form-validations.const';
 import { InputField } from '../../components';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { PageTitle } from '../../constants';
+import { PageTitle, AnalyticsEventType } from '../../constants';
 import { Settings } from '../../components/settings/settings';
 
 @Component({
@@ -43,6 +44,7 @@ import { Settings } from '../../components/settings/settings';
 })
 export class Register implements OnInit {
   private authService = inject(AuthService);
+  private analyticsService = inject(AnalyticsService);
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private titleService = inject(Title);
@@ -58,6 +60,7 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle(PageTitle.PULSAR_REGISTER);
+    this.analyticsService.track(AnalyticsEventType.PAGE_VIEW_REGISTER).subscribe();
   }
 
   private initRegisterForm(): void {

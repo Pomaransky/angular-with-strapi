@@ -430,6 +430,79 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnalyticsCounterAnalyticsCounter
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'analytics_counters';
+  info: {
+    displayName: 'Analytics Counter';
+    pluralName: 'analytics-counters';
+    singularName: 'analytics-counter';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    count: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eventType: Schema.Attribute.Enumeration<
+      ['page_view_login', 'page_view_register']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    lastOccurredAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::analytics-counter.analytics-counter'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAnalyticsEventAnalyticsEvent
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'analytics_events';
+  info: {
+    displayName: 'Analytics Event';
+    pluralName: 'analytics-events';
+    singularName: 'analytics-event';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eventType: Schema.Attribute.Enumeration<
+      ['page_view_login', 'page_view_register']
+    > &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::analytics-event.analytics-event'
+    > &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiPostPost extends Struct.CollectionTypeSchema {
   collectionName: 'posts';
   info: {
@@ -981,6 +1054,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::analytics-counter.analytics-counter': ApiAnalyticsCounterAnalyticsCounter;
+      'api::analytics-event.analytics-event': ApiAnalyticsEventAnalyticsEvent;
       'api::post.post': ApiPostPost;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
