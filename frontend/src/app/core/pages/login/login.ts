@@ -1,8 +1,10 @@
 import { AuthService } from './../../services/auth-service';
+import { AnalyticsService } from '../../services/analytics-service';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   inject,
   OnInit,
 } from '@angular/core';
@@ -22,11 +24,12 @@ import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PageTitle } from '../../constants';
+import { PageTitle, AnalyticsEventType } from '../../constants';
 import { Settings } from '../../components/settings/settings';
 import { InputField } from '../../components';
 import { TranslateModule } from '@ngx-translate/core';
 import { LOGIN_FORM_VALIDATIONS } from './constants/login-form-validations.const';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -47,9 +50,11 @@ import { LOGIN_FORM_VALIDATIONS } from './constants/login-form-validations.const
 })
 export class Login implements OnInit {
   private authService = inject(AuthService);
+  private analyticsService = inject(AnalyticsService);
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private titleService = inject(Title);
+  private destroyRef = inject(DestroyRef);
 
   loginForm!: FormGroup;
   validations = LOGIN_FORM_VALIDATIONS;
@@ -62,6 +67,13 @@ export class Login implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle(PageTitle.PULSAR_LOGIN);
+    this.trackPageView();
+  }
+
+  trackPageView(): void {
+    this.analyticsService.track(AnalyticsEventType.PAGE_VIEW_LOGIN).pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe();
   }
 
   private initLoginForm(): void {
