@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "analytics_counters",
+  "info": {
+    "singularName": "analytics-counter",
+    "pluralName": "analytics-counters",
+    "displayName": "Analytics Counter"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "eventType": {
+      "type": "enumeration",
+      "enum": [
+        "page_view_login",
+        "page_view_register"
+      ],
+      "required": true,
+      "unique": true
+    },
+    "count": {
+      "type": "integer",
+      "default": 0
+    },
+    "lastOccurredAt": {
+      "type": "datetime"
+    }
+  }
+}
