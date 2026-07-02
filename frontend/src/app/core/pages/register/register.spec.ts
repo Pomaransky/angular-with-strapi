@@ -7,6 +7,12 @@ describe('Register', () => {
   let fixture: ComponentFixture<Register>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(Register, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [Register],
     }).compileComponents();
