@@ -7,6 +7,12 @@ describe('PostsList', () => {
   let fixture: ComponentFixture<PostsList>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(PostsList, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [PostsList],
     }).compileComponents();

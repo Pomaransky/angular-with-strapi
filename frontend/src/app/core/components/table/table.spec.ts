@@ -7,6 +7,12 @@ describe('Table', () => {
   let fixture: ComponentFixture<Table>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(Table, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [Table],
     }).compileComponents();

@@ -7,6 +7,12 @@ describe('ChangePasswordDialog', () => {
   let fixture: ComponentFixture<ChangePasswordDialog>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(ChangePasswordDialog, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [ChangePasswordDialog],
     }).compileComponents();

@@ -7,6 +7,12 @@ describe('ConfirmDialog', () => {
   let fixture: ComponentFixture<ConfirmDialog>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(ConfirmDialog, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [ConfirmDialog],
     }).compileComponents();
