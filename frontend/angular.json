@@ -98,6 +98,7 @@
             "codeCoverage": true,
             "codeCoverageExclude": [
               "src/main.ts",
+              "src/test.ts",
               "src/**/*.spec.ts"
             ],
             "assets": [
