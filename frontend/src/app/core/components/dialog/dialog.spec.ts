@@ -19,4 +19,24 @@ describe('Dialog', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onVisibleChange', () => {
+    it('emits the given value', () => {
+      spyOn(component.visibleChange, 'emit');
+
+      component.onVisibleChange(true);
+
+      expect(component.visibleChange.emit).toHaveBeenCalledWith(true);
+    });
+  });
+
+  describe('close', () => {
+    it('emits false', () => {
+      spyOn(component.visibleChange, 'emit');
+
+      component.close();
+
+      expect(component.visibleChange.emit).toHaveBeenCalledWith(false);
+    });
+  });
 });

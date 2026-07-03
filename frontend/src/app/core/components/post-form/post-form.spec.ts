@@ -7,6 +7,12 @@ describe('PostForm', () => {
   let fixture: ComponentFixture<PostForm>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(PostForm, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [PostForm],
     }).compileComponents();

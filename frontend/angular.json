@@ -90,8 +90,17 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
+            "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.cjs",
             "inlineStyleLanguage": "scss",
+            "polyfills": ["zone.js"],
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/main.ts",
+              "src/test.ts",
+              "src/**/*.spec.ts"
+            ],
             "assets": [
               {
                 "glob": "**/*",

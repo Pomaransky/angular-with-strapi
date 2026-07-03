@@ -1,7 +1,7 @@
 <div [class.horizontal]="labelWidth" [class]="containerClass">
   <div class="w-full" [class.flex-auto]="labelWidth">
     @if (type === "password") {
-      <p-floatlabel variant="in">
+      <p-floatlabel [variant]="label ? 'in' : 'on'">
         <p-password
           [inputId]="inputId"
           [formControl]="internalControl"
@@ -17,7 +17,7 @@
         }
       </p-floatlabel>
     } @else if (type === "datepicker" && control) {
-      <p-floatlabel variant="in">
+      <p-floatlabel [variant]="label ? 'in' : 'on'">
         <p-datepicker
           [inputId]="inputId"
           [formControl]="control"
@@ -35,7 +35,7 @@
         }
       </p-floatlabel>
     } @else if (type === "textarea") {
-      <p-floatlabel variant="in">
+      <p-floatlabel [variant]="label ? 'in' : 'on'">
         <textarea
           [id]="inputId"
           [value]="value"
@@ -54,7 +54,7 @@
         }
       </p-floatlabel>
     } @else {
-      <p-floatlabel variant="in">
+      <p-floatlabel [variant]="label ? 'in' : 'on'">
         <p-iconfield>
           @if (icon) {
             <p-inputicon [class]="'pi pi-' + icon" />

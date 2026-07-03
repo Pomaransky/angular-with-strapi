@@ -7,6 +7,12 @@ describe('Profile', () => {
   let fixture: ComponentFixture<Profile>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(Profile, {
+      set: {
+        template: '',
+      },
+    });
+
     await TestBed.configureTestingModule({
       imports: [Profile],
     }).compileComponents();
