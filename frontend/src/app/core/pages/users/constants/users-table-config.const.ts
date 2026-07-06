@@ -28,9 +28,14 @@ export const USERS_TABLE_CONFIG: TableConfig = {
       type: TableColumnType.STATUS_TAG,
     },
     {
-      key: 'blocked',
-      label: 'users.blocked',
+      key: 'banType',
+      label: 'users.ban.status',
       type: TableColumnType.STATUS_TAG,
+    },
+    {
+      key: 'banExpiresAt',
+      label: 'users.ban.expiresAt',
+      type: TableColumnType.DATE,
     },
     {
       key: 'createdAt',

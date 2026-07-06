@@ -17,7 +17,10 @@
     "usersFetchError": "Failed to fetch users",
     "userBlocked": "User blocked successfully",
     "userUnblocked": "User unblocked successfully",
-    "updateBlockStatusError": "Failed to update user block status"
+    "updateBlockStatusError": "Failed to update user block status",
+    "userBanApplied": "Sanction applied successfully",
+    "userBanRemoved": "Sanction removed successfully",
+    "updateBanError": "Failed to update user sanction"
   },
   "upload": {
     "success": "Avatar uploaded successfully",
@@ -97,6 +100,7 @@
     "notConfirmed": "Not Confirmed",
     "blocked": "Blocked",
     "active": "Active",
+    "banStatus": "Sanction",
     "editProfile": "Edit Profile",
     "changeAvatar": "Change avatar",
     "changePassword": "Change password",
@@ -131,7 +135,30 @@
     "lastName": "Last Name",
     "confirmed": "Confirmed",
     "blocked": "Blocked",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "ban": {
+      "title": "Apply sanction",
+      "targetUser": "User",
+      "typeLabel": "Sanction type",
+      "durationLabel": "Duration",
+      "apply": "Apply",
+      "applyAction": "Apply sanction",
+      "removeAction": "Remove sanction",
+      "status": "Sanction",
+      "expiresAt": "Expires at",
+      "type": {
+        "active": "Active",
+        "shadow": "Shadowban",
+        "time": "Temporary ban",
+        "perm": "Permanent ban"
+      },
+      "duration": {
+        "5m": "5 minutes",
+        "1h": "1 hour",
+        "7d": "7 days",
+        "30d": "30 days"
+      }
+    }
   },
   "post": {
     "addComment": "Add comment",

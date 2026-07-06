@@ -34,6 +34,23 @@
           <label [for]="inputId">{{ label }}</label>
         }
       </p-floatlabel>
+    } @else if (type === "select" && control) {
+      <p-floatlabel [variant]="label ? 'in' : 'on'">
+        <p-select
+          [inputId]="inputId"
+          [formControl]="control"
+          [options]="options"
+          optionLabel="label"
+          optionValue="value"
+          (onBlur)="onBlur()"
+          [class.ng-invalid]="isInvalid"
+          [class.p-filled]="control.value != null && control.value !== ''"
+          class="w-full"
+        />
+        @if (label) {
+          <label [for]="inputId">{{ label }}</label>
+        }
+      </p-floatlabel>
     } @else if (type === "textarea") {
       <p-floatlabel [variant]="label ? 'in' : 'on'">
         <textarea

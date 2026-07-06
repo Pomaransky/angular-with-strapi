@@ -1,4 +1,52 @@
 import type { Core } from '@strapi/strapi';
+import {
+  clearAllExpiredTimeBans,
+  clearExpiredTimeBanIfNeeded,
+  normalizeBanFields,
+  USER_MODEL_UID,
+} from './utils/user-ban';
+
+async function migrateBanTypes(strapi: Core.Strapi) {
+  const legacyNoneUsers = await strapi.db.query(USER_MODEL_UID).findMany({
+    where: { banType: 'none' },
+  });
+
+  for (const user of legacyNoneUsers) {
+    await strapi.documents(USER_MODEL_UID).update({
+      documentId: user.documentId,
+      data: {
+        banType: null,
+        banExpiresAt: null,
+        blocked: false,
+      },
+    });
+  }
+
+  if (legacyNoneUsers.length > 0) {
+    console.log(`Cleared legacy banType=none for ${legacyNoneUsers.length} user(s)`);
+  }
+
+  const blockedUsers = await strapi.db.query(USER_MODEL_UID).findMany({
+    where: {
+      blocked: true,
+      $or: [{ banType: { $null: true } }, { banType: 'none' }],
+    },
+  });
+
+  for (const user of blockedUsers) {
+    await strapi.documents(USER_MODEL_UID).update({
+      documentId: user.documentId,
+      data: {
+        banType: 'perm',
+        blocked: true,
+      },
+    });
+  }
+
+  if (blockedUsers.length > 0) {
+    console.log(`Migrated ${blockedUsers.length} blocked user(s) to banType=perm`);
+  }
+}
 
 async function setupRolePermissions(roleType: string, permissions: string[]) {
   const role = await strapi.db.query('plugin::users-permissions.role').findOne({
@@ -130,6 +178,23 @@ export default {
    */
   register({ strapi }: { strapi: Core.Strapi }) {
     strapi.documents.use(async (context, next) => {
+      if (context.uid === USER_MODEL_UID && context.action === 'update') {
+        const data = context.params?.data as Record<string, unknown> | undefined;
+        if (data) {
+          try {
+            normalizeBanFields(data);
+          } catch (error) {
+            const message =
+              error instanceof Error ? error.message : 'Invalid ban configuration';
+            throw new Error(message);
+          }
+        }
+      }
+
+      return next();
+    });
+
+    strapi.documents.use(async (context, next) => {
       if (context.uid !== 'api::post.post') return next();
       const isCreate = context.action === 'create';
       const isDelete = context.action === 'delete';
@@ -217,7 +282,21 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    // Setup default roles and permissions (Should use environment - DEV only, impossible to have more than 1 env variable with free Strapi Cloud)
+    await migrateBanTypes(strapi);
     await setupDefaultRolesAndPermissions();
+
+    const cronTask = async () => {
+      try {
+        const cleared = await clearAllExpiredTimeBans(strapi);
+        if (cleared > 0) {
+          strapi.log.info(`Cleared ${cleared} expired time ban(s)`);
+        }
+      } catch (error) {
+        strapi.log.warn('Failed to clear expired time bans', error);
+      }
+    };
+
+    cronTask();
+    setInterval(cronTask, 60 * 1000);
   },
 };
