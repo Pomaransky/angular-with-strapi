@@ -1,5 +1,6 @@
 import { Media } from '../media.type';
 import { UserRole } from './user-role.model';
+import { UserBanType } from './user-ban-type.enum';
 
 export interface User {
   id: number;
@@ -9,6 +10,8 @@ export interface User {
   provider: string;
   confirmed: boolean;
   blocked: boolean;
+  banType?: UserBanType | null;
+  banExpiresAt?: string | null;
   role: UserRole;
   firstName?: string;
   lastName?: string;

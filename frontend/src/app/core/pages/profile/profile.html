@@ -82,17 +82,29 @@
         "
       />
       <app-data-row
-        [label]="'profile.account' | translate"
+        [label]="'profile.banStatus' | translate"
         [value]="
-          (userData.blocked ? 'profile.blocked' : 'profile.active') | translate
+          ('users.ban.type.' + (userData.banType || 'active')) | translate
         "
-        [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
+        [icon]="
+          !userData.banType
+            ? 'pi pi-check'
+            : 'pi pi-ban'
+        "
         [valueClass]="
-          userData.blocked
-            ? 'text-red-600 font-medium'
-            : 'text-green-600 font-medium'
+          !userData.banType
+            ? 'text-green-600 font-medium'
+            : userData.banType === 'shadow'
+              ? 'text-amber-600 font-medium'
+              : 'text-red-600 font-medium'
         "
       />
+      @if (userData.banType === 'time' && userData.banExpiresAt) {
+        <app-data-row
+          [label]="'users.ban.expiresAt' | translate"
+          [value]="(userData.banExpiresAt | date: 'dd/MM/yyyy HH:mm') || '-'"
+        />
+      }
       <app-data-row
         [label]="'profile.role' | translate"
         [value]="userData.role.name || '-'"

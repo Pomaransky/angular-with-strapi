@@ -59,6 +59,13 @@
       "default": false,
       "configurable": false
     },
+    "banType": {
+      "type": "enumeration",
+      "enum": ["shadow", "time", "perm"]
+    },
+    "banExpiresAt": {
+      "type": "datetime"
+    },
     "role": {
       "type": "relation",
       "relation": "manyToOne",

@@ -17,11 +17,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { TranslateModule } from '@ngx-translate/core';
-import { ValidationMessage } from '../../models';
+import { ValidationMessage, SelectOption } from '../../models';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -33,6 +34,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     PasswordModule,
     TextareaModule,
     DatePickerModule,
+    SelectModule,
     IconField,
     InputIcon,
     TranslateModule,
@@ -49,8 +51,9 @@ export class InputField implements ControlValueAccessor, OnInit {
   @Input({ required: true }) inputId!: string;
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type: 'text' | 'email' | 'password' | 'textarea' | 'datepicker' =
+  @Input() type: 'text' | 'email' | 'password' | 'textarea' | 'datepicker' | 'select' =
     'text';
+  @Input() options: SelectOption[] = [];
   @Input() dateFormat = 'dd/mm/yy';
   @Input() showDateIcon = true;
   @Input() validationMessages: ValidationMessage[] = [];

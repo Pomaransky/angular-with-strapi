@@ -12,7 +12,7 @@ import { UserApiService } from '../../services/user-api-service';
 import { TableModule } from 'primeng/table';
 import { User, RowActionItem, TableLoadParams } from '../../models';
 import { TagModule } from 'primeng/tag';
-import { DetailsDialog } from './components';
+import { ApplyBanDialog, DetailsDialog } from './components';
 import { Table } from '../../components';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,13 +22,14 @@ import { PageTitle } from '../../constants';
 
 @Component({
   selector: 'app-users',
-  imports: [TableModule, TagModule, Table, DetailsDialog],
+  imports: [TableModule, TagModule, Table, DetailsDialog, ApplyBanDialog],
   templateUrl: './users.html',
   styleUrl: './users.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Users implements OnInit {
   @ViewChild(DetailsDialog) detailsDialog!: DetailsDialog;
+  @ViewChild(ApplyBanDialog) applyBanDialog!: ApplyBanDialog;
 
   private userService = inject(UserApiService);
   private userStore = inject(UserStore);
@@ -55,18 +56,19 @@ export class Users implements OnInit {
   }
 
   rowActions(user: User): RowActionItem[] {
+    const hasBan = !!user.banType;
+
     return [
       {
-        label: this.translate.instant('users.block'),
-        icon: 'pi pi-lock',
-        disabled: user.blocked,
-        actionId: 'block',
+        label: this.translate.instant('users.ban.applyAction'),
+        icon: 'pi pi-ban',
+        actionId: 'applyBan',
       },
       {
-        label: this.translate.instant('users.unblock'),
+        label: this.translate.instant('users.ban.removeAction'),
         icon: 'pi pi-unlock',
-        disabled: !user.blocked,
-        actionId: 'unblock',
+        disabled: !hasBan,
+        actionId: 'removeBan',
       },
       {
         label: this.translate.instant('users.details'),
@@ -78,11 +80,11 @@ export class Users implements OnInit {
 
   onRowAction(user: User, actionId: string): void {
     switch (actionId) {
-      case 'block':
-        this.updateUserBlockStatus(user, true);
+      case 'applyBan':
+        this.applyBanDialog.showDialog(user);
         break;
-      case 'unblock':
-        this.updateUserBlockStatus(user, false);
+      case 'removeBan':
+        this.removeUserBan(user);
         break;
       case 'details':
         this.detailsDialog.showDialog(user.id);
@@ -90,9 +92,12 @@ export class Users implements OnInit {
     }
   }
 
-  private updateUserBlockStatus(user: User, status: boolean): void {
+  private removeUserBan(user: User): void {
     this.userService
-      .updateUserBlockStatus(user.id.toString(), status)
+      .updateUserBan(user.id.toString(), {
+        banType: null,
+        banExpiresAt: null,
+      })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
