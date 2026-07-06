@@ -998,6 +998,8 @@ export interface PluginUsersPermissionsUser
         maxLength: 255;
       }>;
     avatar: Schema.Attribute.Media<'images' | 'files'>;
+    banExpiresAt: Schema.Attribute.DateTime;
+    banType: Schema.Attribute.Enumeration<['shadow', 'time', 'perm']>;
     birthDate: Schema.Attribute.DateTime;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;

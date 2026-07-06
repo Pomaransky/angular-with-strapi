@@ -6,3 +6,5 @@ export * from './password-reset-request.model';
 export * from './password-reset.model';
 export * from './user-role.model';
 export * from './user-role-type.enum';
+export * from './user-ban-type.enum';
+export * from './user-ban-update.model';

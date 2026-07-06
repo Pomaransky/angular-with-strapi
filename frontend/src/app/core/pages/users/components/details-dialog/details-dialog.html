@@ -54,15 +54,30 @@
             userData.confirmed ? 'text-green-600' : 'text-amber-600'
           "
         />
+      <app-data-row
+        [label]="'profile.banStatus' | translate"
+        [value]="
+          ('users.ban.type.' + (userData.banType || 'active')) | translate
+        "
+        [icon]="
+          !userData.banType
+            ? 'pi pi-check'
+            : 'pi pi-ban'
+        "
+        [valueClass]="
+          !userData.banType
+            ? 'text-green-600'
+            : userData.banType === 'shadow'
+              ? 'text-amber-600'
+              : 'text-red-600'
+        "
+      />
+      @if (userData.banType === 'time' && userData.banExpiresAt) {
         <app-data-row
-          [label]="'profile.account' | translate"
-          [value]="
-            (userData.blocked ? 'profile.blocked' : 'profile.active')
-              | translate
-          "
-          [icon]="userData.blocked ? 'pi pi-ban' : 'pi pi-check'"
-          [valueClass]="userData.blocked ? 'text-red-600' : 'text-green-600'"
+          [label]="'users.ban.expiresAt' | translate"
+          [value]="(userData.banExpiresAt | date: 'dd/MM/yyyy HH:mm') || '-'"
         />
+      }
         <app-data-row
           [label]="'profile.aboutMe' | translate"
           [value]="userData.aboutMe || '-'"

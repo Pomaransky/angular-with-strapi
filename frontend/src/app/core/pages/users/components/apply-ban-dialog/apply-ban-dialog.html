@@ -1,0 +1,57 @@
+<app-dialog
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+  [title]="'users.ban.title' | translate"
+  icon="pi pi-ban"
+  styleClass="w-full sm:w-[500px]"
+>
+  @if (selectedUser(); as user) {
+    <p class="text-color mb-4">
+      {{ "users.ban.targetUser" | translate }}:
+      <strong>{{ user.username }}</strong>
+    </p>
+  }
+
+  <form
+    [formGroup]="banForm"
+    (ngSubmit)="onApply()"
+    class="w-full flex flex-col gap-5"
+  >
+    <app-input-field
+      [label]="'users.ban.typeLabel' | translate"
+      inputId="banType"
+      formControlName="banType"
+      type="select"
+      labelWidth="10rem"
+      [options]="banTypeOptions"
+    />
+
+    @if (banForm.controls.banType.value === UserBanType.TIME) {
+      <app-input-field
+        [label]="'users.ban.durationLabel' | translate"
+        inputId="banDuration"
+        formControlName="durationMinutes"
+        type="select"
+        labelWidth="10rem"
+        [options]="durationOptions"
+      />
+    }
+  </form>
+
+  <div dialogFooter class="w-full flex items-center justify-end gap-2 mt-6">
+    <p-button
+      type="button"
+      [label]="'common.cancel' | translate"
+      [outlined]="true"
+      (click)="visible.set(false)"
+      styleClass="w-32"
+    />
+    <p-button
+      type="button"
+      [label]="'users.ban.apply' | translate"
+      (click)="onApply()"
+      styleClass="w-32"
+      [disabled]="banForm.invalid"
+    />
+  </div>
+</app-dialog>

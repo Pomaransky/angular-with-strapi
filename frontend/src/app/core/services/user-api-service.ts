@@ -12,7 +12,7 @@ import {
   switchMap,
 } from 'rxjs';
 import { UserStore } from '../store/user.store';
-import { Paginated, TableLoadParams, User } from '../models';
+import { Paginated, TableLoadParams, User, UserBanUpdate } from '../models';
 import { ToastService } from './toast-service';
 import { tableLoadParamsToStrapiQuery } from '../utils/table-load-params-to-query';
 import { TranslateService } from '@ngx-translate/core';
@@ -118,14 +118,14 @@ export class UserApiService extends ApiService {
     return this.get<User>(`users/${id}?populate=role`);
   }
 
-  updateUserBlockStatus(userId: string, blocked: boolean): Observable<User> {
-    return this.put<User>(`users/${userId}`, { blocked }).pipe(
+  updateUserBan(userId: string, ban: UserBanUpdate): Observable<User> {
+    return this.put<User>(`users/${userId}`, ban).pipe(
       tap(() => {
-        this.toastService.successToast(
-          this.translate.instant(
-            blocked ? 'user.userBlocked' : 'user.userUnblocked',
-          ),
-        );
+        const messageKey =
+          ban.banType == null
+            ? 'user.userBanRemoved'
+            : 'user.userBanApplied';
+        this.toastService.successToast(this.translate.instant(messageKey));
       }),
       switchMap((user) => {
         const params = this.userStore.users().lastLoadParams;
@@ -134,7 +134,7 @@ export class UserApiService extends ApiService {
       catchError((error) => {
         const msg =
           error.error?.error?.message ||
-          this.translate.instant('user.updateBlockStatusError');
+          this.translate.instant('user.updateBanError');
         this.toastService.errorToast(msg);
         return throwError(() => new Error(msg));
       }),

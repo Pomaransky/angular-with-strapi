@@ -17,7 +17,10 @@
     "usersFetchError": "Nie udało się pobrać użytkowników",
     "userBlocked": "Użytkownik zablokowany pomyślnie",
     "userUnblocked": "Użytkownik odblokowany pomyślnie",
-    "updateBlockStatusError": "Nie udało się zaktualizować statusu blokady"
+    "updateBlockStatusError": "Nie udało się zaktualizować statusu blokady",
+    "userBanApplied": "Sankcja nałożona pomyślnie",
+    "userBanRemoved": "Sankcja usunięta pomyślnie",
+    "updateBanError": "Nie udało się zaktualizować sankcji użytkownika"
   },
   "upload": {
     "success": "Avatar przesłany pomyślnie",
@@ -97,6 +100,7 @@
     "notConfirmed": "Niepotwierdzony",
     "blocked": "Zablokowany",
     "active": "Aktywny",
+    "banStatus": "Sankcja",
     "editProfile": "Edytuj profil",
     "changeAvatar": "Zmień avatar",
     "changePassword": "Zmień hasło",
@@ -132,7 +136,30 @@
     "confirmed": "Potwierdzony",
     "notConfirmed": "Niepotwierdzony",
     "blocked": "Zablokowany",
-    "createdAt": "Data utworzenia"
+    "createdAt": "Data utworzenia",
+    "ban": {
+      "title": "Nałóż sankcję",
+      "targetUser": "Użytkownik",
+      "typeLabel": "Typ sankcji",
+      "durationLabel": "Czas trwania",
+      "apply": "Nałóż",
+      "applyAction": "Nałóż sankcję",
+      "removeAction": "Usuń sankcję",
+      "status": "Sankcja",
+      "expiresAt": "Wygasa",
+      "type": {
+        "active": "Aktywny",
+        "shadow": "Shadowban",
+        "time": "Ban czasowy",
+        "perm": "Ban permanentny"
+      },
+      "duration": {
+        "5m": "5 minut",
+        "1h": "1 godzina",
+        "7d": "7 dni",
+        "30d": "30 dni"
+      }
+    }
   },
   "post": {
     "addComment": "Dodaj komentarz",
