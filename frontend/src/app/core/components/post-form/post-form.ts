@@ -28,8 +28,8 @@ export interface PostFormSubmit {
   media?: File;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
-const ACCEPT_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+export const ACCEPT_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
 @Component({
   selector: 'app-post-form',
   imports: [
