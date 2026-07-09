@@ -24,8 +24,14 @@ import { REGISTER_VALIDATIONS } from './constants/register-form-validations.cons
 import { InputField } from '../../components';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { PageTitle, AnalyticsEventType } from '../../constants';
+import {
+  PageTitle,
+  AnalyticsEventType,
+  AppRoutePath,
+  ModalType,
+} from '../../constants';
 import { Settings } from '../../components/settings/settings';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-register',
@@ -48,6 +54,7 @@ export class Register implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private titleService = inject(Title);
+  private modalService = inject(ModalService);
 
   registerForm!: FormGroup;
   isLoading = false;
@@ -110,6 +117,10 @@ export class Register implements OnInit {
   }
 
   onLogin(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate([`/${AppRoutePath.LOGIN}`]);
+  }
+
+  openPrivacyPolicy(): void {
+    this.modalService.open(ModalType.PRIVACY);
   }
 }

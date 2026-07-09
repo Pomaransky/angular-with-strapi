@@ -24,12 +24,18 @@ import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PageTitle, AnalyticsEventType } from '../../constants';
+import {
+  PageTitle,
+  AnalyticsEventType,
+  AppRoutePath,
+  ModalType,
+} from '../../constants';
 import { Settings } from '../../components/settings/settings';
 import { InputField } from '../../components';
 import { TranslateModule } from '@ngx-translate/core';
 import { LOGIN_FORM_VALIDATIONS } from './constants/login-form-validations.const';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-login',
@@ -55,6 +61,7 @@ export class Login implements OnInit {
   private router = inject(Router);
   private titleService = inject(Title);
   private destroyRef = inject(DestroyRef);
+  private modalService = inject(ModalService);
 
   loginForm!: FormGroup;
   validations = LOGIN_FORM_VALIDATIONS;
@@ -109,6 +116,10 @@ export class Login implements OnInit {
   }
 
   onRegister(): void {
-    this.router.navigate(['/register']);
+    this.router.navigate([`/${AppRoutePath.REGISTER}`]);
+  }
+
+  openPrivacyPolicy(): void {
+    this.modalService.open(ModalType.PRIVACY);
   }
 }

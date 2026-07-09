@@ -1,6 +1,6 @@
 <app-settings class="absolute top-4 right-4" />
 <div class="flex justify-center items-center h-screen">
-  <p-card class="p-6 sm:w-[400px]">
+  <p-card class="p-6 pb-0 sm:w-[400px]">
     <ng-template #header>
       <div class="flex flex-col items-center justify-center">
         <img src="/logo_big.svg" alt="Pulsar" class="w-40" />
@@ -52,7 +52,7 @@
           [disabled]="registerForm.invalid || isLoading"
           [loading]="isLoading"
           [label]="'register.register' | translate"
-          styleClass="w-full p-button-lg mt-2"
+          styleClass="w-full p-button-lg"
           icon="pi pi-user-plus"
         ></p-button>
 
@@ -68,13 +68,22 @@
       </form>
     </ng-template>
     <ng-template #footer>
-      <div class="text-sm mt-1 mr-2">
-        <span class="mr-2">{{ "register.haveAccount" | translate }}</span>
+      <div class="text-sm mt-1 flex flex-col justify-center items-center gap-6">
+        <div>
+          <span class="mr-2">{{ "register.haveAccount" | translate }}</span>
+          <p-button
+            [label]="'register.login' | translate"
+            styleClass="linkBtn p-button-xs"
+            icon="pi pi-sign-in"
+            (click)="onLogin()"
+            link
+          ></p-button>
+        </div>
         <p-button
-          [label]="'register.login' | translate"
+          [label]="'register.privacyPolicy' | translate"
           styleClass="linkBtn p-button-xs"
-          icon="pi pi-sign-in"
-          (click)="onLogin()"
+          icon="pi pi-shield"
+          (click)="openPrivacyPolicy()"
           link
         ></p-button>
       </div>

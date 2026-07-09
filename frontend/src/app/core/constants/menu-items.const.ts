@@ -28,4 +28,8 @@ export const menuItems: MenuItemWithPermissions[] = [
     routerLink: AppRoutePath.USERS,
     permissions: [UserRoleType.ADMIN],
   },
+  {
+    label: 'menu.privacyPolicy',
+    icon: 'pi pi-shield',
+  },
 ];
