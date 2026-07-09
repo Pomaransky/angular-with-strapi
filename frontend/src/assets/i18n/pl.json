@@ -53,6 +53,7 @@
     "signIn": "Zaloguj się",
     "noAccount": "Nie masz konta?",
     "register": "Zarejestruj się",
+    "privacyPolicy": "Polityka prywatności",
     "demoAppInfo": "Strapi Cloud Demo (backend) jest skalowany w celu oszczędzania zasobów. Strapi potrzebuje czasu na uruchomienie - więc pierwsze żądanie może zająć więcej czasu ( poczekaj chwilę i spróbuj odświeżyć stronę jeśli to trwa zbyt długo)."
   },
   "register": {
@@ -66,7 +67,8 @@
     "confirmPasswordPlaceholder": "Potwierdź hasło",
     "register": "Zarejestruj się",
     "haveAccount": "Masz już konto?",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "privacyPolicy": "Polityka prywatności"
   },
   "registerValidations": {
     "usernameRequired": "Nazwa użytkownika jest wymagana",
@@ -178,7 +180,31 @@
     "home": "Strona główna",
     "post": "Post",
     "profile": "Profil",
-    "users": "Użytkownicy"
+    "users": "Użytkownicy",
+    "privacyPolicy": "Polityka prywatności"
+  },
+  "privacyPolicy": {
+    "title": "Polityka prywatności",
+    "intro": "Ta aplikacja ma charakter pokazowy (portfolio/CV). Szanuję Twoją prywatność i zbieram wyłącznie podstawowe dane techniczne potrzebne do prostych statystyk odwiedzin.",
+    "collectedDataTitle": "Jakie dane są zbierane",
+    "collectedData": {
+      "pageViews": "Liczba odsłon strony.",
+      "visitDateTime": "Data i godzina odwiedzin.",
+      "visitedUrl": "Adres odwiedzanej podstrony (URL)."
+    },
+    "purposeTitle": "Cel przetwarzania",
+    "purpose": "Dane są wykorzystywane wyłącznie do monitorowania ruchu i działania aplikacji (np. ile razy strona została odwiedzona i w jakich godzinach).",
+    "noUsageTitle": "Czego nie robię",
+    "noUsage": {
+      "noProfiling": "Nie tworzę profili użytkowników.",
+      "noSelling": "Nie sprzedaję danych.",
+      "noMarketing": "Nie wykorzystuję danych do marketingu."
+    },
+    "retentionTitle": "Okres przechowywania",
+    "retention": "Dane statystyczne są przechowywane przez ograniczony czas, nie dłużej niż to konieczne do celów analitycznych.",
+    "contactTitle": "Kontakt",
+    "contact": "W sprawach dotyczących prywatności skontaktuj się: your-email@example.com",
+    "lastUpdated": "Data aktualizacji: 08.07.2026"
   },
   "notFound": {
     "title": "Strona nie znaleziona"

@@ -1,4 +1,5 @@
 export * from './analytics-event-type.enum';
+export * from './modal-type.enum';
 export * from './app-route-path.enum';
 export * from './menu-items.const';
 export * from './page-title.enum';
