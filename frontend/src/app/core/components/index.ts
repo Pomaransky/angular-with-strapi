@@ -8,3 +8,4 @@ export * from './avatar/avatar';
 export * from './post-form/post-form';
 export * from './post-card/post-card';
 export * from './posts-list/posts-list';
+export * from './privacy-policy-content/privacy-policy-content';

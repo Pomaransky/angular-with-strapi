@@ -53,6 +53,7 @@
     "signIn": "Sign In",
     "noAccount": "Don't have an account?",
     "register": "Register",
+    "privacyPolicy": "Privacy Policy",
     "demoAppInfo": "Strapi Cloud Demo (backend) project is scaled down to save resources. Strapi needs time to start back up - so the first request may take more time (wait a moment and try to refresh the page if it takes too long)."
   },
   "register": {
@@ -66,7 +67,8 @@
     "confirmPasswordPlaceholder": "Confirm your password",
     "register": "Register",
     "haveAccount": "Already have an account?",
-    "login": "Login"
+    "login": "Login",
+    "privacyPolicy": "Privacy Policy"
   },
   "registerValidations": {
     "usernameRequired": "Username is required",
@@ -177,7 +179,31 @@
     "home": "Home",
     "post": "Post",
     "profile": "Profile",
-    "users": "Users"
+    "users": "Users",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "intro": "This application is a demo project (portfolio/CV). I respect your privacy and collect only basic technical data required for simple visit statistics.",
+    "collectedDataTitle": "What data is collected",
+    "collectedData": {
+      "pageViews": "Page view count.",
+      "visitDateTime": "Date and time of visits.",
+      "visitedUrl": "Visited page address (URL)."
+    },
+    "purposeTitle": "Purpose of processing",
+    "purpose": "The data is used only to monitor traffic and application performance (e.g., how many times the site was visited and at what times).",
+    "noUsageTitle": "What I do not do",
+    "noUsage": {
+      "noProfiling": "I do not build user profiles.",
+      "noSelling": "I do not sell data.",
+      "noMarketing": "I do not use data for marketing."
+    },
+    "retentionTitle": "Data retention",
+    "retention": "Statistical data is stored for a limited period, no longer than necessary for analytics purposes.",
+    "contactTitle": "Contact",
+    "contact": "For privacy-related questions, contact: {{email}}",
+    "lastUpdated": "Last updated: {{date}}"
   },
   "notFound": {
     "title": "Page not found"

@@ -15,6 +15,8 @@ import {
 } from '../../../../constants/menu-items.const';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../services/auth-service';
+import { ModalService } from '../../../../services/modal.service';
+import { ModalType } from '../../../../constants';
 import { UserStore } from '../../../../store/user.store';
 import { AppStore } from '../../../../store/app.store';
 import { Settings } from '../../../../components/settings/settings';
@@ -43,6 +45,7 @@ export class Sidebar implements OnInit {
   private userStore = inject(UserStore);
   private translate = inject(TranslateService);
   private appStore = inject(AppStore);
+  private modalService = inject(ModalService);
 
   isUserLoading = this.userStore.me.isLoading;
   items = computed(() => {
@@ -64,6 +67,12 @@ export class Sidebar implements OnInit {
         ...item,
         label: this.translate.instant(item.label ?? ''),
       };
+      if (item.label === 'menu.privacyPolicy') {
+        return {
+          ...base,
+          command: () => this.modalService.open(ModalType.PRIVACY),
+        };
+      }
       if (item.permissions && item.permissions.length > 0) {
         return {
           ...base,

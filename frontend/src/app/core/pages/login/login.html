@@ -1,6 +1,6 @@
 <app-settings class="absolute top-4 right-4" />
 <div class="flex justify-center items-center h-screen">
-  <p-card class="p-6 sm:w-[400px]">
+  <p-card class="p-6 pb-0 sm:w-[400px]">
     <ng-template #header>
       <div class="flex flex-col items-center justify-center">
         <img src="/logo_big.svg" alt="Pulsar" class="w-40" />
@@ -50,20 +50,28 @@
       </form>
     </ng-template>
     <ng-template #footer>
-      <div class="text-sm mt-1">
-        <span class="mr-2">{{ "login.noAccount" | translate }}</span>
+      <div class="text-sm mt-1 flex flex-col justify-center items-center gap-6">
+        <div>
+          <span class="mr-2">{{ "login.noAccount" | translate }}</span>
+          <p-button
+            [label]="'login.register' | translate"
+            styleClass="linkBtn p-button-xs"
+            icon="pi pi-user-plus"
+            (click)="onRegister()"
+            link
+          ></p-button>
+        </div>
+        <div class="text-sm italic text-center">
+          <i class="pi pi-exclamation-triangle mr-1"></i>
+          {{ "login.demoAppInfo" | translate }}
+        </div>
         <p-button
-          [label]="'login.register' | translate"
+          [label]="'login.privacyPolicy' | translate"
           styleClass="linkBtn p-button-xs"
-          icon="pi pi-user-plus"
-          (click)="onRegister()"
+          icon="pi pi-shield"
+          (click)="openPrivacyPolicy()"
           link
         ></p-button>
-      </div>
-
-      <div class="text-sm mt-3 italic">
-        <i class="pi pi-exclamation-triangle mr-1"></i>
-        {{ "login.demoAppInfo" | translate }}
       </div>
     </ng-template>
   </p-card>
