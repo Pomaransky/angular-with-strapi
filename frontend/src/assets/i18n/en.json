@@ -202,8 +202,8 @@
     "retentionTitle": "Data retention",
     "retention": "Statistical data is stored for a limited period, no longer than necessary for analytics purposes.",
     "contactTitle": "Contact",
-    "contact": "For privacy-related questions, contact: your-email@example.com",
-    "lastUpdated": "Last updated: 2026-07-08"
+    "contact": "For privacy-related questions, contact: {{email}}",
+    "lastUpdated": "Last updated: {{date}}"
   },
   "notFound": {
     "title": "Page not found"

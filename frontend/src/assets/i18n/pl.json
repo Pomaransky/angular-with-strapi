@@ -203,8 +203,8 @@
     "retentionTitle": "Okres przechowywania",
     "retention": "Dane statystyczne są przechowywane przez ograniczony czas, nie dłużej niż to konieczne do celów analitycznych.",
     "contactTitle": "Kontakt",
-    "contact": "W sprawach dotyczących prywatności skontaktuj się: your-email@example.com",
-    "lastUpdated": "Data aktualizacji: 08.07.2026"
+    "contact": "W sprawach dotyczących prywatności skontaktuj się: {{email}}",
+    "lastUpdated": "Data aktualizacji: {{date}}"
   },
   "notFound": {
     "title": "Strona nie znaleziona"
