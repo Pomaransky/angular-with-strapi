@@ -28,6 +28,7 @@ import { switchMap } from 'rxjs';
 import { TooltipModule } from 'primeng/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChangePasswordDialog } from './components/change-password-dialog/change-password-dialog';
+import { ProfileTabs } from './components/profile-tabs/profile-tabs';
 
 @Component({
   selector: 'app-profile',
@@ -43,6 +44,7 @@ import { ChangePasswordDialog } from './components/change-password-dialog/change
     FileUploadModule,
     TooltipModule,
     ChangePasswordDialog,
+    ProfileTabs,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',

@@ -1,0 +1,24 @@
+<p-tabs value="tab1">
+  <p-tablist>
+    <p-tab value="tab1">{{ 'profile.myPosts' | translate }}</p-tab>
+    <span
+      class="p-tab-tooltip-wrapper"
+      [pTooltip]="'common.comingSoon' | translate"
+      tooltipPosition="top"
+    >
+      <p-tab value="tab2" [disabled]="true">
+        {{ 'profile.likes' | translate }}
+      </p-tab>
+    </span>
+  </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel value="tab1">
+      @if (user(); as userData) {
+        <app-posts-list [authorDocumentId]="userData.documentId" />
+      }
+    </p-tabpanel>
+    <p-tabpanel value="tab2" disabled>
+      {{ 'profile.likes' | translate }}
+    </p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

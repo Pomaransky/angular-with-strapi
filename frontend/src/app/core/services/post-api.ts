@@ -47,6 +47,7 @@ export class PostApi extends ApiService {
   getPosts(
     params: TableLoadParams,
     parentId?: string,
+    authorDocumentId?: string,
   ): Observable<Paginated<Post>> {
     const { page, pageSize } = params;
     this.postsStore.setPostsLoading(true);
@@ -54,8 +55,11 @@ export class PostApi extends ApiService {
     const parent = parentId
       ? `&filters[parent][documentId][$eq]=${parentId}`
       : '&filters[parent][$null]=true';
+    const author = authorDocumentId
+      ? `&filters[author][documentId][$eq]=${encodeURIComponent(authorDocumentId)}`
+      : '';
     const base = `posts?populate=author.avatar&populate=media&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
-    const url = `${base}${sort}${filter}${parent}`;
+    const url = `${base}${sort}${filter}${parent}${author}`;
     return this.get<Paginated<Post>>(url).pipe(
       tap((posts) => this.postsStore.addPosts(posts)),
       catchError(() => {

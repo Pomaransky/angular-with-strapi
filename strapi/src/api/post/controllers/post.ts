@@ -32,17 +32,23 @@ function applyShadowbanAuthorFilter(
       ? (existingFilters.author as Record<string, unknown>)
       : {};
 
+  const shadowbanAuthorCondition = {
+    $or: [
+      { banType: { $null: true } },
+      { banType: { $ne: 'shadow' } },
+    ],
+  };
+
+  const authorFilter =
+    Object.keys(existingAuthorFilter).length === 0
+      ? shadowbanAuthorCondition
+      : { $and: [existingAuthorFilter, shadowbanAuthorCondition] };
+
   ctx.query = {
     ...ctx.query,
     filters: {
       ...existingFilters,
-      author: {
-        ...existingAuthorFilter,
-        $or: [
-          { banType: { $null: true } },
-          { banType: { $ne: 'shadow' } },
-        ],
-      },
+      author: authorFilter,
     },
   };
 }

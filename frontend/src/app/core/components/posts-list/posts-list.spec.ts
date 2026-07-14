@@ -135,7 +135,27 @@ describe('PostsList', () => {
 
       expect(postsStore.resetPostsLoadParams).toHaveBeenCalled();
       expect(postsStore.resetPosts).toHaveBeenCalled();
-      expect(postApi.getPosts).toHaveBeenCalledWith(lastLoadParams, 'parent-1');
+      expect(postApi.getPosts).toHaveBeenCalledWith(
+        lastLoadParams,
+        'parent-1',
+        undefined,
+      );
+    });
+
+    it('should reset params and load posts when authorDocumentId changes', () => {
+      component.authorDocumentId = 'user-1';
+
+      component.ngOnChanges({
+        authorDocumentId: new SimpleChange(undefined, 'user-1', true),
+      });
+
+      expect(postsStore.resetPostsLoadParams).toHaveBeenCalled();
+      expect(postsStore.resetPosts).toHaveBeenCalled();
+      expect(postApi.getPosts).toHaveBeenCalledWith(
+        lastLoadParams,
+        undefined,
+        'user-1',
+      );
     });
   });
 
@@ -150,6 +170,7 @@ describe('PostsList', () => {
 
       expect(postApi.getPosts).toHaveBeenCalledWith(
         { ...lastLoadParams, page: lastLoadParams.page + 1 },
+        undefined,
         undefined,
       );
     });

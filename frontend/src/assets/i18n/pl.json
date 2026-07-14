@@ -36,7 +36,8 @@
     "search": "Szukaj...",
     "success": "Sukces",
     "error": "Błąd",
-    "back": "Wstecz"
+    "back": "Wstecz",
+    "comingSoon": "Wkrótce"
   },
   "settings": {
     "title": "Ustawienia",
@@ -108,7 +109,9 @@
     "changeAvatar": "Zmień avatar",
     "changePassword": "Zmień hasło",
     "somethingWentWrong": "Coś poszło nie tak",
-    "loadingProfile": "Ładowanie profilu..."
+    "loadingProfile": "Ładowanie profilu...",
+    "myPosts": "Moje posty",
+    "likes": "Polubienia"
   },
   "editProfile": {
     "title": "Edytuj profil",

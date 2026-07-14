@@ -3,6 +3,7 @@
 @use "tailwindcss";
 
 @use "./app/core/styles/primeng-custom/p-button.scss";
+@use "./app/core/styles/primeng-custom/p-tabs.scss";
 
 @plugin "tailwindcss-primeui";
 @layer theme, base, components, primeng, utilities;
