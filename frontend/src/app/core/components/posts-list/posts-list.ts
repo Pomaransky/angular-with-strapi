@@ -28,6 +28,7 @@ import { Spinner } from '../spinner/spinner';
 })
 export class PostsList implements OnInit, OnDestroy, OnChanges {
   @Input() parentDocumentId: string | undefined = undefined;
+  @Input() authorDocumentId: string | undefined = undefined;
   private postStore = inject(PostsStore);
   private postApi = inject(PostApi);
   private destroyRef = inject(DestroyRef);
@@ -41,13 +42,13 @@ export class PostsList implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    if (!this.parentDocumentId) {
+    if (!this.parentDocumentId && !this.authorDocumentId) {
       this.loadPosts(this.postStore.posts.lastLoadParams());
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['parentDocumentId']) {
+    if (changes['parentDocumentId'] || changes['authorDocumentId']) {
       this.postStore.resetPostsLoadParams();
       this.loadPosts(this.postStore.posts.lastLoadParams());
     }
@@ -62,7 +63,7 @@ export class PostsList implements OnInit, OnDestroy, OnChanges {
   private loadPosts(params: TableLoadParams): void {
     this.postStore.resetPosts();
     this.postApi
-      .getPosts(params, this.parentDocumentId)
+      .getPosts(params, this.parentDocumentId, this.authorDocumentId)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         tap((posts) => this.postStore.setPosts(posts)),
@@ -74,7 +75,11 @@ export class PostsList implements OnInit, OnDestroy, OnChanges {
     if (!this.hasMorePosts() || this.isPostsLoading()) return;
     const params = this.postStore.posts.lastLoadParams();
     this.postApi
-      .getPosts({ ...params, page: params.page + 1 }, this.parentDocumentId)
+      .getPosts(
+        { ...params, page: params.page + 1 },
+        this.parentDocumentId,
+        this.authorDocumentId,
+      )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }

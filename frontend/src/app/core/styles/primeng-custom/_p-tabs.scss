@@ -1,0 +1,27 @@
+p-tabs.p-tabs {
+  .p-tablist-tab-list {
+    > .p-tab:first-child,
+    > .p-tab-tooltip-wrapper:first-child > .p-tab {
+      border-top-left-radius: 0.75rem;
+    }
+
+    > .p-tab-tooltip-wrapper > .p-tab {
+      border-top-right-radius: 0.75rem;
+    }
+
+    &:not(:has(> .p-tab-tooltip-wrapper)) > .p-tab:last-of-type {
+      border-top-right-radius: 0.75rem;
+    }
+  }
+
+  .p-tabpanels {
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+  }
+
+  .p-tab-tooltip-wrapper {
+    display: inline-flex;
+    flex-shrink: 0;
+    cursor: not-allowed;
+  }
+}
