@@ -6,27 +6,31 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { menuItems } from '../../../../constants/menu-items.const';
 import { MenuItem } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
 import { Settings } from '../../../../components/settings/settings';
 
 @Component({
   selector: 'app-header',
-  imports: [Settings, TranslateModule],
+  imports: [Settings, TranslateModule, ButtonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header implements OnInit {
   private router = inject(Router);
+  private location = inject(Location);
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   currentRouteLabel = '';
+  showBackButton = false;
 
   ngOnInit(): void {
     this.updateCurrentRouteLabel();
@@ -55,5 +59,10 @@ export class Header implements OnInit {
       return false;
     });
     this.currentRouteLabel = currentMenuItem?.label ?? '';
+    this.showBackButton = currentMenuItem?.visible === false;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
