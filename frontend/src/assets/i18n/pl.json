@@ -35,7 +35,8 @@
     "save": "Zapisz",
     "search": "Szukaj...",
     "success": "Sukces",
-    "error": "Błąd"
+    "error": "Błąd",
+    "back": "Wstecz"
   },
   "settings": {
     "title": "Ustawienia",
