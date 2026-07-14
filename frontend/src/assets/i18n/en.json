@@ -35,7 +35,8 @@
     "save": "Save",
     "search": "Search...",
     "success": "Success",
-    "error": "Error"
+    "error": "Error",
+    "back": "Back"
   },
   "settings": {
     "title": "Settings",
