@@ -8,7 +8,9 @@
     "commentAdded": "Komentarz dodany",
     "postAdded": "Post opublikowany pomyślnie",
     "addCommentError": "Nie udało się dodać komentarza",
-    "addPostError": "Nie udało się dodać posta"
+    "addPostError": "Nie udało się dodać posta",
+    "likeToggleError": "Nie udało się zaktualizować polubienia",
+    "likeStatusError": "Nie udało się pobrać statusu polubienia"
   },
   "user": {
     "userNotFound": "Nie znaleziono użytkownika",
