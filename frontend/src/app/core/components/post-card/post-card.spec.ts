@@ -1,8 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Post } from '../../models';
 import { UserRoleType } from '../../models/auth/user-role-type.enum';
 import { PostsStore } from '../../store/posts.store';
+import { UserStore } from '../../store/user.store';
+import { LikeApi } from '../../services/like-api';
+import { ToastService } from '../../services/toast-service';
+import { TranslateModule } from '@ngx-translate/core';
 import { PostCard } from './post-card';
 
 describe('PostCard', () => {
@@ -10,7 +14,7 @@ describe('PostCard', () => {
   let fixture: ComponentFixture<PostCard>;
   let router: jasmine.SpyObj<Pick<Router, 'navigate'>>;
   let postsStore: jasmine.SpyObj<
-    Pick<InstanceType<typeof PostsStore>, 'setCurrentPost'>
+    Pick<InstanceType<typeof PostsStore>, 'setCurrentPost' | 'patchPostLike'>
   >;
 
   const mockPost: Post = {
@@ -37,23 +41,24 @@ describe('PostCard', () => {
     updatedAt: '2026-01-01T00:00:00.000Z',
     publishedAt: '2026-01-01T00:00:00.000Z',
     commentsTotal: 0,
+    likesTotal: 0,
   };
 
   beforeEach(async () => {
     router = jasmine.createSpyObj('Router', ['navigate']);
-    postsStore = jasmine.createSpyObj('PostsStore', ['setCurrentPost']);
-
-    TestBed.overrideComponent(PostCard, {
-      set: {
-        template: '',
-      },
-    });
+    postsStore = jasmine.createSpyObj('PostsStore', [
+      'setCurrentPost',
+      'patchPostLike',
+    ]);
 
     await TestBed.configureTestingModule({
-      imports: [PostCard],
+      imports: [PostCard, TranslateModule.forRoot()],
       providers: [
         { provide: Router, useValue: router },
         { provide: PostsStore, useValue: postsStore },
+        { provide: UserStore, useValue: { me: { data: () => null } } },
+        { provide: LikeApi, useValue: {} },
+        { provide: ToastService, useValue: {} },
       ],
     }).compileComponents();
 

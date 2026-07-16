@@ -8,7 +8,9 @@
     "commentAdded": "Comment added",
     "postAdded": "Post added successfully",
     "addCommentError": "Failed to add comment",
-    "addPostError": "Failed to add post"
+    "addPostError": "Failed to add post",
+    "likeToggleError": "Failed to update like",
+    "likeStatusError": "Failed to fetch like status"
   },
   "user": {
     "userNotFound": "User not found",

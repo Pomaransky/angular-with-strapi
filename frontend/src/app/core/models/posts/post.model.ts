@@ -1,4 +1,4 @@
-import { User } from '../auth/user.model';
+﻿import { User } from '../auth/user.model';
 import { Media } from '../media.type';
 import { RichTextContent } from '../rich-text.model';
 
@@ -12,5 +12,7 @@ export interface Post {
   updatedAt: string;
   publishedAt: string;
   commentsTotal: number;
+  likesTotal: number;
+  likedByMe?: boolean;
   media?: Media;
 }

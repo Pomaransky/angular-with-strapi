@@ -1,4 +1,4 @@
-import type { Core } from '@strapi/strapi';
+﻿import type { Core } from '@strapi/strapi';
 import {
   clearAllExpiredTimeBans,
   clearExpiredTimeBanIfNeeded,
@@ -121,10 +121,13 @@ async function setupDefaultRolesAndPermissions() {
     // Role
     'plugin::users-permissions.role.find',
     'plugin::users-permissions.role.findOne',
-    // Post (api::post.post – API z src/api/post)
+    // Post
     'api::post.post.find',
     'api::post.post.findOne',
     'api::post.post.create',
+    // Like
+    'api::like.like.toggle',
+    'api::like.like.status',
     // Analytics
     'api::analytics-event.analytics-event.track',
   ];
@@ -157,6 +160,9 @@ async function setupDefaultRolesAndPermissions() {
     'plugin::users-permissions.user.me',
     'plugin::users-permissions.user.update',
     'plugin::users-permissions.user.updateMe',
+    // Like
+    'api::like.like.toggle',
+    'api::like.like.status',
     // Analytics
     'api::analytics-event.analytics-event.find',
     'api::analytics-event.analytics-event.findOne',
