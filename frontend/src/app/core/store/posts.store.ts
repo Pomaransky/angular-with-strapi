@@ -1,4 +1,4 @@
-import {
+﻿import {
   patchState,
   signalStore,
   withMethods,
@@ -32,6 +32,15 @@ const initialState: PostsState = {
   },
   currentPost: null,
 };
+
+function patchPostInList(posts: Paginated<Post>, postDocumentId: string, patch: Partial<Post>): Paginated<Post> {
+  return {
+    ...posts,
+    data: posts.data.map((post) =>
+      post.documentId === postDocumentId ? { ...post, ...patch } : post,
+    ),
+  };
+}
 
 export const PostsStore = signalStore(
   withState<PostsState>(initialState),
@@ -79,6 +88,29 @@ export const PostsStore = signalStore(
     },
     setCurrentPost(post: Post | null) {
       patchState(store, { currentPost: post });
+    },
+    patchPostLike(postDocumentId: string, liked: boolean, likesTotal: number) {
+      const postsData = store.posts().data;
+      patchState(store, {
+        posts: {
+          ...store.posts(),
+          data: patchPostInList(postsData, postDocumentId, {
+            likedByMe: liked,
+            likesTotal,
+          }),
+        },
+      });
+
+      const currentPost = store.currentPost();
+      if (currentPost?.documentId === postDocumentId) {
+        patchState(store, {
+          currentPost: {
+            ...currentPost,
+            likedByMe: liked,
+            likesTotal,
+          },
+        });
+      }
     },
     prependPost(post: Post, parentDocumentId?: string) {
       const current = store.posts().data;

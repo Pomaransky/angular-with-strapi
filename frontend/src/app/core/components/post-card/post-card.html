@@ -1,4 +1,4 @@
-@if (post; as postItem) {
+﻿@if (post; as postItem) {
   @if (link) {
     <div
       class="block w-full max-w-[500px] cursor-pointer"
@@ -33,12 +33,35 @@
         />
       }
       <div class="text-xs opacity-60 flex items-center justify-between gap-4">
-        <p>
-          @if (!isMainPost) {
-            <i class="pi pi-comments"></i>
-            {{ postItem.commentsTotal ?? 0 }}
+        <div class="flex items-center gap-3">
+          @if (me()) {
+            <button
+              type="button"
+              class="flex items-center gap-1 cursor-pointer disabled:opacity-50"
+              [disabled]="isTogglingLike()"
+              [attr.aria-label]="'posts.like' | translate"
+              (click)="toggleLike($event)"
+            >
+              <i
+                class="pi"
+                [class.pi-heart-fill]="postItem.likedByMe"
+                [class.pi-heart]="!postItem.likedByMe"
+              ></i>
+              {{ postItem.likesTotal ?? 0 }}
+            </button>
+          } @else {
+            <p class="flex items-center gap-1">
+              <i class="pi pi-heart"></i>
+              {{ postItem.likesTotal ?? 0 }}
+            </p>
           }
-        </p>
+          @if (!isMainPost) {
+            <p class="flex items-center gap-1">
+              <i class="pi pi-comments"></i>
+              {{ postItem.commentsTotal ?? 0 }}
+            </p>
+          }
+        </div>
         <p>
           @if (isMainPost) {
             {{ postItem.createdAt | date: "dd/MM/yyyy HH:mm" }}
