@@ -58,7 +58,7 @@
     "noAccount": "Don't have an account?",
     "register": "Register",
     "privacyPolicy": "Privacy Policy",
-    "demoAppInfo": "Strapi Cloud Demo (backend) project is scaled down to save resources. Strapi needs time to start back up - so the first request may take more time (wait a moment and try to refresh the page if it takes too long)."
+    "demoAppInfo": "The Strapi Cloud demo project (backend) is temporarily unavailable because the free Strapi Cloud plan has expired."
   },
   "register": {
     "username": "Username",
