@@ -3,7 +3,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   BrowserTestingModule,
   platformBrowserTesting,
@@ -45,7 +44,6 @@ const registerGlobalBeforeEach = (fn: () => void): void => {
 
 registerGlobalBeforeEach(() => {
   TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule],
     providers: [
       provideHttpClient(),
       provideHttpClientTesting(),
@@ -106,6 +104,8 @@ registerGlobalBeforeEach(() => {
               lastLoadParams: signal({ page: 1, pageSize: 10 }),
             },
           ),
+          currentPost: signal(null),
+          setCurrentPost: () => undefined,
           resetPostsLoadParams: () => undefined,
           resetPosts: () => undefined,
           setPosts: () => undefined,
@@ -116,6 +116,9 @@ registerGlobalBeforeEach(() => {
         useValue: {
           setTranslation: () => undefined,
           csp: () => ({ nonce: undefined }),
+          pt: () => undefined,
+          unstyled: () => undefined,
+          theme: () => undefined,
           inputStyle: () => 'outlined',
           ripple: () => false,
           overlayAppendTo: () => 'body',
