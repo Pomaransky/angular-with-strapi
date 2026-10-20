@@ -1,20 +1,8 @@
 import { AuthService } from './../../services/auth-service';
 import { AnalyticsService } from '../../services/analytics-service';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-} from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+
 import { LoginCredentials } from '../../models/auth';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
@@ -24,12 +12,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import {
-  PageTitle,
-  AnalyticsEventType,
-  AppRoutePath,
-  ModalType,
-} from '../../constants';
+import { PageTitle, AnalyticsEventType, AppRoutePath, ModalType } from '../../constants';
 import { Settings } from '../../components/settings/settings';
 import { InputField } from '../../components';
 import { TranslateModule } from '@ngx-translate/core';
@@ -39,17 +22,7 @@ import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    ButtonModule,
-    InputField,
-    MessageModule,
-    CardModule,
-    DividerModule,
-    Settings,
-    TranslateModule,
-  ],
+  imports: [ReactiveFormsModule, ButtonModule, InputField, MessageModule, CardModule, DividerModule, Settings, TranslateModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,19 +51,13 @@ export class Login implements OnInit {
   }
 
   trackPageView(): void {
-    this.analyticsService
-      .track(AnalyticsEventType.PAGE_VIEW_LOGIN)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+    this.analyticsService.track(AnalyticsEventType.PAGE_VIEW_LOGIN).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   private initLoginForm(): void {
     this.loginForm = new FormGroup({
       identifier: new FormControl('', [Validators.required]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
 
@@ -103,14 +70,14 @@ export class Login implements OnInit {
       this.authService
         .login(credentials)
         .pipe(
-          catchError((error) => {
+          catchError(error => {
             this.errorMessage = error.message;
             return of(null);
           }),
           finalize(() => {
             this.isLoading = false;
             this.cdr.detectChanges();
-          }),
+          })
         )
         .subscribe();
     }
