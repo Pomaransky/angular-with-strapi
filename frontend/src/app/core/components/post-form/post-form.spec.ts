@@ -1,13 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FileUpload } from 'primeng/fileupload';
 import { FileValidationService } from '../../services/file-validation.service';
-import { ACCEPT_FILE_TYPES, MAX_FILE_SIZE, PostForm, PostFormSubmit } from './post-form';
+import {
+  ACCEPT_FILE_TYPES,
+  MAX_FILE_SIZE,
+  PostForm,
+  PostFormSubmit,
+} from './post-form';
 
 describe('PostForm', () => {
   let component: PostForm;
   let fixture: ComponentFixture<PostForm>;
   let emitted: PostFormSubmit | undefined;
-  let fileValidation: jasmine.SpyObj<Pick<FileValidationService, 'validateFile'>>;
+  let fileValidation: jasmine.SpyObj<
+    Pick<FileValidationService, 'validateFile'>
+  >;
   let mediaUploadClear: jasmine.Spy;
 
   const validFileType = ACCEPT_FILE_TYPES[0];
@@ -19,11 +26,15 @@ describe('PostForm', () => {
 
   function setupMediaUpload(): void {
     mediaUploadClear = jasmine.createSpy('clear');
-    component.mediaUpload = { clear: mediaUploadClear } as unknown as FileUpload;
+    component.mediaUpload = {
+      clear: mediaUploadClear,
+    } as unknown as FileUpload;
   }
 
   beforeEach(async () => {
-    fileValidation = jasmine.createSpyObj('FileValidationService', ['validateFile']);
+    fileValidation = jasmine.createSpyObj('FileValidationService', [
+      'validateFile',
+    ]);
     fileValidation.validateFile.and.returnValue(true);
 
     TestBed.overrideComponent(PostForm, {
@@ -34,9 +45,7 @@ describe('PostForm', () => {
 
     await TestBed.configureTestingModule({
       imports: [PostForm],
-      providers: [
-        { provide: FileValidationService, useValue: fileValidation },
-      ],
+      providers: [{ provide: FileValidationService, useValue: fileValidation }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PostForm);

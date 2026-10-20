@@ -78,9 +78,10 @@ export class Login implements OnInit {
   }
 
   trackPageView(): void {
-    this.analyticsService.track(AnalyticsEventType.PAGE_VIEW_LOGIN).pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe();
+    this.analyticsService
+      .track(AnalyticsEventType.PAGE_VIEW_LOGIN)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 
   private initLoginForm(): void {

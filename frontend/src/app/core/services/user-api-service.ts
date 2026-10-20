@@ -122,9 +122,7 @@ export class UserApiService extends ApiService {
     return this.put<User>(`users/${userId}`, ban).pipe(
       tap(() => {
         const messageKey =
-          ban.banType == null
-            ? 'user.userBanRemoved'
-            : 'user.userBanApplied';
+          ban.banType == null ? 'user.userBanRemoved' : 'user.userBanApplied';
         this.toastService.successToast(this.translate.instant(messageKey));
       }),
       switchMap((user) => {

@@ -82,29 +82,29 @@ export const pulsarThemePreset = definePreset(Aura, {
             background: 'transparent',
             borderColor: primaryColorScheme.light.borderColor,
           },
-          tab:{
+          tab: {
             borderColor: primaryColorScheme.light.borderColor,
             activeBackground: primaryColorScheme.light.background,
             background: primaryColorScheme.light.background,
           },
-          tabpanel:{
+          tabpanel: {
             background: 'transparent',
             padding: '1rem 0 0 0',
-          }
+          },
         },
         dark: {
           tablist: {
             background: 'transparent',
             borderColor: primaryColorScheme.dark.borderColor,
           },
-          tab:{
+          tab: {
             background: primaryColorScheme.dark.background,
             activeBackground: primaryColorScheme.dark.background,
             borderColor: primaryColorScheme.dark.borderColor,
           },
-          tabpanel:{
+          tabpanel: {
             background: 'transparent',
-          }
+          },
         },
       },
     },

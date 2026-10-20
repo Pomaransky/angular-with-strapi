@@ -67,7 +67,9 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle(PageTitle.PULSAR_REGISTER);
-    this.analyticsService.track(AnalyticsEventType.PAGE_VIEW_REGISTER).subscribe();
+    this.analyticsService
+      .track(AnalyticsEventType.PAGE_VIEW_REGISTER)
+      .subscribe();
   }
 
   private initRegisterForm(): void {

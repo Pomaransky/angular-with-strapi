@@ -5,7 +5,12 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { TranslateModule } from '@ngx-translate/core';
 import { Dialog, PrivacyPolicyContent } from './core/components';

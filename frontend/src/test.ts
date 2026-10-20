@@ -23,7 +23,7 @@ import { UserApiService } from './app/core/services/user-api-service';
 
 getTestBed().initTestEnvironment(
   BrowserTestingModule,
-  platformBrowserTesting()
+  platformBrowserTesting(),
 );
 
 const registerGlobalBeforeEach = (fn: () => void): void => {

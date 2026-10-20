@@ -71,7 +71,11 @@ export class PostCard {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         tap(({ liked, likesTotal }) =>
-          this.postsStore.patchPostLike(this.post.documentId, liked, likesTotal),
+          this.postsStore.patchPostLike(
+            this.post.documentId,
+            liked,
+            likesTotal,
+          ),
         ),
         catchError((error: Error) => {
           this.toastService.errorToast(error.message);

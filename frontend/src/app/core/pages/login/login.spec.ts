@@ -18,9 +18,13 @@ describe('Login', () => {
   let modalServiceSpy: jasmine.SpyObj<ModalService>;
 
   beforeEach(async () => {
-    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['login']);
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', [
+      'login',
+    ]);
     routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
-    modalServiceSpy = jasmine.createSpyObj<ModalService>('ModalService', ['open']);
+    modalServiceSpy = jasmine.createSpyObj<ModalService>('ModalService', [
+      'open',
+    ]);
 
     TestBed.overrideComponent(Login, {
       set: {
@@ -34,11 +38,16 @@ describe('Login', () => {
         { provide: AuthService, useValue: authServiceSpy },
         {
           provide: AnalyticsService,
-          useValue: jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['track']),
+          useValue: jasmine.createSpyObj<AnalyticsService>('AnalyticsService', [
+            'track',
+          ]),
         },
         { provide: Router, useValue: routerSpy },
         { provide: ModalService, useValue: modalServiceSpy },
-        { provide: Title, useValue: jasmine.createSpyObj<Title>('Title', ['setTitle']) },
+        {
+          provide: Title,
+          useValue: jasmine.createSpyObj<Title>('Title', ['setTitle']),
+        },
       ],
     }).compileComponents();
 
@@ -68,7 +77,10 @@ describe('Login', () => {
   });
 
   it('should login and finalize loading state when form is valid', () => {
-    const cdrSpy = spyOn((component as never as { cdr: { detectChanges: () => void } }).cdr, 'detectChanges');
+    const cdrSpy = spyOn(
+      (component as never as { cdr: { detectChanges: () => void } }).cdr,
+      'detectChanges',
+    );
     authServiceSpy.login.and.returnValue(of({} as AuthResponse));
     component.loginForm.setValue({
       identifier: 'user@example.com',
@@ -86,7 +98,10 @@ describe('Login', () => {
   });
 
   it('should set error message on login error and finalize loading state', () => {
-    const cdrSpy = spyOn((component as never as { cdr: { detectChanges: () => void } }).cdr, 'detectChanges');
+    const cdrSpy = spyOn(
+      (component as never as { cdr: { detectChanges: () => void } }).cdr,
+      'detectChanges',
+    );
     authServiceSpy.login.and.returnValue(
       throwError(() => ({ message: 'Invalid credentials' })),
     );

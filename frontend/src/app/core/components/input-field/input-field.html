@@ -44,7 +44,7 @@
           optionValue="value"
           (onBlur)="onBlur()"
           [class.ng-invalid]="isInvalid"
-          [class.p-filled]="control.value != null && control.value !== ''"
+          [class.p-filled]="control.value !== null && control.value !== ''"
           class="w-full"
         />
         @if (label) {

@@ -2,7 +2,10 @@
   @if (link) {
     <div
       class="block w-full max-w-[500px] cursor-pointer"
+      role="link"
+      tabindex="0"
       (click)="navigateToPost(postItem)"
+      (keydown.enter)="navigateToPost(postItem)"
     >
       <ng-container
         *ngTemplateOutlet="cardTpl; context: { $implicit: postItem }"
@@ -41,6 +44,7 @@
               [disabled]="isTogglingLike()"
               [attr.aria-label]="'posts.like' | translate"
               (click)="toggleLike($event)"
+              (keydown.enter)="$event.stopPropagation()"
             >
               <i
                 class="pi"

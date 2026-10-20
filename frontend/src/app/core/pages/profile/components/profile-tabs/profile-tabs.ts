@@ -10,7 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
   imports: [TabsModule, TranslateModule, PostsList, TooltipModule],
   templateUrl: './profile-tabs.html',
   styleUrl: './profile-tabs.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileTabs {
   private userStore = inject(UserStore);
