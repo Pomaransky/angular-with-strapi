@@ -34,7 +34,10 @@
                 "output": "/assets"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss"],
+            "define": {
+              "PRIMEUI_LICENSE": "''"
+            }
           },
           "configurations": {
             "production": {
@@ -104,7 +107,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss"],
+            "define": {
+              "PRIMEUI_LICENSE": "''"
+            }
           }
         },
         "lint": {
