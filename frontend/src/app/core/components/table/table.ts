@@ -100,7 +100,8 @@ export class Table<T = unknown> implements OnChanges, OnInit {
     const page = event.rows
       ? Math.floor((event.first ?? 0) / event.rows) + 1
       : 1;
-    if (typeof event.sortField === 'string') this.sortField = event.sortField;
+    if (typeof event.sortField === 'string')
+      this.sortField = event.sortField || undefined;
     if (typeof event.sortOrder === 'number') this.sortOrderNg = event.sortOrder;
     this.emitLoad(page);
   }
