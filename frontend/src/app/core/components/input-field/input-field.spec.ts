@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { InputField } from './input-field';
@@ -110,7 +115,10 @@ describe('InputField', () => {
     @Component({
       template: `
         <form [formGroup]="form">
-          <app-input-field formControlName="name" inputId="name"></app-input-field>
+          <app-input-field
+            formControlName="name"
+            inputId="name"
+          ></app-input-field>
         </form>
       `,
       imports: [ReactiveFormsModule, InputField],

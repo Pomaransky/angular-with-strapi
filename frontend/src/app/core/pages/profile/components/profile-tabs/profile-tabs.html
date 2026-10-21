@@ -1,13 +1,13 @@
 <p-tabs value="tab1">
   <p-tablist>
-    <p-tab value="tab1">{{ 'profile.myPosts' | translate }}</p-tab>
+    <p-tab value="tab1">{{ "profile.myPosts" | translate }}</p-tab>
     <span
       class="p-tab-tooltip-wrapper"
       [pTooltip]="'common.comingSoon' | translate"
       tooltipPosition="top"
     >
       <p-tab value="tab2" [disabled]="true">
-        {{ 'profile.likes' | translate }}
+        {{ "profile.likes" | translate }}
       </p-tab>
     </span>
   </p-tablist>
@@ -18,7 +18,7 @@
       }
     </p-tabpanel>
     <p-tabpanel value="tab2" disabled>
-      {{ 'profile.likes' | translate }}
+      {{ "profile.likes" | translate }}
     </p-tabpanel>
   </p-tabpanels>
 </p-tabs>

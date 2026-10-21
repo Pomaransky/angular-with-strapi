@@ -58,11 +58,7 @@
 
         @if (errorMessage) {
           <div class="mt-5">
-            <p-message
-              severity="error"
-              [text]="errorMessage"
-              styleClass="max-w-full"
-            ></p-message>
+            <p-message severity="error" class="max-w-full">{{ errorMessage }}</p-message>
           </div>
         }
       </form>

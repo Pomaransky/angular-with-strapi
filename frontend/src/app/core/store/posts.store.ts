@@ -33,7 +33,11 @@ const initialState: PostsState = {
   currentPost: null,
 };
 
-function patchPostInList(posts: Paginated<Post>, postDocumentId: string, patch: Partial<Post>): Paginated<Post> {
+function patchPostInList(
+  posts: Paginated<Post>,
+  postDocumentId: string,
+  patch: Partial<Post>,
+): Paginated<Post> {
   return {
     ...posts,
     data: posts.data.map((post) =>

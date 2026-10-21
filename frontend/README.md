@@ -2,6 +2,16 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
 
+## Environment variables
+
+Build-time values are injected with the Angular CLI [`define`](https://angular.dev/tools/cli/build) option (empty defaults in `angular.json`), so no secrets are stored in the repository.
+
+| Variable          | Description                                                                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEUI_LICENSE` | [PrimeUI](https://primeui.dev/licenses/community) license key required by PrimeNG v22. Not needed locally (without it PrimeNG shows a license notice). |
+
+On Netlify set `PRIMEUI_LICENSE` in **Site configuration > Environment variables**, `npm run build` passes it to the build.
+
 ## Development server
 
 To start a local development server, run:

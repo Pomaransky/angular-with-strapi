@@ -41,9 +41,16 @@ describe('Sidebar', () => {
   };
 
   beforeEach(async () => {
-    confirmationServiceSpy = jasmine.createSpyObj<ConfirmationService>('ConfirmationService', ['confirm']);
-    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['logout']);
-    modalServiceSpy = jasmine.createSpyObj<ModalService>('ModalService', ['open']);
+    confirmationServiceSpy = jasmine.createSpyObj<ConfirmationService>(
+      'ConfirmationService',
+      ['confirm'],
+    );
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', [
+      'logout',
+    ]);
+    modalServiceSpy = jasmine.createSpyObj<ModalService>('ModalService', [
+      'open',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [Sidebar],
@@ -68,7 +75,9 @@ describe('Sidebar', () => {
   it('should build translated and filtered menu items', () => {
     const items = component.items();
     const usersItem = items.find((item) => item.label === 'menu.users');
-    const privacyItem = items.find((item) => item.label === 'menu.privacyPolicy');
+    const privacyItem = items.find(
+      (item) => item.label === 'menu.privacyPolicy',
+    );
 
     expect(items.length).toBeGreaterThan(0);
     expect(usersItem?.visible).toBeFalse();
@@ -77,7 +86,9 @@ describe('Sidebar', () => {
 
   it('should open privacy modal from privacy item command', () => {
     const items = component.items();
-    const privacyItem = items.find((item) => item.label === 'menu.privacyPolicy');
+    const privacyItem = items.find(
+      (item) => item.label === 'menu.privacyPolicy',
+    );
 
     privacyItem?.command?.({} as never);
 
@@ -94,7 +105,10 @@ describe('Sidebar', () => {
 
   it('should set popup menu mode on small screens', () => {
     const originalWidth = window.innerWidth;
-    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 767 });
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      value: 767,
+    });
 
     component.checkWindowDimensions();
 
@@ -108,7 +122,10 @@ describe('Sidebar', () => {
 
   it('should set non-popup menu mode on large screens', () => {
     const originalWidth = window.innerWidth;
-    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1200 });
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      value: 1200,
+    });
     component.isMenuPopup = true;
 
     component.checkWindowDimensions();
@@ -122,7 +139,9 @@ describe('Sidebar', () => {
   });
 
   it('should call confirmationService.confirm on logout', () => {
-    const event = { target: document.createElement('button') } as unknown as Event;
+    const event = {
+      target: document.createElement('button'),
+    } as unknown as Event;
 
     component.logout(event);
 
@@ -130,9 +149,12 @@ describe('Sidebar', () => {
   });
 
   it('should logout on confirm accept and keep no-op reject', () => {
-    const event = { target: document.createElement('button') } as unknown as Event;
+    const event = {
+      target: document.createElement('button'),
+    } as unknown as Event;
     component.logout(event);
-    const confirmConfig = confirmationServiceSpy.confirm.calls.mostRecent().args[0] as {
+    const confirmConfig = confirmationServiceSpy.confirm.calls.mostRecent()
+      .args[0] as {
       accept: () => void;
       reject: () => void;
     };

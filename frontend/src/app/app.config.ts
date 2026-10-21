@@ -16,7 +16,7 @@ import { routes } from './app.routes';
 import { UserStore } from './core/store/user.store';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { providePrimeNG } from 'primeng/config';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { environment } from '../environments/environment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostsStore } from './core/store/posts.store';
 import { AppStore } from './core/store/app.store';
@@ -38,8 +38,8 @@ export const appConfig: ApplicationConfig = {
     UserStore,
     PostsStore,
     AppStore,
-    provideAnimationsAsync(),
     providePrimeNG({
+      license: environment.primeuiLicense,
       theme: {
         preset: pulsarThemePreset,
         options: {

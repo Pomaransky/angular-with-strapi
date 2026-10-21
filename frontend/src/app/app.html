@@ -2,7 +2,9 @@
 <router-outlet></router-outlet>
 <app-dialog
   [visible]="modalService.isOpen(modalType.PRIVACY)"
-  (visibleChange)="modalService.onDialogVisibleChange(modalType.PRIVACY, $event)"
+  (visibleChange)="
+    modalService.onDialogVisibleChange(modalType.PRIVACY, $event)
+  "
   [title]="'privacyPolicy.title' | translate"
   [showCloseInHeader]="showPrivacyHeaderClose"
   icon="pi pi-shield"

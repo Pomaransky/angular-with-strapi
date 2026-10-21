@@ -77,7 +77,10 @@ describe('PostCard', () => {
       component.navigateToPost(mockPost);
 
       expect(postsStore.setCurrentPost).toHaveBeenCalledWith(mockPost);
-      expect(router.navigate).toHaveBeenCalledWith(['/post', mockPost.documentId]);
+      expect(router.navigate).toHaveBeenCalledWith([
+        '/post',
+        mockPost.documentId,
+      ]);
     });
   });
 });

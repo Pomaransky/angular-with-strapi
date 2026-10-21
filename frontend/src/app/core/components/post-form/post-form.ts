@@ -15,7 +15,11 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
-import { FileUpload, FileUploadModule } from 'primeng/fileupload';
+import {
+  FileSelectEvent,
+  FileUpload,
+  FileUploadModule,
+} from 'primeng/fileupload';
 import { InputField } from '../input-field/input-field';
 import { ValidationMessage } from '../../models';
 import { FileValidationService } from '../../services/file-validation.service';
@@ -77,7 +81,7 @@ export class PostForm {
     });
   }
 
-  onMediaSelect(event: { files: File[] }): void {
+  onMediaSelect(event: Pick<FileSelectEvent, 'files'>): void {
     const file = event.files?.[0];
     if (!file) return;
     if (

@@ -2,7 +2,7 @@
 A platform for publishing posts and comments. Users can create posts, browse the feed on the home page, and open individual posts with a paginated list of comments. Admin can view and block users. The app supports a light/dark theme and multiple languages with ngx-translate and PrimeNG locale.
 
 #### Demo: https://pulsar-app.netlify.app/
-#### Strapi Cloud Demo (backend) project is scaled down to save resources. Strapi needs time to start back up - so the first request may take longer (wait a moment and try to refresh the page if it takes too long).
+#### The Strapi Cloud demo project (backend) is temporarily unavailable because the free Strapi Cloud plan has expired.
 Test admin credentials:
 Username: **admin**
 Password: **zaq1@WSX**

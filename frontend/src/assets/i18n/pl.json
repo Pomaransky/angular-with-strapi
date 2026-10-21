@@ -58,7 +58,7 @@
     "noAccount": "Nie masz konta?",
     "register": "Zarejestruj się",
     "privacyPolicy": "Polityka prywatności",
-    "demoAppInfo": "Strapi Cloud Demo (backend) jest skalowany w celu oszczędzania zasobów. Strapi potrzebuje czasu na uruchomienie - więc pierwsze żądanie może zająć więcej czasu ( poczekaj chwilę i spróbuj odświeżyć stronę jeśli to trwa zbyt długo)."
+    "demoAppInfo": "Projekt demonstracyjny Strapi Cloud (backend) jest tymczasowo niedostępny, ponieważ wygasł bezpłatny plan Strapi Cloud."
   },
   "register": {
     "username": "Nazwa użytkownika",

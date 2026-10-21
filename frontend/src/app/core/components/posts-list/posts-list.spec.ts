@@ -11,11 +11,18 @@ describe('PostsList', () => {
   let fixture: ComponentFixture<PostsList>;
   let postApi: jasmine.SpyObj<Pick<PostApi, 'getPosts'>>;
   let postsStore: jasmine.SpyObj<
-    Pick<InstanceType<typeof PostsStore>, 'resetPostsLoadParams' | 'resetPosts' | 'setPosts'>
+    Pick<
+      InstanceType<typeof PostsStore>,
+      'resetPostsLoadParams' | 'resetPosts' | 'setPosts'
+    >
   > & {
     posts: {
       (): {
-        data: { meta: { pagination: { page: number; pageCount: number; total: number } } };
+        data: {
+          meta: {
+            pagination: { page: number; pageCount: number; total: number };
+          };
+        };
       };
       data: { data: unknown[] };
       isLoading: () => boolean;
