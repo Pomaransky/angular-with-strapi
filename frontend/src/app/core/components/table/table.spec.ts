@@ -25,4 +25,21 @@ describe('Table', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('does not emit sort when lazy load event has empty sortField', () => {
+    component.columns = [];
+    component.pageSize = 5;
+    const emitSpy = spyOn(component.loadParams, 'emit');
+
+    component.onLazyLoadInternal({
+      first: 5,
+      rows: 5,
+      sortField: '',
+      sortOrder: 1,
+    });
+
+    expect(emitSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({ page: 2, sort: undefined }),
+    );
+  });
 });

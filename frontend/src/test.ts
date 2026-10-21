@@ -1,17 +1,14 @@
 import 'zone.js/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import {
-  BrowserTestingModule,
-  platformBrowserTesting,
-} from '@angular/platform-browser/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of, Subject } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PrimeNG } from 'primeng/config';
+import { providePrimeNG } from 'primeng/config';
 import { SupportedLanguages, Theme } from './app/core/constants';
 import { AppStore } from './app/core/store/app.store';
 import { initialPaginatedState } from './app/core/utils/initial-paginated-state';
@@ -20,10 +17,7 @@ import { UserStore } from './app/core/store/user.store';
 import { PostApi } from './app/core/services/post-api';
 import { UserApiService } from './app/core/services/user-api-service';
 
-getTestBed().initTestEnvironment(
-  BrowserTestingModule,
-  platformBrowserTesting(),
-);
+getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
 
 const registerGlobalBeforeEach = (fn: () => void): void => {
   const globalObj = globalThis as {
@@ -45,7 +39,7 @@ const registerGlobalBeforeEach = (fn: () => void): void => {
 registerGlobalBeforeEach(() => {
   TestBed.configureTestingModule({
     providers: [
-      provideHttpClient(),
+      provideHttpClient(withXhr()),
       provideHttpClientTesting(),
       ConfirmationService,
       MessageService,
@@ -102,7 +96,7 @@ registerGlobalBeforeEach(() => {
               },
               isLoading: signal(false),
               lastLoadParams: signal({ page: 1, pageSize: 10 }),
-            },
+            }
           ),
           currentPost: signal(null),
           setCurrentPost: () => undefined,
@@ -111,19 +105,7 @@ registerGlobalBeforeEach(() => {
           setPosts: () => undefined,
         },
       },
-      {
-        provide: PrimeNG,
-        useValue: {
-          setTranslation: () => undefined,
-          csp: () => ({ nonce: undefined }),
-          pt: () => undefined,
-          unstyled: () => undefined,
-          theme: () => undefined,
-          inputStyle: () => 'outlined',
-          ripple: () => false,
-          overlayAppendTo: () => 'body',
-        },
-      },
+      providePrimeNG({ ripple: false }),
       {
         provide: ActivatedRoute,
         useValue: {
